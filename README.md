@@ -25,5 +25,4 @@ If you have suggestions for the development of the app or would like to contribu
   <img height="64" width="64" src="https://cdn.simpleicons.org/CSS3/1572B6"/>
   <img height="64" width="64" src="https://cdn.simpleicons.org/JavaScript/#F7DF1E"/>
   <img height="64" width="64" src="https://cdn.simpleicons.org/PostgreSQL/#4169E1"/>
-  <img height="64" width="64" src="https://cdn.simpleicons.org/Flyway/#CC0200"/>
 </div>
