@@ -79,3 +79,4 @@ CREATE TABLE "order"(
 );
 
 ALTER TABLE "user" ADD COLUMN restaurant_id int references Restaurant(id) unique;
+ALTER TABLE Order_Item ADD COLUMN restaurant_id int references Restaurant(id);
