@@ -14,7 +14,7 @@ INSERT INTO payment_way(way)
 VALUES ('Безготівковий розрахунок'), ('Готівковий розрахунок');
 
 INSERT INTO user_role(user_role)
-VALUES ('Клієнт'), ('Адміністратор'), ('Власник');
+VALUES ('ROLE_CLIENT'), ('ROLE_ADMIN'), ('ROLE_OWNER');
 
 INSERT INTO Item(item_name, price, description, prep_time, category_id)
 VALUES ('Бургер зі свининою', 35, 'asdfa;slkjhfljahsdlfkjhalkjshdflas', 10, 4),
