@@ -53,10 +53,10 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "user_role_id")
+    @NotEmpty
     private User_Role user_role_id;
 
     @OneToOne
-    @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
     private Restaurant restaurant_id;
 
     @OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)

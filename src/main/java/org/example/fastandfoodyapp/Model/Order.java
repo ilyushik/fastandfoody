@@ -46,12 +46,12 @@ public class Order {
     @Column(name = "delivery_way_id")
     private Delivery_Way delivery_way_id;
 
-    @OneToMany(mappedBy = "item_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     @Column(name = "order_item_id")
     private List<Order_Item> order_item_id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "orders")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user_id;
 
 

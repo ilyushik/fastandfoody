@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,16 +24,21 @@ public class Restaurant {
     private int id;
 
     @OneToOne(mappedBy = "restaurant_id", cascade = CascadeType.ALL)
-    @Column(name = "admin_id")
+    @JoinColumn(name = "admin_id", referencedColumnName = "id", unique = true)
+    @NotEmpty
     private User admin_id;
 
-    @Column(name = "address")
+    @Size(max = 64, message = "Не має перевищувати 64")
+    @NotEmpty
+    @Column(name = "address", unique = true)
     private String address;
 
     @Column(name = "longitude")
+    @NotEmpty
     private double longitude;
 
     @Column(name = "latitude")
+    @NotEmpty
     private double latitude;
 
     @OneToMany(mappedBy = "restaurant_id", cascade = CascadeType.ALL)
