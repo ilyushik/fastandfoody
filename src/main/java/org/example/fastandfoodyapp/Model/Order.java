@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.fastandfoodyapp.Model.Enumerables.Delivery_Way;
 import org.example.fastandfoodyapp.Model.Enumerables.Payment_Way;
-import org.example.fastandfoodyapp.Model.Enumerables.Promo_Code;
 import org.example.fastandfoodyapp.Model.Enumerables.Status;
 
 import java.util.List;

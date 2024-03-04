@@ -1,21 +1,13 @@
 package org.example.fastandfoodyapp.Model.Enumerables;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.example.fastandfoodyapp.Model.Order;
+public enum Delivery_Way {
 
-import java.util.List;
+    Доставка_курєром("Доставка_курєром"),
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Delivery_Way {
-    private int id;
-    private String way;
-    private List<Order> orders;
+    Самовивіз("Самовивіз");
+    private final String way;
 
-    public Delivery_Way(String way) {
+    Delivery_Way(String way) {
         this.way = way;
     }
 }

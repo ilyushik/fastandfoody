@@ -1,21 +1,18 @@
 package org.example.fastandfoodyapp.Model.Enumerables;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.example.fastandfoodyapp.Model.Item;
+public enum Category {
+    Холодні_напої("Холодні напої"),
+    Гарячі_напої("Гарячі напої"),
+    Телятина("Телятина"),
+    Свинина("Свинина"),
+    Риба_та_курка("Риба та курка"),
+    Десерти("Десерти"),
+    Сніданки("Сніданки"),
+    Картопля_фрі_та_соуси("Картопля-фрі та соуси");
 
-import java.util.List;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Category {
-    private int id;
-    private String category_name;
-    private List<Item> items;
-
-    public Category(String category_name) {
-        this.category_name = category_name;
+    private final String category;
+    Category(String category) {
+        this.category = category;
     }
+
 }

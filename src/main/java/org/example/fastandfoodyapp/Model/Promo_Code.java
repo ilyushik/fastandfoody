@@ -1,4 +1,4 @@
-package org.example.fastandfoodyapp.Model.Enumerables;
+package org.example.fastandfoodyapp.Model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
