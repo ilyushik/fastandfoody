@@ -1,5 +1,8 @@
 package org.example.fastandfoodyapp.Model;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,18 +13,53 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+
+    @Size(max = 32, message = "Не має перевищувати 32")
+    @NotEmpty
+    @Column(name = "user_name")
     private String user_name;
+
+    @Size(max = 32, message = "Не має перевищувати 32")
+    @NotEmpty
+    @Column(name = "surname")
     private String surname;
+
+    @Size(max = 16, message = "Не має перевищувати 16")
+    @NotEmpty
+    @Column(name = "phone", unique = true)
     private String phone;
+
+    @Size(max = 64)
+    @NotEmpty
+    @Column(name = "email", unique = true)
     private String email;
+
+    @Size(max = 32, message = "Не має перевищувати 32")
+    @NotEmpty
+    @Column(name = "username", unique = true)
     private String username;
+
+    @Size(max = 32, message = "Не має перевищувати 32")
+    @Size(min = 8, message = "Не має бути менше 8")
+    @NotEmpty
+    @Column(name = "password")
     private String user_password;
-    //@Enumerated(EnumType.STRING)
-    //@ManyToOne
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_role_id")
     private User_Role user_role_id;
+
+    @OneToOne
+    @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
     private Restaurant restaurant_id;
+
+    @OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
     private List<Order> orders;
 
     public User(String user_name, String surname, String phone,
