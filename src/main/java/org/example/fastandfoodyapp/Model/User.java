@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.fastandfoodyapp.Model.Enumerables.User_Role;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,8 +18,11 @@ public class User {
     private String email;
     private String username;
     private String user_password;
+    //@Enumerated(EnumType.STRING)
+    //@ManyToOne
     private User_Role user_role_id;
     private Restaurant restaurant_id;
+    private List<Order> orders;
 
     public User(String user_name, String surname, String phone,
                 String email, String username, String user_password,

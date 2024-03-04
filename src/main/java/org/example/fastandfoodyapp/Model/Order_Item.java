@@ -13,6 +13,7 @@ public class Order_Item {
     private int prep_time;
     private Item item_id;
     private Restaurant restaurant_id;
+    private Order order;
 
     public Order_Item(int count, int prep_time,
                       Item item_id, Restaurant restaurant_id) {

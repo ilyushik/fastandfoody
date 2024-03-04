@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.fastandfoodyapp.Model.Enumerables.Category;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,6 +17,7 @@ public class Item {
     private String description;
     private int prep_time;
     private Category category_id;
+    private List<Order_Item> order_items;
 
     public Item(String item_name, int price, String description, int prep_time, Category category_id) {
         this.item_name = item_name;
