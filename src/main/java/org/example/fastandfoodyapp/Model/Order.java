@@ -1,6 +1,7 @@
 package org.example.fastandfoodyapp.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,7 @@ public class Order {
     private int id;
 
     @Column(name = "prep_time")
+    @NotNull
     private int prep_time;
 
     @Column(name = "wish")
@@ -28,10 +30,12 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "orders", referencedColumnName = "id")
+    @NotNull
     private Restaurant restaurant_id;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_way_id")
+    @NotNull
     private Payment_Way payment_way_id;
 
     @ManyToOne
@@ -40,18 +44,22 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status_id")
+    @NotNull
     private Status status_id;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "delivery_way_id")
+    @NotNull
     private Delivery_Way delivery_way_id;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     @Column(name = "order_item_id")
+    @NotNull
     private List<Order_Item> order_item_id;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @NotNull
     private User user_id;
 
 

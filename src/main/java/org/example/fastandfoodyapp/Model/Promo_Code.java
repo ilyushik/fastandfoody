@@ -1,6 +1,7 @@
 package org.example.fastandfoodyapp.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,8 @@ public class Promo_Code {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "code")
+    @Column(name = "code", unique = true)
+    @NotNull
     private String code;
 
     @OneToMany(mappedBy = "promo_code_id", cascade = CascadeType.ALL)
