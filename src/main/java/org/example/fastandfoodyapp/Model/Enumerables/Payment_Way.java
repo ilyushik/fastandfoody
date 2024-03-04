@@ -1,20 +1,15 @@
 package org.example.fastandfoodyapp.Model.Enumerables;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.example.fastandfoodyapp.Model.Order;
 
-import java.util.List;
+import lombok.Getter;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Payment_Way {
-    private int id;
-    private String way;
-    private List<Order> orders;
+@Getter
+public enum Payment_Way {
+    Безготівковий_розрахунок("Безготівковий розрахунок"),
+    Готівковий_розрахунок("Готівковий розрахунок");
 
-    public Payment_Way(String way) {
-        this.way = way;
+    private final String displayName;
+
+    Payment_Way(String displayName) {
+        this.displayName = displayName;
     }
 }

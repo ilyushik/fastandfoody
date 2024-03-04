@@ -1,21 +1,18 @@
 package org.example.fastandfoodyapp.Model.Enumerables;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.example.fastandfoodyapp.Model.Order;
+import lombok.Getter;
 
-import java.util.List;
+@Getter
+public enum Status {
+    Готується("Готується"),
+    Доставлено("Доставлено"),
+    В_дорозі("В дорозі");
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Status {
-    private int id;
-    private String status_name;
-    private List<Order> orders;
+    private final String displayName;
 
-    public Status(String status_name) {
-        this.status_name = status_name;
+    Status(String displayName) {
+        this.displayName = displayName;
     }
 }
+
+
