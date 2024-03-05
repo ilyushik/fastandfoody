@@ -1,5 +1,7 @@
 # Fast & Foody
 
+<img src="https://github.com/ilyushik/fastandfoody/blob/main/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA_%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0_2024-02-19_%D0%B2_12.03.13_PM-removebg-preview.png"/>
+
 Fast & Foody is a web application created for the fast food restaurant of the same name. The main task of this application is to give customers the opportunity to order their favorite dishes in minutes, without leaving home.
 
 ## Installation
