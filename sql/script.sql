@@ -37,7 +37,8 @@ CREATE TABLE Item(
     price int not null,
     description text not null,
     prep_time int not null,
-    category varchar references Category(category_name)
+    category varchar references Category(category_name),
+    item_img varchar unique not null
 );
 
 CREATE TABLE Order_Item(

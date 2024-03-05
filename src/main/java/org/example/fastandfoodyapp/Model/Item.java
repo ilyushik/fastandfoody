@@ -29,18 +29,22 @@ public class Item {
 
     private int prep_time;
 
+    private String item_img;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "category")
     private Category category;
 
    // private List<Order_Item> order_items;
 
-    public Item(String item_name, int price, String description, int prep_time, Category category_id) {
+
+    public Item(String item_name, int price, String description, int prep_time, String item_img, Category category) {
         this.item_name = item_name;
         this.price = price;
         this.description = description;
         this.prep_time = prep_time;
-        this.category = category_id;
+        this.item_img = item_img;
+        this.category = category;
     }
 }
 

@@ -3,8 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Main</title>
+    <style>
+        .item {
+            display: flex; /* Используйте flexbox для управления расположением элементов */
+            align-items: center; /* Выравниваем элементы по вертикали */
+            padding: 10px;
+        }
+        .item_image {
+            width: 250px;
+            margin-right: 10px; /* Отступ справа от изображения */
+        }
+        .item_details {
+            /* Дополнительные стили для блока с текстом, если нужно */
+        }
+    </style>
 </head>
 <body>
-<h1 th:text="${name}"></h1>
+<div class="item" th:each="item : ${items}">
+    <img class="item_image" th:src="'/' + ${item.getImage()}"/>
+    <div class="item_details">
+        <p th:text="${item.getName()}"></p>
+        <p th:text="${item.getCategory()}"></p>
+    </div>
+    <hr>
+</div>
+
 </body>
 </html>
