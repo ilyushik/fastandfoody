@@ -18,7 +18,7 @@ public class Order_Item {
 
     //private Item item_id;
 
-    //private Order order;
+    //private Purchase purchase;
 
     public Order_Item(int count, int prep_time,
                       Item item_id) {

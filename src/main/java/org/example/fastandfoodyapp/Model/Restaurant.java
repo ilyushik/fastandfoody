@@ -1,17 +1,8 @@
 package org.example.fastandfoodyapp.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -19,7 +10,7 @@ import java.util.List;
 public class Restaurant {
     private int id;
 
-    //private User admin_id;
+    //private System_User admin_id;
 
     private String address;
 
@@ -27,9 +18,9 @@ public class Restaurant {
 
     private double latitude;
 
-    //private List<Order> orders;
+    //private List<Purchase> purchases;
 
-    public Restaurant(User admin_id, String address, double longitude, double latitude) {
+    public Restaurant(System_User admin_id, String address, double longitude, double latitude) {
         //this.admin_id = admin_id;
         this.address = address;
         this.longitude = longitude;

@@ -24,7 +24,7 @@ public class Item {
 
     private int prep_time;
 
-    //private Category category_id;
+    //private Category category;
 
    // private List<Order_Item> order_items;
 

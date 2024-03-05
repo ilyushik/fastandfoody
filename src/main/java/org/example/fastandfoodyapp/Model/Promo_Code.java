@@ -16,7 +16,7 @@ public class Promo_Code {
 
     private String code;
 
-    //private List<Order> orders;
+    //private List<Purchase> purchases;
 
     public Promo_Code(String code) {
         this.code = code;
