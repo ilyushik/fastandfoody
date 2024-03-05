@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public enum Delivery_Way {
-    Доставка_курєром("Доставка_курєром"),
-    Самовивіз("Самовивіз");
+    Delivery("Доставка_курєром"),
+    PickUp("Самовивіз");
 
     private final String displayName;
 

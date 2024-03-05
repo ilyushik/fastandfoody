@@ -1,5 +1,6 @@
 package org.example.fastandfoodyapp.Model;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +9,12 @@ import org.example.fastandfoodyapp.Model.Enumerables.User_Role;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "System_User")
 public class System_User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
     private String system_user_name;

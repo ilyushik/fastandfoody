@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public enum Payment_Way {
-    Безготівковий_розрахунок("Безготівковий розрахунок"),
-    Готівковий_розрахунок("Готівковий розрахунок");
+    Card("Безготівковий розрахунок"),
+    Cash("Готівковий розрахунок");
 
     private final String displayName;
 

@@ -4,9 +4,9 @@ import lombok.Getter;
 
 @Getter
 public enum Status {
-    Готується("Готується"),
-    Доставлено("Доставлено"),
-    В_дорозі("В дорозі");
+    In_progress("Готується"),
+    Delivered("Доставлено"),
+    On_way("В дорозі");
 
     private final String displayName;
 

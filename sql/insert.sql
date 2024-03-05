@@ -23,6 +23,15 @@ VALUES ('Бургер зі свининою', 35, 'asdfa;slkjhfljahsdlfkjhalkjsh
        ('Австрійский сніданок', 50, 'saldkfg;lakjsdlkfjlaskjdf;lkjsdj', 20, 'Сніданки'),
        ('Флет уайт', 20, 'lksjhlkjfhsaldkjfhakjhsdlkfjhakjhsdlfkhalkf', 7, 'Холодні напої');
 
+-- INSERT INTO Item(item_name, price, description, prep_time, category)
+-- VALUES
+--     ('Бургер зі свининою', 35, 'asdfa;slkjhfljahsdlfkjhalkjshdflas', 10, 'Pork'),
+--     ('Чізбургер з рибою', 30, 'asdfalksjdlhflkjahsldkfjhlakjhsdflf', 10, 'Fish_and_chicken'),
+--     ('Картопля по-запорізьки', 60, 'sadflgkja;skdjflkajsldkjfhlakf', 15, 'Fries_and_sauces'),
+--     ('Австрійский сніданок', 50, 'saldkfg;lakjsdlkfjlaskjdf;lkjsdj', 20, 'Breakfasts'),
+--     ('Флет уайт', 20, 'lksjhlkjfhsaldkjfhakjhsdlkfjhakjhsdlfkhalkf', 7, 'Cold_drinks');
+
+
 INSERT INTO Order_Item(count, prep_time, item_id)
 VALUES (1, 45, 3),
        (2, 45, 5),

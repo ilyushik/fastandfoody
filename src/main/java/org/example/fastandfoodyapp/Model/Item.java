@@ -13,7 +13,12 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "Item")
 public class Item {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
     private String item_name;
@@ -24,7 +29,9 @@ public class Item {
 
     private int prep_time;
 
-    //private Category category;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "category")
+    private Category category;
 
    // private List<Order_Item> order_items;
 
@@ -33,7 +40,7 @@ public class Item {
         this.price = price;
         this.description = description;
         this.prep_time = prep_time;
-        //this.category_id = category_id;
+        this.category = category_id;
     }
 }
 
