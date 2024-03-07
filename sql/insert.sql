@@ -39,7 +39,7 @@ VALUES (1, 45, 3),
        (4, 20, 3),
        (5, 23, 2);
 
-INSERT INTO systemuser(system_user_name, surname, phone, email, system_username, system_user_password, system_user_role)
+INSERT INTO person(name, surname, phone, email, username, person_password, person_role)
 VALUES ('Ілля', 'Камаралі', '+380972224444', 'illia@gmail.com', 'IlliaKamarali', '12345678', 'ROLE_ADMIN'),
        ('Ілля', 'Кисельов', '+380972342344', 'kyselov@gmail.com', '1902Illia', '14141414', 'ROLE_ADMIN'),
        ('Богдан', 'Хохлов', '+380923234234', 'khokhlov@gmail.com', 'Bodya0301', '01010101', 'ROLE_ADMIN'),
@@ -53,7 +53,7 @@ VALUES (5, 'вул. Вишгородська 3', -98.123, 123.123),
        (2, 'просп. Миру 154', 20.234, 34.23),
        (1, 'просп. Соборний 198', 123.213, 34.124);
 
-INSERT INTO purchase(prep_time, wish, restaurant_id, payment_way, promo_code, status, delivery_way, order_item_id, system_user_id)
+INSERT INTO purchase(prep_time, wish, restaurant_id, payment_way, promo_code, status, delivery_way, order_item_id, person_id)
 VALUES
     (12, 'asdasdflkasdafas', 2, 'Card', 1, 'In_progress', 'PickUp', 2, 2),
     (42, 'asdasdflkadsfghds', 3, 'Cash', 2, 'Delivered', 'Delivery', 3, 3),

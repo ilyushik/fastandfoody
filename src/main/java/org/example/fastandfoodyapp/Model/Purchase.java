@@ -48,12 +48,14 @@ public class Purchase {
     @OneToMany(mappedBy = "purchase_id",cascade = CascadeType.ALL)
     private List<Order_Item> order_item_id;
 
-    //private System_User system_user_id;
+    @ManyToOne
+    @JoinColumn(name = "person_id", referencedColumnName = "id")
+    private Person person_id;
 
 
     public Purchase(int prep_time, String wish, Restaurant restaurant_id,
                     Payment_Way payment_way_id, Promo_Code promo_code_id,
-                    Status status_id, Delivery_Way delivery_way_id, System_User systemUser_id) {
+                    Status status_id, Delivery_Way delivery_way_id, Person person_id) {
         this.prep_time = prep_time;
         this.wish = wish;
         this.restaurant_id = restaurant_id;
@@ -61,6 +63,6 @@ public class Purchase {
         this.promo_code = promo_code_id;
         this.status = status_id;
         this.delivery_way = delivery_way_id;
-//        this.system_user_id = systemUser_id;
+        this.person_id = person_id;
     }
 }

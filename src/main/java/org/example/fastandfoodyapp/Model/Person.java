@@ -12,14 +12,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "SystemUser")
-public class System_User {
+@Table(name = "Person")
+public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    private String system_user_name;
+    private String name;
 
     private String surname;
 
@@ -27,26 +27,28 @@ public class System_User {
 
     private String email;
 
-    private String system_username;
+    private String username;
 
-    private String system_user_password;
+    private String person_password;
 
-    //private User_Role system_user_role_id;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "person_role")
+    private User_Role person_role;
 
     @OneToOne(mappedBy = "admin_id")
     private Restaurant restaurant_id;
 
-    //private List<Purchase> orders;
+    @OneToMany(mappedBy = "person_id", cascade = CascadeType.ALL)
+    private List<Purchase> purchases;
 
-    public System_User(String user_name, String surname, String phone,
-                       String email, String username, String user_password,
-                       User_Role user_role_id, Restaurant restaurant_id) {
-        this.system_user_name = user_name;
+    public Person(String name, String surname, String phone,
+                  String email, String username, String person_password) {
+        this.name = name;
         this.surname = surname;
         this.phone = phone;
         this.email = email;
-        this.system_username = username;
-        this.system_user_password = user_password;
+        this.username = username;
+        this.person_password = person_password;
     }
 
 

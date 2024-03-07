@@ -20,7 +20,7 @@ public class Restaurant {
 
     @OneToOne
     @JoinColumn(name = "admin_id", referencedColumnName = "id")
-    private System_User admin_id;
+    private Person admin_id;
 
     private String address;
 
@@ -31,7 +31,7 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant_id")
     private List<Purchase> purchases;
 
-    public Restaurant(System_User admin_id, String address, double longitude, double latitude) {
+    public Restaurant(Person admin_id, String address, double longitude, double latitude) {
         this.admin_id = admin_id;
         this.address = address;
         this.longitude = longitude;
