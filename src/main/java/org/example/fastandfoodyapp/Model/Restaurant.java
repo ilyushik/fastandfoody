@@ -1,9 +1,11 @@
 package org.example.fastandfoodyapp.Model;
 
-import jakarta.persistence.*;
+import javax    .persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -16,7 +18,9 @@ public class Restaurant {
     @Column(name = "id")
     private int id;
 
-    //private System_User admin_id;
+    @OneToOne
+    @JoinColumn(name = "admin_id", referencedColumnName = "id")
+    private System_User admin_id;
 
     private String address;
 
@@ -24,10 +28,11 @@ public class Restaurant {
 
     private double latitude;
 
-    //private List<Purchase> purchases;
+    @OneToMany(mappedBy = "restaurant_id")
+    private List<Purchase> purchases;
 
     public Restaurant(System_User admin_id, String address, double longitude, double latitude) {
-        //this.admin_id = admin_id;
+        this.admin_id = admin_id;
         this.address = address;
         this.longitude = longitude;
         this.latitude = latitude;

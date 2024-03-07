@@ -1,11 +1,12 @@
 package org.example.fastandfoodyapp.Model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
 import java.util.List;
 
 @Data
@@ -18,10 +19,11 @@ public class Promo_Code {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-
+    
     private String code;
 
-    //private List<Purchase> purchases;
+    @OneToMany(mappedBy = "promo_code", cascade = CascadeType.ALL)
+    private List<Purchase> purchases;
 
     public Promo_Code(String code) {
         this.code = code;

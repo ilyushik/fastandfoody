@@ -1,7 +1,7 @@
 package org.example.fastandfoodyapp.Model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,25 +10,31 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Order_Iten")
+@Table(name = "Order_Item")
 public class Order_Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
+    @Column(name = "count")
     private int count;
 
+    @Column(name = "prep_time")
     private int prep_time;
 
-    //private Item item_id;
+    @ManyToOne
+    @JoinColumn(name = "item_id", referencedColumnName = "id")
+    private Item item_id;
 
-    //private Purchase purchase;
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id", name = "purchase_id")
+    private Purchase purchase_id;
 
     public Order_Item(int count, int prep_time,
                       Item item_id) {
         this.count = count;
         this.prep_time = prep_time;
-        //this.item_id = item_id;
+        this.item_id = item_id;
     }
 }

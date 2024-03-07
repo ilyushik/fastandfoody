@@ -22,7 +22,9 @@ public class ItemService {
                     itemDTO.setName(s.getItem_name());
                     itemDTO.setCategory(s.getCategory().getDisplayName());
                     itemDTO.setImage(s.getItem_img());
+                    itemDTO.setOrder_items(s.getOrder_items());
                     return itemDTO;
                 }).collect(Collectors.toList());
     }
 }
+

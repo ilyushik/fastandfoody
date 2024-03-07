@@ -39,7 +39,7 @@ VALUES (1, 45, 3),
        (4, 20, 3),
        (5, 23, 2);
 
-INSERT INTO system_user(system_user_name, surname, phone, email, system_username, system_user_password, system_user_role)
+INSERT INTO systemuser(system_user_name, surname, phone, email, system_username, system_user_password, system_user_role)
 VALUES ('Ілля', 'Камаралі', '+380972224444', 'illia@gmail.com', 'IlliaKamarali', '12345678', 'ROLE_ADMIN'),
        ('Ілля', 'Кисельов', '+380972342344', 'kyselov@gmail.com', '1902Illia', '14141414', 'ROLE_ADMIN'),
        ('Богдан', 'Хохлов', '+380923234234', 'khokhlov@gmail.com', 'Bodya0301', '01010101', 'ROLE_ADMIN'),
@@ -55,7 +55,13 @@ VALUES (5, 'вул. Вишгородська 3', -98.123, 123.123),
 
 INSERT INTO purchase(prep_time, wish, restaurant_id, payment_way, promo_code, status, delivery_way, order_item_id, system_user_id)
 VALUES
-    (12, 'asdasdflkasdafas', 2, 'Card', 'asdf243fsc', 'In_progress', 'PickUp', 2, 2),
-    (42, 'asdasdflkadsfghds', 3, 'Cash', 'lkjm5kn345', 'Delivered', 'Delivery', 3, 3),
-    (45, 'asdasdflksdfgsdsfgs', 4, 'Card', 'mbnzxcv234', 'On_way', 'PickUp', 4, 4),
-    (24, 'asdasdflkassdfgsdf', 5, 'Cash', 'asjkdhf234', 'In_progress', 'PickUp', 5, 5);
+    (12, 'asdasdflkasdafas', 2, 'Card', 1, 'In_progress', 'PickUp', 2, 2),
+    (42, 'asdasdflkadsfghds', 3, 'Cash', 2, 'Delivered', 'Delivery', 3, 3),
+    (45, 'asdasdflksdfgsdsfgs', 4, 'Card',3, 'On_way', 'PickUp', 4, 4),
+    (24, 'asdasdflkassdfgsdf', 5, 'Cash', 4, 'In_progress', 'PickUp', 5, 5);
+
+UPDATE order_item SET purchase_id = 1 WHERE order_item.id = 1;
+UPDATE order_item SET purchase_id = 4 WHERE order_item.id = 2;
+UPDATE order_item SET purchase_id = 3 WHERE order_item.id = 3;
+UPDATE order_item SET purchase_id = 2 WHERE order_item.id = 4;
+UPDATE order_item SET purchase_id = 1 WHERE order_item.id = 5;

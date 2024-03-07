@@ -1,8 +1,8 @@
 package org.example.fastandfoodyapp.Model;
 
-import jakarta.persistence.*;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.Size;
+import javax.persistence.*;
+import javax.persistence.Id;
+import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,7 +35,8 @@ public class Item {
     @Column(name = "category")
     private Category category;
 
-   // private List<Order_Item> order_items;
+    @OneToMany(mappedBy = "item_id", cascade = CascadeType.ALL)
+    private List<Order_Item> order_items;
 
 
     public Item(String item_name, int price, String description, int prep_time, String item_img, Category category) {

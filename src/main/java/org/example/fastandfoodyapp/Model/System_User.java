@@ -1,16 +1,18 @@
 package org.example.fastandfoodyapp.Model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.fastandfoodyapp.Model.Enumerables.User_Role;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "System_User")
+@Table(name = "SystemUser")
 public class System_User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,8 +33,8 @@ public class System_User {
 
     //private User_Role system_user_role_id;
 
-//    @OneToOne
-//    private Restaurant restaurant_id;
+    @OneToOne(mappedBy = "admin_id")
+    private Restaurant restaurant_id;
 
     //private List<Purchase> orders;
 

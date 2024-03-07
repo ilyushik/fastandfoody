@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order_Items</title>
+</head>
+<body>
+    <div th:each="oi: ${order_items}">
+        <p th:text="${oi.getId()}"></p>
+        <p th:text="${oi.getItem_id().getItem_name()}"></p>
+        <p th:text="${oi.getPrep_time()}"></p>
+    </div>
+</body>
+</html>
