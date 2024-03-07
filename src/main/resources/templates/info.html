@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${item.getItem_name()}"></title>
+    <style>
+        .item-details {
+            display: flex; /* Enable flexbox for side-by-side arrangement */
+            margin: 0 auto; /* Center the content horizontally */
+            max-width: 800px; /* Set a maximum width for responsiveness */
+            padding: 1rem; /* Add some padding for spacing */
+            border: 1px solid #ddd; /* Add a subtle border */
+            border-radius: 5px; /* Add rounded corners */
+        }
+
+        .item-image {
+            width: 200px; /* Set a fixed width for the image */
+            margin-right: 1rem; /* Add spacing between image and text */
+        }
+
+        .item-info {
+            flex: 1; /* Allow text content to expand and fill remaining space */
+        }
+
+        h2 {
+            margin-top: 0; /* Remove default top margin from heading */
+        }
+
+        p {
+            margin-bottom: 0.5rem; /* Add some spacing between paragraphs */
+        }
+    </style>
+<body>
+    <div class="item-details"> <img th:src="'/' + ${item.getItem_img()}" class="item-image">
+        <div class="item-info">
+            <h2><p th:text="${item.getItem_name()}"></p></h2> <p th:text="${item.getCategory().getDisplayName()}"></p>
+            <p>Час приготування: <span th:text="${item.getPrep_time()}"></span></p>
+            <p th:text="${item.getDescription()}"></p>
+        </div>
+    </div>
+</body>
+</html>

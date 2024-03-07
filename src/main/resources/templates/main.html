@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+    <style>
+        .item-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .item {
+            width: 300px; /* Ширина блока с элементом меню */
+            margin: 10px; /* Отступ между элементами меню */
+            padding: 10px;
+            border: 1px solid #ccc; /* Рамка для элемента меню */
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+
+        .item:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Тень при наведении на элемент меню */
+        }
+
+        .item-image {
+            width: 100%; /* Ширина изображения */
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .item-details {
+            padding-top: 10px;
+        }
+
+        .item-details p {
+            margin: 5px 0; /* Отступы для текста элемента меню */
+        }
+
+        hr {
+            margin: 20px 0; /* Отступ между элементами меню */
+            border: none;
+            border-top: 1px solid #ccc; /* Горизонтальная линия между элементами меню */
+        }
+    </style>
+</head>
+<body>
+<div class="item-container">
+    <div th:each="item : ${items}">
+        <a th:href="'/main/items/' + ${item.getId()}">
+            <div class="item">
+                <img th:src="'/' + ${item.getImage()}" class="item-image">
+                <div class="item-details">
+                    <p th:text="${item.getName()}"></p>
+                    <p th:text="${item.getPrice()}"></p>
+                </div>
+            </div>
+        </a>
+        <hr>
+    </div>
+</div>
+</body>
+</html>

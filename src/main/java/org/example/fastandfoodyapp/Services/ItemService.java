@@ -1,6 +1,7 @@
 package org.example.fastandfoodyapp.Services;
 
 import org.example.fastandfoodyapp.Model.DTO.ItemDTO;
+import org.example.fastandfoodyapp.Model.Item;
 import org.example.fastandfoodyapp.Repositories.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -22,9 +23,14 @@ public class ItemService {
                     itemDTO.setName(s.getItem_name());
                     itemDTO.setCategory(s.getCategory().getDisplayName());
                     itemDTO.setImage(s.getItem_img());
+                    itemDTO.setPrice(s.getPrice());
                     itemDTO.setOrder_items(s.getOrder_items());
                     return itemDTO;
                 }).collect(Collectors.toList());
+    }
+
+    public Item findItemById(int id) {
+        return itemRepository.findById(id).orElseThrow();
     }
 }
 
