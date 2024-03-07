@@ -2,6 +2,8 @@ package org.example.fastandfoodyapp.Model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +21,9 @@ public class Promo_Code {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    
+
+    @Size(max = 10)
+    @Column(name = "code", nullable = false)
     private String code;
 
     @OneToMany(mappedBy = "promo_code", cascade = CascadeType.ALL)

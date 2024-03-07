@@ -1,7 +1,6 @@
 package org.example.fastandfoodyapp.Model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,14 +16,14 @@ public class Order_Item {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "count")
+    @Column(name = "count", nullable = false)
     private int count;
 
-    @Column(name = "prep_time")
+    @Column(name = "prep_time", nullable = false)
     private int prep_time;
 
     @ManyToOne
-    @JoinColumn(name = "item_id", referencedColumnName = "id")
+    @JoinColumn(name = "item_id", referencedColumnName = "id", nullable = false)
     private Item item_id;
 
     @ManyToOne

@@ -1,6 +1,9 @@
 package org.example.fastandfoodyapp.Model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,24 +18,38 @@ import java.util.List;
 @Table(name = "Person")
 public class Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Size(max = 32, message = "Не більше 32 символів")
+    @Column(name = "name", nullable = false)
     private String name;
 
+    @Size(max = 32, message = "Не більше 32 символів")
+    @Column(name = "surname", nullable = false)
     private String surname;
 
+    @Size(max = 16, message = "Не більше 16 символів")
+    @Column(name = "phone", nullable = false)
     private String phone;
 
+    @Email
+    @Size(max = 64, message = "Не більше 64 символів")
+    @Column(name = "email", nullable = false)
     private String email;
 
+    @Size(max = 32, message = "Не більше 32 символів")
+    @Column(name = "username", nullable = false)
     private String username;
 
+    @Column(name = "person_password", nullable = false)
+    @Size(min = 8, message = "Не менше 8 символів")
+    @Size(max = 32, message = "Не більше 32 символів")
     private String person_password;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "person_role")
+    @Column(name = "person_role", nullable = false)
     private User_Role person_role;
 
     @OneToOne(mappedBy = "admin_id")

@@ -21,16 +21,18 @@ public class Purchase {
     @Column(name = "id")
     private int id;
 
+    @Column(name = "prep_time", nullable = false)
     private int prep_time;
 
+    @Column(name = "wish")
     private String wish;
 
     @ManyToOne
-    @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
+    @JoinColumn(name = "restaurant_id", referencedColumnName = "id", nullable = false)
     private Restaurant restaurant_id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "payment_way")
+    @Column(name = "payment_way", nullable = false)
     private Payment_Way payment_way;
 
     @ManyToOne
@@ -38,11 +40,11 @@ public class Purchase {
     private Promo_Code promo_code;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
     private Status status;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "delivery_way")
+    @Column(name = "delivery_way", nullable = false)
     private Delivery_Way delivery_way;
 
     @OneToMany(mappedBy = "purchase_id",cascade = CascadeType.ALL)

@@ -1,8 +1,8 @@
 package org.example.fastandfoodyapp.Model;
 
 import javax.persistence.*;
-import javax.persistence.Id;
 import javax.validation.constraints.Size;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,14 +21,20 @@ public class Item {
     @Column(name = "id")
     private int id;
 
+    @Column(name = "item_name", nullable = false)
+    @Size(max = 64, message = "Не більше 64 символів")
     private String item_name;
 
+    @Column(name = "price", nullable = false)
     private int price;
 
+    @Column(name = "description", nullable = false)
     private String description;
 
+    @Column(name = "prep_time", nullable = false)
     private int prep_time;
 
+    @Column(name = "item_img", nullable = false)
     private String item_img;
 
     @Enumerated(EnumType.STRING)

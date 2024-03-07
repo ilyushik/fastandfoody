@@ -1,6 +1,8 @@
 package org.example.fastandfoodyapp.Model;
 
 import javax    .persistence.*;
+import javax.validation.constraints.Size;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,13 +21,17 @@ public class Restaurant {
     private int id;
 
     @OneToOne
-    @JoinColumn(name = "admin_id", referencedColumnName = "id")
+    @JoinColumn(name = "admin_id", referencedColumnName = "id", nullable = false)
     private Person admin_id;
 
+    @Column(name = "address", nullable = false)
+    @Size(max = 64, message = "Не більше 64 символів")
     private String address;
 
+    @Column(name = "longitude", nullable = false)
     private double longitude;
 
+    @Column(name = "latitude", nullable = false)
     private double latitude;
 
     @OneToMany(mappedBy = "restaurant_id")
