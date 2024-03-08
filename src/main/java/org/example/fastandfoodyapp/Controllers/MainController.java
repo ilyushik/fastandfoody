@@ -25,4 +25,9 @@ public class MainController {
         model.addAttribute("item", itemService.findItemById(id));
         return "info";
     }
+
+    @GetMapping("/map/test")
+    public String maps(Model model) {
+        return "map";
+    }
 }
