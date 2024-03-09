@@ -17,7 +17,6 @@ public class ItemDTO {
     private String category;
     private String image;
     private int price;
-    private List<Order_Item> order_items;
 
     public ItemDTO(String name, String category, String image, int price) {
         this.name = name;

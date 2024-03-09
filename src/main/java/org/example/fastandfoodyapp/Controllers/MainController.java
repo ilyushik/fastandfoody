@@ -1,8 +1,10 @@
 package org.example.fastandfoodyapp.Controllers;
 
+import lombok.AllArgsConstructor;
 import org.example.fastandfoodyapp.Mails.MailService;
 import org.example.fastandfoodyapp.Mails.MailStructure;
-import org.example.fastandfoodyapp.Services.ItemService;
+import org.example.fastandfoodyapp.Services.ItemServiceImpl;
+import org.example.fastandfoodyapp.Services.Service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,16 +15,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/main")
+@AllArgsConstructor
 public class MainController {
-    @Autowired
+
     private ItemService itemService;
 
-    @Autowired
     private MailService mailService;
 
     @GetMapping("/items")
     public String items(Model model) {
-        model.addAttribute("items", itemService.itemDTOS());
+        model.addAttribute("items", itemService.getAllItemDTO());
         return "main";
     }
 
