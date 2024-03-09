@@ -26,7 +26,7 @@ public class MainController {
         return "info";
     }
 
-    @GetMapping("/map/test")
+    @GetMapping("/map")
     public String maps(Model model) {
         return "map";
     }
