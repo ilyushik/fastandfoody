@@ -46,12 +46,12 @@ VALUES ('Ілля', 'Камаралі', '+380972224444', 'illia@gmail.com', 'Ill
        ('Андрій', 'Мацієвский', '+380972435678', 'matsiev2006@gmail.com', 'SushiMaster', '11111111', 'ROLE_ADMIN'),
        ('Денис', 'Кухарик', '+380978765432', 'kykharykden11223@gmail.com', 'Kukhar_ua', '11112222', 'ROLE_ADMIN');
 
-INSERT INTO restaurant(admin_id, address, longitude, latitude)
-VALUES (5, 'вул. Вишгородська 3', -98.123, 123.123),
-       (4, 'вул. Портова 6', 12.123, -12.234),
-       (3, 'бул. Шевченка 12', 58.234, 46.465),
-       (2, 'просп. Миру 154', 20.234, 34.23),
-       (1, 'просп. Соборний 198', 123.213, 34.124);
+INSERT INTO restaurant(admin_id, address, latitude, longitude)
+VALUES (5, 'вул. Вишгородська 3', 50.013370, 36.305181),
+       (4, 'вул. Портова 6', 47.158876, 37.597512),
+       (3, 'бул. Шевченка 12', 47.862199, 35.080901),
+       (2, 'просп. Миру 154', 49.843298, 24.026608),
+       (1, 'просп. Соборний 198', 46.487830, 30.741205);
 
 INSERT INTO purchase(prep_time, wish, restaurant_id, payment_way, promo_code, status, delivery_way, order_item_id, person_id)
 VALUES
