@@ -33,7 +33,8 @@ public class MainController {
         if (email != null) {
             MailStructure mailStructure = new MailStructure("Chosen item",
                     itemService.findItemById(id).getItem_name() + " " + itemService.findItemById(id).getPrice());
-            mailService.sendMail(email, mailStructure);
+            //mailService.sendMail(email, mailStructure);
+            mailService.sendMailWithAttachment(email, mailStructure, itemService.findItemById(id).getItem_img());
         }
         return "info";
     }
