@@ -16,16 +16,11 @@ public class MapService {
     public List<MarkerDTO> markerDTO() {
         List<Restaurant> restaurants = restaurantRepository.findAll();
 
-        List<MarkerDTO> markers = new ArrayList<>();
-
-        for (Restaurant restaurant : restaurants) {
-            markers.add(MarkerDTO.builder()
-                    .id(restaurant.getId())
-                    .address(restaurant.getAddress())
-                    .longitude(restaurant.getLongitude())
-                    .latitude(restaurant.getLatitude())
-                    .build());
-        }
+        List<MarkerDTO> markers = restaurants.stream().map(r -> MarkerDTO.builder().id(r.getId())
+                .address(r.getAddress())
+                .longitude(r.getLongitude())
+                .latitude(r.getLatitude()).build())
+                .toList();
 
         return markers;
     }
