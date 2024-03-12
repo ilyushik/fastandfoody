@@ -8,6 +8,7 @@ import org.example.fastandfoodyapp.Model.Enumerables.Delivery_Way;
 import org.example.fastandfoodyapp.Model.Enumerables.Payment_Way;
 import org.example.fastandfoodyapp.Model.Enumerables.Status;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Data
@@ -54,17 +55,29 @@ public class Purchase {
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person person_id;
 
+    @Column(name = "address")
+    private String address;
 
-    public Purchase(int prep_time, String wish, Restaurant restaurant_id,
-                    Payment_Way payment_way_id, Promo_Code promo_code_id,
-                    Status status_id, Delivery_Way delivery_way_id, Person person_id) {
+    @Column(name = "city", nullable = false)
+    private String city;
+
+    @Column(name = "date", nullable = false)
+    private Timestamp date;
+
+
+    public Purchase(int prep_time, String wish, String address, String city, Timestamp date,
+                    Restaurant restaurant_id, Payment_Way payment_way, Promo_Code promo_code,
+                    Status status, Delivery_Way delivery_way, Person person_id) {
         this.prep_time = prep_time;
         this.wish = wish;
+        this.address = address;
+        this.city = city;
+        this.date = date;
         this.restaurant_id = restaurant_id;
-        this.payment_way = payment_way_id;
-        this.promo_code = promo_code_id;
-        this.status = status_id;
-        this.delivery_way = delivery_way_id;
+        this.payment_way = payment_way;
+        this.promo_code = promo_code;
+        this.status = status;
+        this.delivery_way = delivery_way;
         this.person_id = person_id;
     }
 }

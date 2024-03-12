@@ -64,7 +64,10 @@ CREATE TABLE IF NOT EXISTS Restaurant(
     admin_id int references Person(id) not null unique ,
     address varchar(64) not null unique ,
     longitude numeric not null,
-    latitude numeric not null
+    latitude numeric not null,
+    city varchar not null ,
+    phone varchar not null ,
+    email varchar not null
 );
 
 CREATE TABLE IF NOT EXISTS Purchase(
@@ -77,7 +80,10 @@ CREATE TABLE IF NOT EXISTS Purchase(
     status varchar references Status(status_name) not null,
     delivery_way varchar references Delivery_Way(way) not null,
     order_item_id int references Order_Item(id) not null,
-    person_id int references Person(id)
+    person_id int references Person(id),
+    address varchar ,
+    city varchar not null ,
+    date timestamp not null
 );
 
 ALTER TABLE Person ADD COLUMN restaurant_id int references Restaurant(id) unique;

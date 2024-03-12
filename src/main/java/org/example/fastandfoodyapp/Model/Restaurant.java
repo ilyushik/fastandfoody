@@ -1,6 +1,7 @@
 package org.example.fastandfoodyapp.Model;
 
 import javax    .persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
@@ -34,13 +35,27 @@ public class Restaurant {
     @Column(name = "latitude", nullable = false)
     private double latitude;
 
+    @Column(name = "city", nullable = false)
+    private String city;
+
+    @Column(name = "phone", nullable = false)
+    private String phone;
+
+    @Email
+    @Column(name = "email", nullable = false)
+    private String email;
+
     @OneToMany(mappedBy = "restaurant_id")
     private List<Purchase> purchases;
 
-    public Restaurant(Person admin_id, String address, double longitude, double latitude) {
+    public Restaurant(Person admin_id, String address, double longitude, double latitude,
+                      String city, String phone, String email) {
         this.admin_id = admin_id;
         this.address = address;
         this.longitude = longitude;
         this.latitude = latitude;
+        this.city = city;
+        this.phone = phone;
+        this.email = email;
     }
 }
