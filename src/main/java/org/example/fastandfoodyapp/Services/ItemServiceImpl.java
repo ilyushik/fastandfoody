@@ -16,23 +16,5 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ItemServiceImpl implements ItemService {
 
-    private ItemRepository itemRepository;
-
-    public List<ItemDTO> getAllItemDTO() {
-        return itemRepository.findAll(Sort.by("id"))
-                .stream().map(s->{
-                    ItemDTO itemDTO = new ItemDTO();
-                    itemDTO.setId(s.getId());
-                    itemDTO.setName(s.getItem_name());
-                    itemDTO.setCategory(s.getCategory().getDisplayName());
-                    itemDTO.setImage(s.getItem_img());
-                    itemDTO.setPrice(s.getPrice());
-                    return itemDTO;
-                }).collect(Collectors.toList());
-    }
-
-    public Item findItemById(int id) {
-        return itemRepository.findById(id).orElseThrow();
-    }
 }
 

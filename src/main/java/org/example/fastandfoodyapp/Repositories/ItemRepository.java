@@ -11,7 +11,4 @@ import java.util.Optional;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Integer> {
 
-
-    @Override
-    Optional<Item> findById(Integer integer);
 }
