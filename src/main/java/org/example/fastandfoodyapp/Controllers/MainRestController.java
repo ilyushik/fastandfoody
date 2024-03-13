@@ -15,4 +15,10 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/rest")
 public class MainRestController {
+    private ItemService itemService;
+
+    @GetMapping()
+    public List<ItemDTO> itemsDto() {
+        return itemService.getAllItemDTO();
+    }
 }
