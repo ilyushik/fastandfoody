@@ -58,20 +58,16 @@ public class Purchase {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "city", nullable = false)
-    private String city;
-
     @Column(name = "date", nullable = false)
     private Timestamp date;
 
 
-    public Purchase(int prep_time, String wish, String address, String city, Timestamp date,
+    public Purchase(int prep_time, String wish, String address, Timestamp date,
                     Restaurant restaurant_id, Payment_Way payment_way, Promo_Code promo_code,
                     Status status, Delivery_Way delivery_way, Person person_id) {
         this.prep_time = prep_time;
         this.wish = wish;
         this.address = address;
-        this.city = city;
         this.date = date;
         this.restaurant_id = restaurant_id;
         this.payment_way = payment_way;
