@@ -35,9 +35,6 @@ public class Restaurant {
     @Column(name = "latitude", nullable = false)
     private double latitude;
 
-    @Column(name = "city", nullable = false)
-    private String city;
-
     @Column(name = "phone", nullable = false)
     private String phone;
 
@@ -48,14 +45,18 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant_id")
     private List<Purchase> purchases;
 
+    @ManyToOne
+    @JoinColumn(name = "city_id", referencedColumnName = "id")
+    private City city_id;
+
     public Restaurant(Person admin_id, String address, double longitude, double latitude,
-                      String city, String phone, String email) {
+                      String phone, String email, City city_id) {
         this.admin_id = admin_id;
         this.address = address;
         this.longitude = longitude;
         this.latitude = latitude;
-        this.city = city;
         this.phone = phone;
         this.email = email;
+        this.city_id = city_id;
     }
 }
