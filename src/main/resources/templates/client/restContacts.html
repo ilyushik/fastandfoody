@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Контактна інформація</title>
+</head>
+<body>
+    <div>
+        <h3 th:text="${restContacts.getCity_id().getName()}"></h3>
+        <h4 th:text="${restContacts.getAddress()}"></h4>
+        <p th:text="${restContacts.getPhone()}"></p>
+        <a th:href="'mailto:' + ${restContacts.getEmail()}" th:text="${restContacts.getEmail()}"></a>
+    </div>
+
+<h1>Треба додати місце розташування ресторану на мапі</h1>
+</body>
+</html>

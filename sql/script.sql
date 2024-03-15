@@ -94,4 +94,3 @@ CREATE TABLE IF NOT EXISTS Purchase(
 
 ALTER TABLE Person ADD COLUMN restaurant_id int references Restaurant(id) unique;
 ALTER TABLE Order_Item ADD COLUMN purchase_id int references Purchase(id);
-ALTER TABLE City ADD COLUMN

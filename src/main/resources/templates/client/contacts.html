@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ресторани</title>
+</head>
+<body>
+<form th:action="@{/contacts}" method="get">
+    <label for="city">Оберіть місто:</label>
+    <select id="city" name="city">
+        <option value="">Всі</option>
+        <option th:each="city : ${cities}" th:value="${city.getName()}" th:text="${city.getName()}"></option>
+    </select>
+    <button type="submit">Пошук</button>
+</form>
+
+
+    <div th:each="r : ${restaurants}">
+         <a th:href="'/contacts/' + ${r.getId()}">
+             <h3 th:text="${r.getCity_id().getName()}"></h3>
+             <p th:text="${r.getAddress()}"></p>
+         </a>
+        <hr>
+    </div>
+</body>
+</html>
