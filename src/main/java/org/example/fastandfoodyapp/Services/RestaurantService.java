@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,14 +37,6 @@ public class RestaurantService {
                 .map(this::getRestaurantDTO).collect(Collectors.toList());
     }
 
-    // НЕ РАБОТАЕТ
-    public List<RestaurantDTO> findByCity(String city) {
-        City city1 = cityRepository.findCityByName(city);
-        int cityId = city1.getId();
-        return restaurantRepository.findByCity_id(cityId).stream()
-                .map(this::getRestaurantDTO).collect(Collectors.toList());
-    }
-
     public RestaurantDTO findDTOById(int id) {
         Restaurant restaurant = restaurantRepository.findById(id).orElseThrow();
         return getRestaurantDTO(restaurant);
@@ -53,5 +46,16 @@ public class RestaurantService {
         City city = cityRepository.findCityByName("Mariupol");
         return restaurantRepository.findByCity_id(city.getId()).stream()
                 .map(this::getRestaurantDTO).collect(Collectors.toList());
+    }
+
+    public List<RestaurantDTO> findRestaurantByCity(String city) {
+        List<RestaurantDTO> allRestaurants = restaurantsDTO();
+        List<RestaurantDTO> restaurantsByCity = new ArrayList<>();
+        for (RestaurantDTO r : allRestaurants) {
+            if (r.getCity_id().getName().equals(city)) {
+                restaurantsByCity.add(r);
+            }
+        }
+        return restaurantsByCity;
     }
 }

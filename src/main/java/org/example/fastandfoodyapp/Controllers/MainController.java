@@ -38,9 +38,8 @@ public class MainController {
     @GetMapping("/contacts")
     public String contacts(@RequestParam(name = "city", required = false) String city, Model model) {
         List<RestaurantDTO> restaurants;
-        // НЕ РАБОТАЕТ
         if (city != null && !city.isEmpty()) {
-            restaurants = restaurantService.findByCity(city);
+            restaurants = restaurantService.findRestaurantByCity(city);
         } else {
             restaurants = restaurantService.restaurantsDTO();
         }
