@@ -3,15 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <title>Контактна інформація</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1, h2, h3, h4, p {
+            margin: 5px 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-info {
+            border: 1px solid #ddd;
+            padding: 10px;
+            width: 400px;
+        }
+
+        .map-container {
+            width: 600px;
+            height: 400px;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <h3 th:text="${restContacts.getCity_id().getName()}"></h3>
-        <h4 th:text="${restContacts.getAddress()}"></h4>
-        <p th:text="${restContacts.getPhone()}"></p>
-        <a th:href="'mailto:' + ${restContacts.getEmail()}" th:text="${restContacts.getEmail()}"></a>
-    </div>
+<h1>Контактна інформація</h1>
+<div class="contact-info">
+    <h3><p th:text="${restContacts.getCity_id().getName()}"></p></h3>
+    <h4><p th:text="${restContacts.getAddress()}"></p></h4>
+    <p th:text="${restContacts.getPhone()}"></p>
+    <a th:href="'mailto:' + ${restContacts.getEmail()}" th:text="${restContacts.getEmail()}"></a>
+</div>
 
-<h1>Треба додати місце розташування ресторану на мапі</h1>
+<h2>Місцезнаходження ресторану на мапі</h2>
+<div class="map-container">
+</div>
 </body>
 </html>
