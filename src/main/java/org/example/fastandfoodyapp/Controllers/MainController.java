@@ -24,6 +24,11 @@ public class MainController {
     @Autowired
     private CityRepository cityRepository;
 
+    @GetMapping()
+    public String mainPage() {
+        return "client/main";
+    }
+
     @GetMapping("/menu")
     public String items(Model model) {
         model.addAttribute("items", itemService.getAllItemDTO());
@@ -52,5 +57,10 @@ public class MainController {
     public String restaurantContact(@PathVariable("id") int id, Model model) {
         model.addAttribute("restContacts", restaurantService.findDTOById(id));
         return "client/restContacts";
+    }
+
+    @GetMapping("/about_us")
+    public String aboutUs() {
+        return "client/aboutUs";
     }
 }
