@@ -1,0 +1,30 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1, h2, h3, h4, p {
+    margin: 5px 0;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.contact-info {
+    border: 1px solid #ddd;
+    padding: 10px;
+    width: 400px;
+}
+
+.map-container {
+    width: 600px;
+    height: 400px;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+}

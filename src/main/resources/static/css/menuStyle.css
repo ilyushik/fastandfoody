@@ -1,0 +1,46 @@
+.item-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.item {
+    width: 300px; /* Ширина блока с элементом меню */
+    margin: 10px; /* Отступ между элементами меню */
+    padding: 10px;
+    border: 1px solid #ccc; /* Рамка для элемента меню */
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    text-align: center;
+    transition: width 0.5s ease;
+}
+
+.item:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Тень при наведении на элемент меню */
+    background-color: darkgray;
+    width: 350px;
+    margin: 10px; /* Отступ между элементами меню */
+    padding: 10px;
+    border: 1px solid #ccc; /* Рамка для элемента меню */
+    border-radius: 5px;
+    text-align: center;
+}
+
+.item-image {
+    width: 100%; /* Ширина изображения */
+    height: auto;
+    border-radius: 5px;
+}
+
+.item-details {
+    padding-top: 10px;
+}
+
+.item-details p {
+    margin: 5px 0; /* Отступы для текста элемента меню */
+}
+
+hr {
+    margin: 20px 0; /* Отступ между элементами меню */
+    border: none;
+    border-top: 1px solid #ccc; /* Горизонтальная линия между элементами меню */
+}

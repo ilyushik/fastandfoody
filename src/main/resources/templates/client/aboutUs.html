@@ -3,92 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Про нас</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            background-color: #f8f9fa;
-            padding: 20px 0;
-            text-align: center;
-        }
-
-        .back_logo {
-            margin: 0 auto;
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background-color: blanchedalmond;
-            border: 1px solid #dddddd;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .logo {
-            width: 80px;
-            height: 80px;
-        }
-
-        nav {
-            margin-top: 20px;
-        }
-
-        nav a {
-            margin: 0 10px;
-            text-decoration: none;
-            color: #333;
-            padding: 10px 15px;
-            border-radius: 5px;
-            background-color: #f8f9fa;
-            border: 1px solid #dddddd;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        nav a:hover {
-            background-color: #007bff;
-            color: #fff;
-        }
-
-        .order-button {
-            margin-top: 30px;
-        }
-
-        .order-button a {
-            text-decoration: none;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            background-color: #28a745;
-            border: none;
-            transition: background-color 0.3s;
-        }
-
-        .order-button a:hover {
-            background-color: #218838;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/css/headerStyle.css">
 </head>
 <body>
-    <header>
-        <div class="back_logo">
-            <img src="/logo_crop.png" alt="" class="logo">
-        </div>
-        <nav>
-            <a href="/contacts">Контакты</a>
-            <a href="/menu">Меню</a>
-            <a href="#" class="account">Особистий кабінет</a>
-            <a href="/about_us">Про нас</a>
-            <a href="/map">Ми на карті</a>
-        </nav>
-        <div class="order-button">
-            <a href="#">Замовити</a>
-        </div>
-    </header>
+<div th:insert="client/header :: header"></div>
     <div style="padding-left: 20%; padding-right: 20%">
         <h2>Про нас</h2>
         <p>Ласкаво просимо в наш затишний куточок кулінарних насолод - ресторан Fast&Foody. Ми пишаємося тим, що пропонуємо не просто страви, а справжні шедеври гастрономії, створені з любов'ю та натхненням.
