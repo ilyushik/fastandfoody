@@ -4,7 +4,7 @@ body {
 }
 
 h1, h2, h3, h4, p {
-    margin: 5px 0;
+    margin-left: 1%;
 }
 
 a {
@@ -18,13 +18,13 @@ a:hover {
 
 .contact-info {
     border: 1px solid #ddd;
-    padding: 10px;
+    margin-left: 1%;
     width: 400px;
 }
 
 .map-container {
-    width: 600px;
-    height: 400px;
+    width: 100%;
+    height: 100%;
     margin: 20px auto;
     border: 1px solid #ddd;
 }

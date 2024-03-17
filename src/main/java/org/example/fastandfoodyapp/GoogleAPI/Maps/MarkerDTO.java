@@ -13,4 +13,10 @@ public class MarkerDTO {
     private String address;
     private double longitude;
     private double latitude;
+
+    public MarkerDTO(String address, double longitude, double latitude) {
+        this.address = address;
+        this.longitude = longitude;
+        this.latitude = latitude;
+    }
 }
