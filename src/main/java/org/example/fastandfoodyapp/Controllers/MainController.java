@@ -2,10 +2,14 @@ package org.example.fastandfoodyapp.Controllers;
 
 import lombok.AllArgsConstructor;
 import org.example.fastandfoodyapp.Model.DTO.RestaurantDTO;
+import org.example.fastandfoodyapp.Model.Person;
 import org.example.fastandfoodyapp.Repositories.CityRepository;
+import org.example.fastandfoodyapp.Security.PersonDetails;
+import org.example.fastandfoodyapp.Services.PersonService;
 import org.example.fastandfoodyapp.Services.RestaurantService;
 import org.example.fastandfoodyapp.Services.Service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +27,8 @@ public class MainController {
     private RestaurantService restaurantService;
     @Autowired
     private CityRepository cityRepository;
+    @Autowired
+    private PersonService personService;
 
     @GetMapping()
     public String mainPage() {
@@ -63,4 +69,12 @@ public class MainController {
     public String aboutUs() {
         return "client/aboutUs";
     }
+
+    @GetMapping("/my_info")
+    public String account(@AuthenticationPrincipal PersonDetails personDetails, Model model) {
+        Person person = personService.findById(personDetails.getPerson().getId());
+        model.addAttribute("person", person);
+        return "client/account";
+    }
+
 }

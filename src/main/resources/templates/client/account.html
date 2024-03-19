@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Особистий кабінет</title>
+</head>
+<body>
+    <div>
+        <h3 th:text="${person.getName()} + ' ' + ${person.getSurname()}"></h3>
+        <h4 th:text="${person.getEmail()}"></h4>
+        <h4 th:text="${person.getPhone()}"></h4>
+        <h4 th:text="${person.getUsername()}"></h4>
+    </div>
+</body>
+</html>
