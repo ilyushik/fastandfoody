@@ -4,8 +4,21 @@
     <meta charset="UTF-8">
     <title>Головна</title>
     <link rel="stylesheet" type="text/css" href="/css/headerStyle.css">
+    <link rel="stylesheet" type="text/css" href="/css/footerStyle.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     <div th:insert="client/header :: header"></div>
+    <div th:insert="client/footer :: footer"></div>
+    <script>
+        menu.onclick = function myFunc() {
+            var x = document.getElementById("myTopnav");
+            if(x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+    </script>
 </body>
 </html>
