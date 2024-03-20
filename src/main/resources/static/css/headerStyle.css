@@ -1,31 +1,24 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+    /*margin: 0;*/
+    /*padding: 0;*/
 }
 
 header {
     background-color: #f8f9fa;
     padding: 20px 0;
     text-align: center;
-}
-
-.back_logo {
-    margin: 0 auto;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: blanchedalmond;
-    border: 1px solid #dddddd;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    border-radius: 0 0 15px 15px;
+    box-shadow: 0 0.5px 10px grey
 }
 
 .logo {
+    background: blanchedalmond;
+    border-radius: 50%;
     width: 80px;
     height: 80px;
+    padding: 10px;
+    text-align: center;
 }
 
 nav {
@@ -48,6 +41,10 @@ nav a:hover {
     color: #fff;
 }
 
+.icon {
+    display:none;
+}
+
 .order-button {
     margin-top: 30px;
 }
@@ -64,4 +61,40 @@ nav a:hover {
 
 .order-button a:hover {
     background-color: #218838;
+}
+
+@media screen and (max-width: 680px) {
+    header {
+        height: 100px;
+    }
+
+    .topnav a {
+        display: none;
+    }
+
+    .back_logo, .logo {
+        float: left;
+        margin: 0 0 0 20px;
+    }
+
+    .topnav a.icon {
+        float: right;
+        display: block;
+    }
+
+    .topnav.responsive {
+        position: relative;
+    }
+
+    .topnav.responsive a.icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    .topnav.responsive a {
+        float: none;
+        display: block;
+        text-align: left;
+    }
 }
