@@ -1,6 +1,7 @@
 .item-container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .item {
@@ -43,4 +44,40 @@ hr {
     margin: 20px 0; /* Отступ между элементами меню */
     border: none;
     border-top: 1px solid #ccc; /* Горизонтальная линия между элементами меню */
+}
+
+@media screen and (min-width: 1600px) {
+    .item-container {
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+}
+
+@media screen and (min-width: 1000px) and (max-width: 1599px) {
+    .item-container {
+        margin-left: 15%;
+        margin-right: 15%;
+    }
+}
+
+@media screen and (min-width: 450px) and (max-width: 700px){
+    .item {
+        width: 30vw;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .item {
+        width: 80vw;
+        height: 10vh;
+    }
+    .item-details {
+        float: right;
+        text-align: center;
+    }
+    .item-image {
+        width: 25vw;
+        height: 10vh;
+        float: left;
+    }
 }

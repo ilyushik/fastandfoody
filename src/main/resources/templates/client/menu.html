@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Меню</title>
-    <link rel="stylesheet" type="text/css" href="/css/headerStyle.css">
-    <link rel="stylesheet" type="text/css" href="/css/menuStyle.css">
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/menu.css">
+    <link rel="stylesheet" type="text/css" href="/css/footer.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div th:insert="client/header :: header"></div>
-    <div style="padding-left: 20%; padding-right: 20%">
+<div th:insert="client/footer :: footer"></div>
+    <div class="container">
         <div class="item-container">
             <div th:each="item : ${items}">
                 <a th:href="'/main/items/' + ${item.getId()}">

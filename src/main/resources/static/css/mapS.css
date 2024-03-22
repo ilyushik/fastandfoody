@@ -1,0 +1,46 @@
+#map {
+    height: 100%;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+}
+
+@media screen and (min-width: 800px) and (max-width: 1000px) {
+    #map {
+        height: 50vh;
+        width: 90vh;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 800px) {
+    #map {
+        height: 50vh;
+        width: 90vw;
+    }
+}
+
+@media screen and (min-width: 450px) and (max-width: 600px) {
+    #map {
+        height: 40vh;
+        width: 90vw;
+    }
+}
+
+@media screen and (min-width: 380px) and (max-width: 450px) {
+    #map {
+        height: 35vh;
+        width: 90vw;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    #map {
+        height: 35vh;
+        width: 100vw;
+    }
+}
