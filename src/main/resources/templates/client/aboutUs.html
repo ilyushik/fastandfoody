@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Про нас</title>
-    <link rel="stylesheet" type="text/css" href="/css/headerStyle.css">
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/footer.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -35,6 +36,7 @@
 
             Дякуємо, що робите нас частиною своїх історій і пригод. Ласкаво просимо до Fast&Foody, де кожен куточок сповнений смаком і теплом!</p>
     </div>
+    <div th:insert="client/footer :: footer"></div>
     <script>
         menu.onclick = function myFunc() {
             var x = document.getElementById("myTopnav");

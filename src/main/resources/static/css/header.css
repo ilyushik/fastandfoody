@@ -63,7 +63,7 @@ nav a:hover {
     background-color: #218838;
 }
 
-@media screen and (max-width: 680px) {
+@media screen and (min-width: 450px) and (max-width: 680px) {
     header {
         height: 100px;
     }
@@ -72,14 +72,64 @@ nav a:hover {
         display: none;
     }
 
-    .back_logo, .logo {
+    .logo {
         float: left;
-        margin: 0 0 0 20px;
+        margin: 15px 0 0 15px;
+        background: blanchedalmond;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        padding: 7px;
+        text-align: center;
     }
 
     .topnav a.icon {
         float: right;
         display: block;
+    }
+
+    .topnav.responsive {
+        position: relative;
+    }
+
+    .topnav.responsive a.icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    .topnav.responsive a {
+        float: none;
+        display: block;
+        text-align: left;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    header {
+        height: 60px;
+    }
+
+    .topnav a {
+        display: none;
+    }
+
+    .logo {
+        float: left;
+        margin: 0 0 0 15px;
+        background: blanchedalmond;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        padding: 7px;
+        text-align: center;
+    }
+
+    .topnav a.icon {
+        float: right;
+        display: block;
+        margin-right: 5vw;
+        margin-top: -15px;
     }
 
     .topnav.responsive {
