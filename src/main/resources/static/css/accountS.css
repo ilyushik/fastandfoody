@@ -1,0 +1,298 @@
+body {
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+.user_container {
+    padding: 10px;
+    display: grid;
+}
+
+.user_buttons {
+    display: grid;
+    grid-row-gap: 20px;
+}
+
+.user_navigation {
+    background-color: #edb1b9;
+    opacity: 0.7;
+    box-shadow: 0 5px 10px grey;
+    display: grid;
+    grid-row-gap: 20px;
+    border-width: 2px;
+    border-color: grey;
+    border-radius: 15px;
+    justify-content: center;
+    text-align: center;
+}
+
+.edit, .orders, .delete {
+    width: 250px;
+    height: 30px;
+}
+
+.user_img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin-left: 25px;
+}
+
+.edit:hover {
+    background-color: green;
+    color: white;
+}
+
+.delete:hover {
+    background-color: red;
+    color: white;
+}
+
+.orders:hover {
+    background-color: green;
+    color: white;
+}
+
+@media screen and (min-width: 1600px) {
+    .user_navigation {
+        padding: 5vh 10px 30vh 10px;
+    }
+
+    .user_container {
+        grid-template-columns: 25% 70%;
+        grid-column-gap: 40px;
+    }
+
+    .edit, .orders, .delete {
+        width: 200px;
+        height: 30px
+    }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1600px) {
+    .user_img {
+        width: 100px;
+        height: 100px;
+        margin-right: 20px;
+    }
+
+    .user_navigation {
+        padding: 5vh 10px 30vh 10px;
+    }
+
+    .user_container {
+        grid-template-columns: 25% 70%;
+        grid-column-gap: 40px;
+    }
+    .edit, .orders, .delete {
+        width: 140px;
+        height: 40px;
+        white-space: normal;
+    }
+}
+
+@media screen and (min-width: 1000px) and (max-width: 1200px) {
+    .user_img {
+        width: 100px;
+        height: 100px;
+        margin-right: 20px;
+    }
+
+    .user_navigation {
+        padding: 5vh 10px 30vh 10px;
+    }
+
+    body {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+
+    .user_container {
+        grid-template-columns: 25% 70%;
+        grid-column-gap: 40px;
+    }
+
+    .edit, .orders, .delete {
+        width: 140px;
+        height: 40px;
+        white-space: normal;
+    }
+}
+
+@media screen and (min-width: 800px) and (max-width: 1000px) {
+    .user_img {
+        width: 100px;
+        height: 100px;
+        margin-right: 20px;
+    }
+
+    .user_navigation {
+        padding: 5vh 10px 30vh 10px;
+    }
+
+    body {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+
+    .user_container {
+        grid-template-columns: 25% 70%;
+        grid-column-gap: 40px;
+    }
+
+    .edit, .orders, .delete {
+        font-size: 12px;
+        width: 120px;
+        height: 40px;
+        white-space: normal;
+    }
+}
+
+@media screen and (min-width: 700px) and (max-width: 800px) {
+    .user_img {
+        width: 100px;
+        height: 100px;
+        margin-right: 20px;
+    }
+
+    .user_navigation {
+        padding: 5vh 10px 30vh 10px;
+    }
+
+    body {
+        padding-left: 5vw;
+        padding-right: 5vw;
+    }
+
+    .user_container {
+        grid-template-columns: 25% 70%;
+        grid-column-gap: 40px;
+    }
+
+    .edit, .orders, .delete {
+        font-size: 12px;
+        width: 15vw;
+        height: 40px;
+        white-space: normal;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 700px) {
+    .user_img {
+        width: 100px;
+        height: 100px;
+        margin-right: 20px;
+    }
+
+    .user_navigation {
+        height: 120px;
+        display: grid;
+        grid-template-columns: 30% 60%;
+        grid-column-gap: 2vw;
+        padding-top: 4vh;
+    }
+
+    .user_buttons {
+        display: grid;
+        grid-template-columns:30% 30% 30%;
+        grid-column-gap: 20px;
+    }
+
+    body {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+
+    .user_container {
+        padding: 10px;
+        display: grid;
+        width: 80vw;
+    }
+
+    .edit, .orders, .delete {
+        font-size: 10px;
+        width: 15vw;
+        height: 40px;
+        white-space: normal;
+    }
+}
+
+@media screen and (min-width: 450px) and (max-width: 600px) {
+    .user_img {
+        width: 100px;
+        height: 100px;
+        margin-right: 20px;
+    }
+
+    .user_navigation {
+        height: 150px;
+        display: grid;
+        grid-template-columns: 30% 60%;
+        grid-column-gap: 2vw;
+        padding-top: 3vh;
+    }
+
+    .user_buttons {
+        display: grid;
+        grid-row-gap: 10px;
+        margin-bottom: 40px;
+    }
+
+    body {
+        padding-left: 10%;
+        padding-right: 15%;
+    }
+
+    .user_container {
+        padding: 10px;
+        display: grid;
+        width: 80vw;
+    }
+
+    .edit, .orders, .delete {
+        font-size: 12px;
+        width: 25vw;
+        height: 35px;
+        white-space: normal;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .user_img {
+        width: 100px;
+        height: 100px;
+        margin-right: 20px;
+    }
+
+    .user_navigation {
+        height: 140px;
+        display: grid;
+        grid-template-columns: 30% 60%;
+        grid-column-gap: 10vw;
+        padding-top: 3vh;
+    }
+
+    .user_buttons {
+        display: grid;
+        grid-row-gap: 10px;
+        margin-bottom: 40px;
+    }
+
+    body {
+        padding-left: 2%;
+        padding-right: 5%;
+    }
+
+    .user_container {
+        padding: 10px;
+        display: grid;
+        width: 90vw;
+    }
+
+    .edit, .orders, .delete {
+        font-size: 12px;
+        width: 25vw;
+        height: 35px;
+        white-space: normal;
+    }
+}
