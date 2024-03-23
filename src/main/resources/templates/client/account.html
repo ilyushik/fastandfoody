@@ -3,13 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Особистий кабінет</title>
+    <link rel="stylesheet" type="text/css" href="/css/accountS.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <div>
-        <h3 th:text="${person.getName()} + ' ' + ${person.getSurname()}"></h3>
-        <h4 th:text="${person.getEmail()}"></h4>
-        <h4 th:text="${person.getPhone()}"></h4>
-        <h4 th:text="${person.getUsername()}"></h4>
+<div class="user_container">
+    <div class="user_navigation">
+        <img class="user_img" src="https://www.soyuz.ru/public/uploads/files/2/7475348/20211117124509ab01a89ece.jpg"/>
+        <div class="user_buttons">
+            <a href="#"><input class="edit" type="submit" value="Редагувати дані" /></a>
+            <a href="#"><input class="orders" type="submit" value="Мої замовлення" /></a>
+            <a href="#"><input class="delete" type="submit" value="Видалити обліковий запис" /></a>
+        </div>
     </div>
+    <div class="user_info">
+        <h3 class="user_name" th:text="${person.getName()} + ' ' + ${person.getSurname()}">Імʼя Прізвище</h3>
+        <h4 class="user_email" th:text="${person.getEmail()}">Пошта</h4>
+        <h4 class="user_phone" th:text="${person.getPhone()}">Телефон</h4>
+        <h4 class="user_username" th:text="${person.getUsername()}">Юзернейм</h4>
+        <br><br><br><br><br>
+        <div th:if="${purchases.size() > 0}" class="active_orders">
+            <h2>Активні замовлення:</h2>
+            <div th:each="p : ${purchases}">
+                <h3>Позиції:</h3>
+                <ul th:each="item : ${p.getOrder_item_id()}">
+                    <li th:text="${item.getItem_id().getItem_name()}"></li>
+                </ul>
+                <h3>Час приготування:</h3>
+                <p th:text="${p.getPrep_time()}"></p>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -2,7 +2,9 @@ package org.example.fastandfoodyapp.Controllers;
 
 import lombok.AllArgsConstructor;
 import org.example.fastandfoodyapp.Model.DTO.RestaurantDTO;
+import org.example.fastandfoodyapp.Model.Enumerables.Status;
 import org.example.fastandfoodyapp.Model.Person;
+import org.example.fastandfoodyapp.Model.Purchase;
 import org.example.fastandfoodyapp.Repositories.CityRepository;
 import org.example.fastandfoodyapp.Security.PersonDetails;
 import org.example.fastandfoodyapp.Services.PersonService;
@@ -14,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -73,7 +74,20 @@ public class MainController {
     @GetMapping("/my_info")
     public String account(@AuthenticationPrincipal PersonDetails personDetails, Model model) {
         Person person = personService.findById(personDetails.getPerson().getId());
+        List<Purchase> usersActivePurchases = person.getPurchases();
+
+        for(Purchase p : usersActivePurchases) {
+            if(p.getPerson_id().getId() != person.getId()) {
+                usersActivePurchases.remove(p);
+            } else if (p.getStatus().equals(Status.Delivered) || p.getStatus().equals(Status.Canceled)) {
+                usersActivePurchases.remove(p);
+            }
+        }
+
         model.addAttribute("person", person);
+        if(!usersActivePurchases.isEmpty()) {
+            model.addAttribute("purchases", usersActivePurchases);
+        }
         return "client/account";
     }
 
