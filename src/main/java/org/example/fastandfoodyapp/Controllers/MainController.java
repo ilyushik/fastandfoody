@@ -85,9 +85,10 @@ public class MainController {
         }
 
         model.addAttribute("person", person);
-        if(!usersActivePurchases.isEmpty()) {
-            model.addAttribute("purchases", usersActivePurchases);
-        }
+        model.addAttribute("purchases", usersActivePurchases);
+//        if(!usersActivePurchases.isEmpty()) {
+//            model.addAttribute("purchases", usersActivePurchases);
+//        }
         return "client/account";
     }
 

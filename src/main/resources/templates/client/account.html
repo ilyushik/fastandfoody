@@ -21,16 +21,21 @@
         <h4 class="user_email" th:text="${person.getEmail()}">Пошта</h4>
         <h4 class="user_phone" th:text="${person.getPhone()}">Телефон</h4>
         <h4 class="user_username" th:text="${person.getUsername()}">Юзернейм</h4>
-        <br><br><br><br><br>
-        <div th:if="${purchases.size() > 0}" class="active_orders">
+        <br><br>
+        <div th:if="${!purchases.isEmpty()}" class="active_orders">
             <h2>Активні замовлення:</h2>
             <div th:each="p : ${purchases}">
-                <h3>Позиції:</h3>
-                <ul th:each="item : ${p.getOrder_item_id()}">
-                    <li th:text="${item.getItem_id().getItem_name()}"></li>
-                </ul>
-                <h3>Час приготування:</h3>
-                <p th:text="${p.getPrep_time()}"></p>
+                <p th:text="${p.getId()}"></p>
+<!--                <h3>Позиції:</h3>-->
+<!--                <ul th:each="item : ${p.getOrder_item_id()}">-->
+<!--                    <li th:text="${item.getItem_id().getItem_name()}"></li>-->
+<!--                </ul>-->
+<!--                <h3>Час приготування:</h3>-->
+<!--                <p th:text="${p.getPrep_time()}"></p>-->
+                <div class="order_link">
+                    <a class="zamovlennya" th:href="'/my_info/orders/' + ${p.getId()}" th:text="'Замовлення #' + ${p.getId()}">Замовлення #12345</a>
+                    <p class="link_arrow">></p>
+                </div>
             </div>
         </div>
     </div>
