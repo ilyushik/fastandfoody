@@ -13,9 +13,37 @@ body {
     grid-row-gap: 20px;
 }
 
+.order_link {
+    width: 250px;
+    height: 80px;
+    background-color: #ffdce1;
+    box-shadow: 0 5px 10px grey;
+    border-radius: 10px;
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 20px;
+    font-style: italic;
+    padding: 5px;
+    display: grid;
+    grid-template-columns: 70% 10%;
+    grid-column-gap: 40px;
+    transition: 0.5s ease;
+}
+
+.zamovlennya {
+    color: black;
+    text-decoration: none;
+}
+
+.order_link:hover {
+    background-color: #e2c7cb;
+    width: 290px;
+    height: 100px;
+
+}
+
 .user_navigation {
-    background-color: #edb1b9;
-    opacity: 0.7;
+    background-color: #ffdce1;
     box-shadow: 0 5px 10px grey;
     display: grid;
     grid-row-gap: 20px;
@@ -27,8 +55,14 @@ body {
 }
 
 .edit, .orders, .delete {
+    background-color: white;
     width: 250px;
     height: 30px;
+    border-width: 1.5px;
+    border-color: grey;
+    border-radius: 10px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    transition: 0.5s ease;
 }
 
 .user_img {
@@ -39,18 +73,18 @@ body {
 }
 
 .edit:hover {
-    background-color: green;
-    color: white;
+    background-color: rgb(116, 250, 116);
+    color: black;
 }
 
 .delete:hover {
-    background-color: red;
-    color: white;
+    background-color: rgb(255, 81, 81);
+    color: black;
 }
 
 .orders:hover {
-    background-color: green;
-    color: white;
+    background-color: rgb(116, 250, 116);
+    color: black;
 }
 
 @media screen and (min-width: 1600px) {
@@ -66,6 +100,21 @@ body {
     .edit, .orders, .delete {
         width: 200px;
         height: 30px
+    }
+
+    .edit:hover {
+        width: 220px;
+        height: 40px;
+    }
+
+    .orders:hover {
+        width: 220px;
+        height: 40px;
+    }
+
+    .delete:hover {
+        width: 220px;
+        height: 40px;
     }
 }
 
@@ -88,6 +137,21 @@ body {
         width: 140px;
         height: 40px;
         white-space: normal;
+    }
+
+    .edit:hover {
+        width: 160px;
+        height: 50px;
+    }
+
+    .orders:hover {
+        width: 160px;
+        height: 50px;
+    }
+
+    .delete:hover {
+        width: 160px;
+        height: 50px;
     }
 }
 
@@ -116,6 +180,21 @@ body {
         width: 140px;
         height: 40px;
         white-space: normal;
+    }
+
+    .edit:hover {
+        width: 160px;
+        height: 50px;
+    }
+
+    .orders:hover {
+        width: 160px;
+        height: 50px;
+    }
+
+    .delete:hover {
+        width: 160px;
+        height: 50px;
     }
 }
 
@@ -146,6 +225,21 @@ body {
         height: 40px;
         white-space: normal;
     }
+
+    .edit:hover {
+        width: 140px;
+        height: 50px;
+    }
+
+    .orders:hover {
+        width: 140px;
+        height: 50px;
+    }
+
+    .delete:hover {
+        width: 140px;
+        height: 50px;
+    }
 }
 
 @media screen and (min-width: 700px) and (max-width: 800px) {
@@ -175,6 +269,21 @@ body {
         height: 40px;
         white-space: normal;
     }
+
+    .edit:hover {
+        width: 16vw;
+        height: 50px;
+    }
+
+    .orders:hover {
+        width: 16vw;
+        height: 50px;
+    }
+
+    .delete:hover {
+        width: 16vw;
+        height: 50px;
+    }
 }
 
 @media screen and (min-width: 600px) and (max-width: 700px) {
@@ -185,7 +294,7 @@ body {
     }
 
     .user_navigation {
-        height: 120px;
+        height: 140px;
         display: grid;
         grid-template-columns: 30% 60%;
         grid-column-gap: 2vw;
@@ -195,11 +304,12 @@ body {
     .user_buttons {
         display: grid;
         grid-template-columns:30% 30% 30%;
-        grid-column-gap: 20px;
+        grid-column-gap: 15px;
+        margin-top: 30px;
     }
 
     body {
-        padding-left: 10%;
+        padding-left: 7%;
         padding-right: 10%;
     }
 
@@ -214,6 +324,21 @@ body {
         width: 15vw;
         height: 40px;
         white-space: normal;
+    }
+
+    .edit:hover {
+        width: 16vw;
+        height: 50px;
+    }
+
+    .orders:hover {
+        width: 16vw;
+        height: 50px;
+    }
+
+    .delete:hover {
+        width: 16vw;
+        height: 50px;
     }
 }
 
@@ -235,11 +360,11 @@ body {
     .user_buttons {
         display: grid;
         grid-row-gap: 10px;
-        margin-bottom: 40px;
+        margin-bottom: 30px;
     }
 
     body {
-        padding-left: 10%;
+        padding-left: 6%;
         padding-right: 15%;
     }
 
@@ -254,6 +379,21 @@ body {
         width: 25vw;
         height: 35px;
         white-space: normal;
+    }
+
+    .edit:hover {
+        width: 27vw;
+        height: 40px;
+    }
+
+    .orders:hover {
+        width: 27vw;
+        height: 40px;
+    }
+
+    .delete:hover {
+        width: 27vw;
+        height: 40px;
     }
 }
 
@@ -279,7 +419,7 @@ body {
     }
 
     body {
-        padding-left: 2%;
+        padding-left: 1%;
         padding-right: 5%;
     }
 
