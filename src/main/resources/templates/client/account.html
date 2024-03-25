@@ -13,6 +13,9 @@
         <div class="user_buttons">
             <a href="#"><input class="edit" type="submit" value="Редагувати дані" /></a>
             <a href="#"><input class="orders" type="submit" value="Мої замовлення" /></a>
+            <form th:action="@{/logout}" th:method="POST">
+                <input class="logout" type="submit" value="Вийти з аккаунту">
+            </form>
             <a href="#"><input class="delete" type="submit" value="Видалити обліковий запис" /></a>
         </div>
     </div>
@@ -25,13 +28,6 @@
         <div th:if="${!purchases.isEmpty()}" class="active_orders">
             <h2>Активні замовлення:</h2>
             <div th:each="p : ${purchases}">
-                <p th:text="${p.getId()}"></p>
-<!--                <h3>Позиції:</h3>-->
-<!--                <ul th:each="item : ${p.getOrder_item_id()}">-->
-<!--                    <li th:text="${item.getItem_id().getItem_name()}"></li>-->
-<!--                </ul>-->
-<!--                <h3>Час приготування:</h3>-->
-<!--                <p th:text="${p.getPrep_time()}"></p>-->
                 <div class="order_link">
                     <a class="zamovlennya" th:href="'/my_info/orders/' + ${p.getId()}" th:text="'Замовлення #' + ${p.getId()}">Замовлення #12345</a>
                     <p class="link_arrow">></p>

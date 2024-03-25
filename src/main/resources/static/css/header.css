@@ -63,6 +63,32 @@ nav a:hover {
     background-color: #218838;
 }
 
+@media screen and (min-width: 1300px) and (max-width: 1600px) and
+(max-height: 1000px) {
+    header {
+        width: 300px;
+        height: 90vh;
+        border-radius: 0 15px 15px 0;
+    }
+
+    nav a {
+        display: block;
+    }
+}
+
+@media screen and (min-width: 1000px) and (max-width: 1300px) and
+(max-height: 900px) {
+    header {
+        width: 300px;
+        height: 90vh;
+        border-radius: 0 15px 15px 0;
+    }
+
+    nav a {
+        display: block;
+    }
+}
+
 @media screen and (min-width: 450px) and (max-width: 680px) {
     header {
         height: 100px;
