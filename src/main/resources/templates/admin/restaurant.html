@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Мій ресторан</title>
+</head>
+<body>
+  <div>
+    <p th:text="${restaurant.getCity_id().getName()}"></p>
+    <p th:text="${restaurant.getAddress()}"></p>
+  </div>
+</body>
+</html>

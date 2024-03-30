@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Замовлення</title>
+</head>
+<body>
+    <div th:each="p : ${purchases}">
+        <p th:text="'Спосіб доставки: ' + ${p.getDelivery_way().getDisplayName()}"></p>
+        <p>Список продуктів: </p>
+        <div th:each="pu : ${p.getOrder_item_id()}">
+            <p th:text="${pu.getItem_id().getItem_name()}"></p>
+        </div>
+        <hr>
+    </div>
+</body>
+</html>
