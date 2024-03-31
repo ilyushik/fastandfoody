@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редагування</title>
+</head>
+<body>
+    <form th:action="@{/admin/submitOrder/{id}(id=${purchase.getId()})}" th:object="${purchase}" method="post">
+        <label for="status">Змінити статус:</label>
+        <select id="status" name="status" th:field="*{status}">
+            <option th:each="status : ${statuses}"
+                    th:value="${status}"
+                    th:text="${#strings.capitalize(status.getDisplayName().toLowerCase())}">
+            </option>
+        </select>
+        <button type="submit">Змінити статус</button>
+    </form>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package org.example.fastandfoodyapp.Services;
 
+import org.example.fastandfoodyapp.Model.Enumerables.Status;
 import org.example.fastandfoodyapp.Model.Purchase;
 import org.example.fastandfoodyapp.Repositories.PurchaseRepository;
 import org.springframework.stereotype.Service;
@@ -16,5 +17,15 @@ public class PurchaseService {
 
     public List<Purchase> purchases() {
         return purchaseRepository.findAll();
+    }
+
+    public Purchase findById(int id) {
+        return purchaseRepository.findPurchaseById(id);
+    }
+
+    public void changeStatus(int id, Status status) {
+        Purchase purchase = findById(id);
+        purchase.setStatus(status);
+        purchaseRepository.save(purchase);
     }
 }

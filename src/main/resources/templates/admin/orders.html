@@ -3,14 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Замовлення</title>
+    <style>
+        a {
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
     <div th:each="p : ${purchases}">
-        <p th:text="'Спосіб доставки: ' + ${p.getDelivery_way().getDisplayName()}"></p>
-        <p>Список продуктів: </p>
-        <div th:each="pu : ${p.getOrder_item_id()}">
-            <p th:text="${pu.getItem_id().getItem_name()}"></p>
-        </div>
+        <a th:href="'orders/' + ${p.getId()}">
+            <p th:text="'Спосіб доставки: ' + ${p.getDelivery_way().getDisplayName()}"></p>
+            <p>Список продуктів: </p>
+            <div th:each="pu : ${p.getOrder_item_id()}">
+                <p th:text="${pu.getItem_id().getItem_name()}"></p>
+            </div>
+        </a>
         <hr>
     </div>
 </body>
