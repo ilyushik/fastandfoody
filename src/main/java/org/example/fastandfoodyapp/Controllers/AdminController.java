@@ -1,6 +1,9 @@
 package org.example.fastandfoodyapp.Controllers;
 
+import org.example.fastandfoodyapp.Mails.MailService;
+import org.example.fastandfoodyapp.Mails.MailStructure;
 import org.example.fastandfoodyapp.Model.Enumerables.Status;
+import org.example.fastandfoodyapp.Model.Person;
 import org.example.fastandfoodyapp.Model.Purchase;
 import org.example.fastandfoodyapp.Security.PersonDetails;
 import org.example.fastandfoodyapp.Services.PurchaseService;
@@ -15,9 +18,11 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
     private final PurchaseService purchaseService;
+    private final MailService mailService;
 
-    public AdminController(PurchaseService purchaseService) {
+    public AdminController(PurchaseService purchaseService, MailService mailService) {
         this.purchaseService = purchaseService;
+        this.mailService = mailService;
     }
 
     @GetMapping("")
@@ -29,6 +34,18 @@ public class AdminController {
     public String restaurant(Model model, @AuthenticationPrincipal PersonDetails personDetails) {
         model.addAttribute("restaurant", personDetails.getPerson().getRestaurant_id());
         return "admin/restaurant";
+    }
+
+    @PostMapping("/my_restaurant/delete")
+    public String deleteRestaurant(@AuthenticationPrincipal PersonDetails personDetails) {
+        MailStructure mail = new MailStructure();
+        mail.setSubject("Запит на видалення ресторану");
+        mail.setMessage("Admin ID: " + personDetails.getPerson().getId() + "\nAdmin name: " + personDetails.getPerson().getName() +
+                "\nAdmin surname: " + personDetails.getPerson().getSurname() + "\nAdmin username: " + personDetails.getUsername() +
+                "\nAdmin email: " + personDetails.getPerson().getEmail() +
+                "\nRestaurant ID: " + personDetails.getPerson().getRestaurant_id().getId());
+        mailService.senFromCustomerMail(personDetails.getPerson().getEmail(), mail);
+        return "redirect:/admin";
     }
 
     @GetMapping("/orders")

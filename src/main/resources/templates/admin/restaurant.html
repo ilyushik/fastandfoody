@@ -8,6 +8,9 @@
   <div>
     <p th:text="${restaurant.getCity_id().getName()}"></p>
     <p th:text="${restaurant.getAddress()}"></p>
+      <form method="post" th:action="@{/admin/my_restaurant/delete}">
+          <button type="submit">Видалити ресторан</button>
+      </form>
   </div>
 </body>
 </html>

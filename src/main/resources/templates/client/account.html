@@ -16,7 +16,9 @@
             <form th:action="@{/logout}" th:method="POST">
                 <input class="logout" type="submit" value="Вийти з аккаунту">
             </form>
-            <a href="#"><input class="delete" type="submit" value="Видалити обліковий запис" /></a>
+            <form th:method="post" th:action="@{/my_info/delete}">
+                <input class="delete" type="submit" value="Видалити обліковий запис" />
+            </form>
         </div>
     </div>
     <div class="user_info">

@@ -1,6 +1,8 @@
 package org.example.fastandfoodyapp.Controllers;
 
 import lombok.AllArgsConstructor;
+import org.example.fastandfoodyapp.Mails.MailService;
+import org.example.fastandfoodyapp.Mails.MailStructure;
 import org.example.fastandfoodyapp.Model.DTO.RestaurantDTO;
 import org.example.fastandfoodyapp.Model.Enumerables.Status;
 import org.example.fastandfoodyapp.Model.Person;
@@ -11,13 +13,15 @@ import org.example.fastandfoodyapp.Services.PersonService;
 import org.example.fastandfoodyapp.Services.RestaurantService;
 import org.example.fastandfoodyapp.Services.Service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -30,23 +34,29 @@ public class MainController {
     private CityRepository cityRepository;
     @Autowired
     private PersonService personService;
+    @Autowired
+    private MailService mailService;
 
+    // main page
     @GetMapping()
     public String mainPage() {
         return "client/main";
     }
 
+    // menu with items
     @GetMapping("/menu")
     public String items(Model model) {
         model.addAttribute("items", itemService.getAllItemDTO());
         return "client/menu";
     }
 
+    // map with restaurants
     @GetMapping("/map")
     public String maps(Model model) {
         return "client/map";
     }
 
+    // find contacts of restaurants
     @GetMapping("/contacts")
     public String contacts(@RequestParam(name = "city", required = false) String city, Model model) {
         List<RestaurantDTO> restaurants;
@@ -60,17 +70,20 @@ public class MainController {
         return "client/contacts";
     }
 
+    // contacts of current restaurant
     @GetMapping("/contacts/{id}")
     public String restaurantContact(@PathVariable("id") int id, Model model) {
         model.addAttribute("restContacts", restaurantService.findDTOById(id));
         return "client/restContacts";
     }
 
+    // about restaurant
     @GetMapping("/about_us")
     public String aboutUs() {
         return "client/aboutUs";
     }
 
+    // person's info
     @GetMapping("/my_info")
     public String account(@AuthenticationPrincipal PersonDetails personDetails, Model model) {
         Person person = personService.findById(personDetails.getPerson().getId());
@@ -86,10 +99,22 @@ public class MainController {
 
         model.addAttribute("person", person);
         model.addAttribute("purchases", usersActivePurchases);
-//        if(!usersActivePurchases.isEmpty()) {
-//            model.addAttribute("purchases", usersActivePurchases);
-//        }
         return "client/account";
+    }
+
+    // delete account
+    @PostMapping("/my_info/delete")
+    public String deleteAccount(HttpServletRequest request, @AuthenticationPrincipal PersonDetails personDetails) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null){
+            new SecurityContextLogoutHandler().logout(request, null, auth);
+        }
+
+        MailStructure mail = new MailStructure("Ви видалили свій акаунт", "");
+        mailService.sendMail(personDetails.getPerson().getEmail(), mail);
+
+        personService.deletePerson(personDetails.getPerson().getId());
+        return "redirect:/";
     }
 
 }
