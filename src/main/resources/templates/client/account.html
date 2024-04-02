@@ -11,8 +11,8 @@
     <div class="user_navigation">
         <img class="user_img" src="https://www.soyuz.ru/public/uploads/files/2/7475348/20211117124509ab01a89ece.jpg"/>
         <div class="user_buttons">
-            <a href="#"><input class="edit" type="submit" value="Редагувати дані" /></a>
-            <a href="#"><input class="orders" type="submit" value="Мої замовлення" /></a>
+            <a href="/my_info/edit"><input class="edit" type="submit" value="Редагувати дані" /></a>
+            <a href="/my_info/orders"><input class="orders" type="submit" value="Мої замовлення" /></a>
             <form th:action="@{/logout}" th:method="POST">
                 <input class="logout" type="submit" value="Вийти з аккаунту">
             </form>
@@ -31,7 +31,7 @@
             <h2>Активні замовлення:</h2>
             <div th:each="p : ${purchases}">
                 <div class="order_link">
-                    <a class="zamovlennya" th:href="'/my_info/orders/' + ${p.getId()}" th:text="'Замовлення #' + ${p.getId()}">Замовлення #12345</a>
+                    <a class="zamovlennya" th:href="'/my_info/activeOrder/' + ${p.getId()}" th:text="'Замовлення #' + ${p.getId()}">Замовлення #12345</a>
                     <p class="link_arrow">></p>
                 </div>
             </div>

@@ -21,4 +21,18 @@ public class PersonService {
     public void deletePerson(int id) {
         personRepository.deleteById(id);
     }
+
+    @Transactional
+    public void editInfo(Person person, int id) {
+        Person person1 = findById(id);
+
+        person1.setName(person.getName());
+        person1.setSurname(person.getSurname());
+        person1.setPhone(person.getPhone());
+        person1.setEmail(person.getEmail());
+        person1.setUsername(person.getUsername());
+        person1.setPerson_password(person.getPerson_password());
+
+        personRepository.save(person1);
+    }
 }

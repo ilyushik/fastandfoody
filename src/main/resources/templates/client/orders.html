@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Замовлення</title>
+</head>
+<body>
+    <div th:if="${purchases.isEmpty()}">
+        <h1>Поки немає замовлень</h1>
+    </div>
+    <div th:unless="${purchases.isEmpty()}">
+        <div th:each="purchase : ${purchases}">
+            <p th:text="${purchase.getId()}"></p>
+            <p th:text="${purchase.getDelivery_way().getDisplayName()}"></p>
+            <p th:text="${purchase.getStatus().getDisplayName()}"></p>
+            <hr>
+        </div>
+    </div>
+</body>
+</html>

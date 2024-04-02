@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Редагування</title>
+</head>
+<body>
+  <form th:method="POST" th:action="@{/my_info/{id}/uploadInfo(id=${person.getId()})}" th:object="${person}">
+    <label for="name">Введіть ім'я</label>
+    <input type="text" th:field="*{name}" id="name">
+<!--    <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Проблема з ім'ям</div>-->
+    <br>
+    <label for="surname">Введіть прізвище</label>
+    <input type="text" th:field="*{surname}" id="surname">
+<!--    <div style="color: red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Проблема з прізвищем</div>-->
+    <br>
+    <label for="username">Введіть ім'я користувача</label>
+    <input type="text" th:field="*{username}" id="username">
+<!--    <div style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Проблема з ім'ям користувача</div>-->
+    <br>
+    <label for="phone">Введіть номер телефону</label>
+    <input type="text" th:field="*{phone}" id="phone">
+<!--    <div style="color: red" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Проблема з номером телефону</div>-->
+    <br>
+    <label for="email">Введіть пошту</label>
+    <input type="text" th:field="*{email}" id="email">
+<!--    <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Проблема з поштою</div>-->
+    <br>
+    <label for="person_password">Введіть пароль</label>
+    <input type="text" th:field="*{person_password}" id="person_password">
+<!--    <div style="color: red" th:if="${#fields.hasErrors('person_password')}" th:errors="*{person_password}">Проблема з паролем</div>-->
+    <br>
+    <input type="submit" value="Підтвердити">
+  </form>
+</body>
+</html>
