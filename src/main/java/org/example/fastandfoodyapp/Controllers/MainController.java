@@ -99,8 +99,10 @@ public class MainController {
         for(Purchase p : usersActivePurchases) {
             if(p.getPerson_id().getId() != person.getId()) {
                 usersActivePurchases.remove(p);
-            } else if (p.getStatus().equals(Status.Delivered) || p.getStatus().equals(Status.Canceled)) {
-                usersActivePurchases.remove(p);
+            } else {
+                if (p.getStatus().equals(Status.Delivered) || p.getStatus().equals(Status.Canceled)) {
+                    usersActivePurchases.remove(p);
+                }
             }
         }
 

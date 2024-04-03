@@ -25,17 +25,20 @@ public class AdminController {
         this.mailService = mailService;
     }
 
+    // main admin page
     @GetMapping("")
     public String adminMain() {
         return "admin/main";
     }
 
+    // restaurant of admin
     @GetMapping("my_restaurant")
     public String restaurant(Model model, @AuthenticationPrincipal PersonDetails personDetails) {
         model.addAttribute("restaurant", personDetails.getPerson().getRestaurant_id());
         return "admin/restaurant";
     }
 
+    // request to delete restaurant
     @PostMapping("/my_restaurant/delete")
     public String deleteRestaurant(@AuthenticationPrincipal PersonDetails personDetails) {
         MailStructure mail = new MailStructure();
@@ -48,6 +51,7 @@ public class AdminController {
         return "redirect:/admin";
     }
 
+    // orders in restaurant
     @GetMapping("/orders")
     public String orders(Model model, @AuthenticationPrincipal PersonDetails personDetails) {
         int person_id = personDetails.getPerson().getId();
@@ -59,12 +63,14 @@ public class AdminController {
         return "admin/orders";
     }
 
+    // deteils of order
     @GetMapping("/orders/{id}")
     public String orderById(@PathVariable("id") int id, Model model) {
         model.addAttribute("purchase", purchaseService.findById(id));
         return "admin/orderInfo";
     }
 
+    // edit form of status of order
     @GetMapping("/orders/{id}/edit")
     public String editStatus(Model model, @PathVariable("id") int id) {
         model.addAttribute("purchase", purchaseService.findById(id));
@@ -72,9 +78,30 @@ public class AdminController {
         return "admin/orderEdit";
     }
 
+    // confirmation of editing
     @PostMapping("/submitOrder/{id}")
-    public String submitOrder(@ModelAttribute("purchase") Purchase purchase, @PathVariable("id") int id) {
+    public String submitOrder(@ModelAttribute("purchase") Purchase purchase, @PathVariable("id") int id,
+                              @AuthenticationPrincipal PersonDetails personDetails) {
         purchaseService.changeStatus(id, purchase.getStatus());
+        MailStructure mail = new MailStructure();
+        mail.setSubject("Зміна статусу замовлення");
+        if (purchase.getStatus().equals(Status.In_progress)) {
+            mail.setSubject("Зміна статусу замовлення");
+            mail.setMessage("Ваше замовлення готується");
+            mailService.sendMail(personDetails.getPerson().getEmail(), mail);
+        } else if (purchase.getStatus().equals(Status.Delivered)){
+            mail.setSubject("Замовлення отриманно");
+            mail.setMessage("");
+            mailService.sendMail(personDetails.getPerson().getEmail(), mail);
+        } else if (purchase.getStatus().equals(Status.Canceled)) {
+            mail.setSubject("Замовлення скасовано");
+            mail.setMessage("");
+            mailService.sendMail(personDetails.getPerson().getEmail(), mail);
+        } else {
+            mail.setSubject("Замовлення отриманно");
+            mail.setMessage("Ваше замовлення в дорозі");
+            mailService.sendMail(personDetails.getPerson().getEmail(), mail);
+        }
         return "redirect:/admin/orders/{id}";
     }
 }
