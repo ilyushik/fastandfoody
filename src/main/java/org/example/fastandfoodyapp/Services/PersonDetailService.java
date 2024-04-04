@@ -26,4 +26,12 @@ public class PersonDetailService implements UserDetailsService {
         }
         return new PersonDetails(person.get());
     }
+
+    public Optional<Person> findByPhone(String phone) {
+        return personRepository.findPersonByPhone(phone);
+    }
+
+    public Optional<Person> findByEmail(String email) {
+        return personRepository.findPersonByEmail(email);
+    }
 }

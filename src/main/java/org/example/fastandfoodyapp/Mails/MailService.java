@@ -29,6 +29,15 @@ public class MailService {
         javaMailSender.send(simpleMailMessage);
     }
 
+    public void senFromCustomerMail(String email, MailStructure mailStructure) {
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setFrom(email);
+        simpleMailMessage.setSubject(mailStructure.getSubject());
+        simpleMailMessage.setText(mailStructure.getMessage());
+        simpleMailMessage.setTo(fromMail);
+        javaMailSender.send(simpleMailMessage);
+    }
+
     public void sendMailWithAttachment(String email, MailStructure mailStructure, String attachmentPath) {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         try {

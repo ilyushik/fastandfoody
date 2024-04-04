@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum Delivery_Way {
-    Delivery("Доставка_курєром"),
+    Delivery("Доставка курʼєром"),
     PickUp("Самовивіз");
 
     private final String displayName;

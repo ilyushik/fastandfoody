@@ -25,9 +25,17 @@ public class PersonValidation implements Validator {
         Person person = (Person) target;
         try {
             personDetailService.loadUserByUsername(person.getUsername());
+            errors.rejectValue("username", "", "Користувач с таким ім'ям вже існує!");
         } catch (UsernameNotFoundException e) {
             return;
         }
-        errors.rejectValue("username", "", "Користувач с таким ім'ям вже існує!");
+
+        if (personDetailService.findByPhone(person.getPhone()).isEmpty()) {
+            errors.rejectValue("phone", "", "Користувач с таким номером вже існує!");
+        }
+
+        if (personDetailService.findByEmail(person.getEmail()).isEmpty()) {
+            errors.rejectValue("email", "", "Користувач с такою поштою вже існує!");
+        }
     }
 }

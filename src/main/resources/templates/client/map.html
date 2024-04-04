@@ -9,9 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<div th:insert="client/header :: header"></div>
+<div class="hole_screen_map">
+    <div th:insert="client/header :: header"></div>
+    <div id="map" class="map_class"></div>
+</div>
 <div th:insert="client/footer :: footer"></div>
-<div id="map" class="map_class"></div>
 <script>
     function initMap() {
         const map = new google.maps.Map(document.getElementById("map"), {

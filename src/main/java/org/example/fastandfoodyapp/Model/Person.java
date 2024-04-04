@@ -50,7 +50,7 @@ public class Person {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "person_role", nullable = false)
-    private User_Role person_role;
+    private User_Role personRole;
 
     @OneToOne(mappedBy = "admin_id")
     private Restaurant restaurant_id;

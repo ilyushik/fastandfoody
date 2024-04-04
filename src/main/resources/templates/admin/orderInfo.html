@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Замовлення #' + ${purchase.getId()}"></title>
+</head>
+<body>
+    <div>
+        <p th:text="'Замовник: ' + ${purchase.getPerson_id().getUsername()}"></p>
+        <p th:text="'Адреса: ' + ${purchase.getAddress()}"></p>
+        <p th:text="'Статус: ' + ${purchase.getStatus().getDisplayName()}"></p>
+        <a th:href="'/admin/orders/' + ${purchase.getId()} + '/edit'">Змінити статус</a>
+    </div>
+</body>
+</html>

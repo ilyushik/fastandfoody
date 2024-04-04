@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Замовлення #' + ${purchase.getId()}"></title>
+</head>
+<body>
+  <div>
+    <p th:text="${purchase.getDelivery_way().getDisplayName()}"></p>
+    <h4>Список товарів:</h4>
+    <div th:each="p : ${purchase.getOrder_item_id()}">
+      <p th:text="${p.getItem_id().getItem_name()} + ' ' + ${p.getCount()} + 'шт.'"></p>
+    </div>
+      <br>
+      <div th:if="${!purchase.getStatus().equals(T(org.example.fastandfoodyapp.Model.Enumerables.Status).Canceled) and !purchase.getStatus().equals(T(org.example.fastandfoodyapp.Model.Enumerables.Status).Delivered)}">
+          <form th:method="post" th:action="@{/order/{id}/cancel(id = ${purchase.getId()})}">
+              <button type="submit">Скасувати замовлення</button>
+          </form>
+      </div>
+  </div>
+</body>
+</html>

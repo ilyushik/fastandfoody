@@ -11,9 +11,14 @@
     <div class="user_navigation">
         <img class="user_img" src="https://www.soyuz.ru/public/uploads/files/2/7475348/20211117124509ab01a89ece.jpg"/>
         <div class="user_buttons">
-            <a href="#"><input class="edit" type="submit" value="Редагувати дані" /></a>
-            <a href="#"><input class="orders" type="submit" value="Мої замовлення" /></a>
-            <a href="#"><input class="delete" type="submit" value="Видалити обліковий запис" /></a>
+            <a href="/my_info/edit"><input class="edit" type="submit" value="Редагувати дані" /></a>
+            <a href="/my_info/orders"><input class="orders" type="submit" value="Мої замовлення" /></a>
+            <form th:action="@{/logout}" th:method="POST">
+                <input class="logout" type="submit" value="Вийти з аккаунту">
+            </form>
+            <form th:method="post" th:action="@{/my_info/delete}">
+                <input class="delete" type="submit" value="Видалити обліковий запис" />
+            </form>
         </div>
     </div>
     <div class="user_info">
@@ -22,21 +27,17 @@
         <h4 class="user_phone" th:text="${person.getPhone()}">Телефон</h4>
         <h4 class="user_username" th:text="${person.getUsername()}">Юзернейм</h4>
         <br><br>
-        <div th:if="${!purchases.isEmpty()}" class="active_orders">
+        <div th:if="${not purchases.isEmpty()}" class="active_orders">
             <h2>Активні замовлення:</h2>
             <div th:each="p : ${purchases}">
-                <p th:text="${p.getId()}"></p>
-<!--                <h3>Позиції:</h3>-->
-<!--                <ul th:each="item : ${p.getOrder_item_id()}">-->
-<!--                    <li th:text="${item.getItem_id().getItem_name()}"></li>-->
-<!--                </ul>-->
-<!--                <h3>Час приготування:</h3>-->
-<!--                <p th:text="${p.getPrep_time()}"></p>-->
                 <div class="order_link">
-                    <a class="zamovlennya" th:href="'/my_info/orders/' + ${p.getId()}" th:text="'Замовлення #' + ${p.getId()}">Замовлення #12345</a>
+                    <a class="zamovlennya" th:href="'/my_info/orders/' + ${p.getId()}" th:text="'Замовлення #' + ${p.getId()}">Замовлення #<span th:text="${p.getId()}"></span></a>
                     <p class="link_arrow">></p>
                 </div>
             </div>
+        </div>
+        <div th:if="${purchases.isEmpty()}">
+            <h2>Немає активних замовлень</h2>
         </div>
     </div>
 </div>
