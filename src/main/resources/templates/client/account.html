@@ -27,14 +27,17 @@
         <h4 class="user_phone" th:text="${person.getPhone()}">Телефон</h4>
         <h4 class="user_username" th:text="${person.getUsername()}">Юзернейм</h4>
         <br><br>
-        <div th:if="${!purchases.isEmpty()}" class="active_orders">
+        <div th:if="${not purchases.isEmpty()}" class="active_orders">
             <h2>Активні замовлення:</h2>
             <div th:each="p : ${purchases}">
                 <div class="order_link">
-                    <a class="zamovlennya" th:href="'/my_info/activeOrder/' + ${p.getId()}" th:text="'Замовлення #' + ${p.getId()}">Замовлення #12345</a>
+                    <a class="zamovlennya" th:href="'/my_info/orders/' + ${p.getId()}" th:text="'Замовлення #' + ${p.getId()}">Замовлення #<span th:text="${p.getId()}"></span></a>
                     <p class="link_arrow">></p>
                 </div>
             </div>
+        </div>
+        <div th:if="${purchases.isEmpty()}">
+            <h2>Немає активних замовлень</h2>
         </div>
     </div>
 </div>

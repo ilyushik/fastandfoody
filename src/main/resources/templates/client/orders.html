@@ -13,6 +13,10 @@
             <p th:text="${purchase.getId()}"></p>
             <p th:text="${purchase.getDelivery_way().getDisplayName()}"></p>
             <p th:text="${purchase.getStatus().getDisplayName()}"></p>
+            <br>
+            <a th:href="'/my_info/orders/' + ${purchase.getId()}">
+                <button>Детальніше</button>
+            </a>
             <hr>
         </div>
     </div>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${item.getItem_name()}"></title>
+</head>
+<body>
+    <div>
+        <p th:text="${item.getItem_name()}"></p>
+        <img style="width: 100px; height: 100px" th:src="'/images/' + ${item.getItem_img()}" alt=""/>
+        <p th:text="${item.getDescription()}"></p>
+    </div>
+</body>
+</html>

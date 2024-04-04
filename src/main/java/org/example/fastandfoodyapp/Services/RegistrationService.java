@@ -17,7 +17,7 @@ public class RegistrationService {
 
     @Transactional
     public void registration(Person person) {
-        person.setPerson_role(User_Role.ROLE_CLIENT);
+        person.setPersonRole(User_Role.ROLE_CLIENT);
         personRepository.save(person);
     }
 }

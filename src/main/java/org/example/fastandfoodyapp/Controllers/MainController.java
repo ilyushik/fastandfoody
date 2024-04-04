@@ -23,6 +23,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -45,8 +47,18 @@ public class MainController {
     private PurchaseService purchaseService;
 
     // main page
-    @GetMapping()
-    public String mainPage() {
+//    @GetMapping()
+//    public String mainPage() {
+//        return "client/main";
+//    }
+
+    @GetMapping("/")
+    public String defaultAfterLogin(HttpServletRequest request) {
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            return "redirect:/admin";
+        } else if (request.isUserInRole("ROLE_OWNER")) {
+            return "redirect:/owner";
+        }
         return "client/main";
     }
 
@@ -55,6 +67,12 @@ public class MainController {
     public String items(Model model) {
         model.addAttribute("items", itemService.getAllItemDTO());
         return "client/menu";
+    }
+
+    @GetMapping("/menu/{id}")
+    public String itemDetails(@PathVariable("id") int id, Model model) {
+        model.addAttribute("item", itemService.findItemById(id));
+        return "client/itemDetails";
     }
 
     // map with restaurants
@@ -94,14 +112,16 @@ public class MainController {
     @GetMapping("/my_info")
     public String account(@AuthenticationPrincipal PersonDetails personDetails, Model model) {
         Person person = personService.findById(personDetails.getPerson().getId());
-        List<Purchase> usersActivePurchases = person.getPurchases();
+        List<Purchase> usersActivePurchases = new ArrayList<>(person.getPurchases());
 
-        for(Purchase p : usersActivePurchases) {
-            if(p.getPerson_id().getId() != person.getId()) {
-                usersActivePurchases.remove(p);
+        Iterator<Purchase> iterator = usersActivePurchases.iterator();
+        while (iterator.hasNext()) {
+            Purchase p = iterator.next();
+            if (!p.getPerson_id().equals(person)) {
+                iterator.remove();
             } else {
                 if (p.getStatus().equals(Status.Delivered) || p.getStatus().equals(Status.Canceled)) {
-                    usersActivePurchases.remove(p);
+                    iterator.remove();
                 }
             }
         }
@@ -110,6 +130,7 @@ public class MainController {
         model.addAttribute("purchases", usersActivePurchases);
         return "client/account";
     }
+
 
     // edit person info
     @GetMapping("/my_info/edit")
@@ -125,13 +146,6 @@ public class MainController {
         MailStructure mail = new MailStructure("Ви успішно змінили ваші дані", "");
         mailService.sendMail(personDetails.getPerson().getEmail(), mail);
         return "redirect:/my_info";
-    }
-
-    // person active order details
-    @GetMapping("/my_info/activeOrder/{id}")
-    public String activeOrderById(@PathVariable("id") int id, Model model) {
-        model.addAttribute("purchase", purchaseService.findById(id));
-        return "client/activeOrderDetails";
     }
 
     // delete account
@@ -158,4 +172,30 @@ public class MainController {
         return "client/orders";
     }
 
+    // client can see order details by id
+    @GetMapping("/my_info/orders/{id}")
+    public String detailInfo(@PathVariable("id") int id, Model model) {
+        model.addAttribute("purchase", purchaseService.findById(id));
+        return "client/detailOrder";
+    }
+
+    // cancel order
+    @PostMapping("/order/{id}/cancel")
+    public String cancelOrder(@PathVariable("id") int id) {
+        purchaseService.cancelOrder(id);
+        return "redirect:/my_info/orders";
+    }
+
+    // form to reset password
+    @GetMapping("/forget_password")
+    public String forgetPassword() {
+        return "client/forgetPassword";
+    }
+
+    // reset password
+    @PostMapping("/reset_password")
+    public String resetPassword(@RequestParam("username") String username) {
+        personService.resetPassword(username);
+        return "redirect:/auth/login";
+    }
 }

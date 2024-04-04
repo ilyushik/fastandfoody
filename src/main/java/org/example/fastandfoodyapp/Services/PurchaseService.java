@@ -28,4 +28,10 @@ public class PurchaseService {
         purchase.setStatus(status);
         purchaseRepository.save(purchase);
     }
+
+    public void cancelOrder(int id) {
+        Purchase purchase = findById(id);
+        purchase.setStatus(Status.Canceled);
+        purchaseRepository.save(purchase);
+    }
 }
