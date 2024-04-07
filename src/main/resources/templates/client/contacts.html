@@ -20,7 +20,7 @@
                     <option value="">Всі (All)</option>
                     <option th:each="city : ${cities}" th:value="${city.getName()}" th:text="${city.getName()}"></option>
                 </select>
-                <button type="submit">Пошук (Search)</button>
+                <button type="submit">Пошук</button>
             </form>
 
             <div th:each="r : ${restaurants}">

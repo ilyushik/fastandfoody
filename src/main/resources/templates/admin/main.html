@@ -1,34 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Головна</title>
     <style>
-        .buttons {
+        .main {
             display: grid;
-            grid-row-gap: 10px;
-            width: 120px;
-            text-align: center;
-            box-shadow:
+            grid-template-columns: 40% 40%;
+            grid-column-gap: 10%;
         }
-
-        a {
-            text-decoration: none;
-            padding:10px;
-            background: blue;
-            color: white;
-            border-radius: 20px;
-            box-shadow: 2px 4px 7px rgba(0, 0, 0, 0.2);
-        }
-
-
     </style>
 </head>
 <body>
-    <main>
-        <div class="buttons">
-            <a href="admin/orders">Замовлення</a>
-            <a href="/admin/my_restaurant">Мій ресторан</a>
+    <main class="main">
+        <div class="restaurantInfoEdit">
+            <h2 th:text="'Ресторан №' + ${restaurant.getId()}"></h2>
+            <h4 th:text="${restaurant.getCity_id().getName()}"></h4>
+            <h4 th:text="${restaurant.getAddress()}"></h4>
+            <form th:method="POST" th:action="@{/admin/restaurantEdit}" th:object="${restaurant}">
+                <label for="phone">Телефон</label>
+                <input type="text" th:field="*{phone}" id="phone"><br>
+                <label for="email">Електронна адреса</label>
+                <input type="email" th:field="*{email}" id="email">
+                <br>
+                <input type="submit" value="Підтвердити">
+            </form>
+            <form th:method="POST" th:action="@{/admin/filter}">
+                <label for="orderId">Знайти замовлення:</label>
+                <input type="text" name="orderId" id="orderId">
+                <input type="submit" value="Пошук">
+            </form>
+            <div th:if="${!purchases.isEmpty()}" th:each="p : ${purchases}">
+                <a th:href="'/admin/order/' + ${p.getId()}"><p th:text="'Замовлення №: ' + ${p.getId()}"></p></a><br>
+            </div>
+        </div>
+        <div class="adminsInfoEdit">
+            <form th:method="POST" th:action="@{/admin/adminEdit}" th:object="${admin}">
+                <label for="name">Введіть ім'я</label>
+                <input type="text" th:field="*{name}" id="name">
+                <br>
+                <label for="surname">Введіть прізвище</label>
+                <input type="text" th:field="*{surname}" id="surname">
+                <br>
+                <label for="username">Введіть ім'я користувача</label>
+                <input type="text" th:field="*{username}" id="username">
+                <br>
+                <label for="adminPhone">Введіть номер телефону</label>
+                <input type="text" th:field="*{phone}" id="adminPhone">
+                <br>
+                <label for="adminEmail">Введіть пошту</label>
+                <input type="text" th:field="*{email}" id="adminEmail">
+                <br>
+                <label for="person_password">Введіть пароль</label>
+                <input type="text" th:field="*{person_password}" id="person_password">
+                <br>
+                <input type="submit" value="Підтвердити">
+            </form>
         </div>
     </main>
 </body>

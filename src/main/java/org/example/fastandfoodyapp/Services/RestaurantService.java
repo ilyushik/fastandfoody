@@ -7,6 +7,7 @@ import org.example.fastandfoodyapp.Repositories.CityRepository;
 import org.example.fastandfoodyapp.Repositories.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -57,5 +58,16 @@ public class RestaurantService {
             }
         }
         return restaurantsByCity;
+    }
+
+    public Restaurant byId(int id) {
+        return restaurantRepository.findById(id).orElseThrow();
+    }
+
+    public void editRestaurant(int id, Restaurant restaurant) {
+        Restaurant restaurant1 = byId(id);
+        restaurant1.setEmail(restaurant.getEmail());
+        restaurant1.setPhone(restaurant.getPhone());
+        restaurantRepository.save(restaurant1);
     }
 }

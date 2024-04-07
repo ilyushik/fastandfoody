@@ -23,7 +23,7 @@ public class Restaurant {
 
     @OneToOne
     @JoinColumn(name = "admin_id", referencedColumnName = "id", nullable = false)
-    private Person admin_id;
+    private Person adminId;
 
     @Column(name = "address", nullable = false)
     @Size(max = 64, message = "Не більше 64 символів")
@@ -49,9 +49,9 @@ public class Restaurant {
     @JoinColumn(name = "city_id", referencedColumnName = "id")
     private City city_id;
 
-    public Restaurant(Person admin_id, String address, double longitude, double latitude,
+    public Restaurant(Person adminId, String address, double longitude, double latitude,
                       String phone, String email, City city_id) {
-        this.admin_id = admin_id;
+        this.adminId = adminId;
         this.address = address;
         this.longitude = longitude;
         this.latitude = latitude;

@@ -14,5 +14,4 @@ import java.util.Optional;
 public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
     @Query("select r from Restaurant r where r.city_id = :id")
     public List<Restaurant> findByCity_id(@Param("id") int id);
-
 }

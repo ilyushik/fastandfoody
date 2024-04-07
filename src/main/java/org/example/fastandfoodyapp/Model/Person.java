@@ -52,7 +52,7 @@ public class Person {
     @Column(name = "person_role", nullable = false)
     private User_Role personRole;
 
-    @OneToOne(mappedBy = "admin_id")
+    @OneToOne(mappedBy = "adminId")
     private Restaurant restaurant_id;
 
     @OneToMany(mappedBy = "person_id", cascade = CascadeType.ALL)

@@ -2,9 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Редагування</title>
+    <title>Details</title>
 </head>
 <body>
+<div>
+    <a href="/admin">На головну</a>
+    <h3 th:text="'Замовлення №' + ${purchase.getId()}"></h3>
+    <p>ID замовлення: <span th:text="${purchase.getId()}"></span></p>
     <form th:action="@{/admin/submitOrder/{id}(id=${purchase.getId()})}" th:object="${purchase}" method="post">
         <label for="status">Змінити статус:</label>
         <select id="status" name="status" th:field="*{status}">
@@ -15,5 +19,6 @@
         </select>
         <button type="submit">Змінити статус</button>
     </form>
+</div>
 </body>
 </html>
