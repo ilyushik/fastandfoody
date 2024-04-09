@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Замовлення</title>
+</head>
+<body>
+    <div th:each="p : ${purchases}">
+        <a th:href="'/admin/person/' + ${p.getPerson_id().getId()} + '/orders/' + ${p.getId()}">
+            <p th:text="'Замовлення №' + ${p.getId()}"></p>
+        </a>
+        <br>
+    </div>
+</body>
+</html>

@@ -26,12 +26,15 @@
                 <input type="submit" value="Підтвердити">
             </form>
             <form th:method="POST" th:action="@{/admin/filter}">
-                <label for="orderId">Знайти замовлення:</label>
-                <input type="text" name="orderId" id="orderId">
+                <label for="phoneU">Знайти людину:</label>
+                <input type="text" name="phone" id="phoneU">
                 <input type="submit" value="Пошук">
             </form>
-            <div th:if="${!purchases.isEmpty()}" th:each="p : ${purchases}">
-                <a th:href="'/admin/order/' + ${p.getId()}"><p th:text="'Замовлення №: ' + ${p.getId()}"></p></a><br>
+            <div th:if="${!people.isEmpty()}" th:each="p : ${people}">
+                <a th:href="'/admin/person/' + ${p.getId()} + '/orders'">
+                    <p th:text="${p.getName()} + ' ' + ${p.getSurname()}"></p>
+                </a>
+                <br>
             </div>
         </div>
         <div class="adminsInfoEdit">

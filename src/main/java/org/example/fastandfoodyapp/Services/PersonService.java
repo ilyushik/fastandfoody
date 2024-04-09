@@ -62,4 +62,8 @@ public class PersonService {
         mailService.sendMail(person.getEmail(), mail);
         personRepository.save(person);
     }
+
+    public List<Person> byPhone(String phone) {
+        return personRepository.findByPhone(phone);
+    }
 }

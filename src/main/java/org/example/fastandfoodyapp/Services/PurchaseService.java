@@ -34,8 +34,4 @@ public class PurchaseService {
         purchase.setStatus(Status.Canceled);
         purchaseRepository.save(purchase);
     }
-
-    public List<Purchase> listById(int id) {
-        return purchaseRepository.findById(id);
-    }
 }

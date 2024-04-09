@@ -11,6 +11,4 @@ import java.util.List;
 @Repository
 public interface PurchaseRepository extends JpaRepository<Purchase, Integer> {
     public Purchase findPurchaseById(int id);
-
-    public List<Purchase> findById(int id);
 }

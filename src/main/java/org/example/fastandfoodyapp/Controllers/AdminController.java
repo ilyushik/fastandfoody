@@ -15,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.Null;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,28 +37,36 @@ public class AdminController {
     @GetMapping("")
     public String adminMain(Model model, @AuthenticationPrincipal PersonDetails personDetails) {
         Person person = personService.findById(personDetails.getPerson().getId());
-        List<Purchase> purchases = new ArrayList<>();
+        List<Person> people = new ArrayList<>();
         model.addAttribute("restaurant", restaurantService.byId(personDetails.getPerson().getRestaurant_id().getId()));
         model.addAttribute("admin", person);
-        model.addAttribute("purchases", purchases);
+        model.addAttribute("people", people);
         return "admin/main";
     }
 
     // find purchase by number
     @PostMapping("/filter")
-    public String orderFilter(@RequestParam("orderId") int id, Model model, @AuthenticationPrincipal PersonDetails personDetails) {
-        List<Purchase> purchaseById = purchaseService.listById(id);
+    public String orderFilter(@RequestParam("phone") String phone, Model model, @AuthenticationPrincipal PersonDetails personDetails) {
+        List<Person> personOrder = personService.byPhone(phone);
         Person person = personService.findById(personDetails.getPerson().getId());
         model.addAttribute("restaurant", restaurantService.byId(personDetails.getPerson().getRestaurant_id().getId()));
         model.addAttribute("admin", person);
-        model.addAttribute("purchases", purchaseById);
+        model.addAttribute("people", personOrder);
         return "admin/main";
     }
 
+    @GetMapping("/person/{personId}/orders")
+    public String personOrders(@PathVariable("personId") int personId, Model model) {
+        List<Purchase> purchases = purchaseService.purchases();
+        purchases.removeIf(p -> p.getPerson_id().getId() != personId);
+        model.addAttribute("purchases", purchases);
+        return "admin/personOrders";
+    }
+
     // detail page purchase
-    @GetMapping("/order/{id}")
-    public String orderDetails(@PathVariable("id") int id, Model model) {
-        model.addAttribute("purchase", purchaseService.findById(id));
+    @GetMapping("/person/{personId}/orders/{orderId}")
+    public String orderDetails(@PathVariable("orderId") int orderId, Model model, @PathVariable("personId") int personId) {
+        model.addAttribute("purchase", purchaseService.findById(orderId));
         model.addAttribute("statuses", Status.values());
         return "admin/orderDetails";
     }
@@ -68,27 +75,28 @@ public class AdminController {
     @PostMapping("/submitOrder/{id}")
     public String submitOrder(@ModelAttribute("purchase") Purchase purchase, @PathVariable("id") int id,
                               @AuthenticationPrincipal PersonDetails personDetails) {
+        Person user = purchaseService.findById(id).getPerson_id();
         purchaseService.changeStatus(id, purchase.getStatus());
         MailStructure mail = new MailStructure();
         mail.setSubject("Зміна статусу замовлення");
         if (purchase.getStatus().equals(Status.In_progress)) {
             mail.setSubject("Зміна статусу замовлення");
             mail.setMessage("Ваше замовлення готується");
-            mailService.sendMail(personDetails.getPerson().getEmail(), mail);
+            mailService.sendMail(user.getEmail(), mail);
         } else if (purchase.getStatus().equals(Status.Delivered)){
             mail.setSubject("Замовлення отриманно");
             mail.setMessage("");
-            mailService.sendMail(personDetails.getPerson().getEmail(), mail);
+            mailService.sendMail(user.getEmail(), mail);
         } else if (purchase.getStatus().equals(Status.Canceled)) {
             mail.setSubject("Замовлення скасовано");
             mail.setMessage("");
-            mailService.sendMail(personDetails.getPerson().getEmail(), mail);
+            mailService.sendMail(user.getEmail(), mail);
         } else {
             mail.setSubject("Замовлення отриманно");
             mail.setMessage("Ваше замовлення в дорозі");
-            mailService.sendMail(personDetails.getPerson().getEmail(), mail);
+            mailService.sendMail(user.getEmail(), mail);
         }
-        return "redirect:/admin/order/{id}";
+        return "redirect:/admin";
     }
 
     // edit restaurant info
