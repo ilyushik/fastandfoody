@@ -3,6 +3,7 @@ package org.example.fastandfoodyapp.Services;
 import org.example.fastandfoodyapp.Model.Enumerables.Status;
 import org.example.fastandfoodyapp.Model.Purchase;
 import org.example.fastandfoodyapp.Repositories.PurchaseRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class PurchaseService {
     }
 
     public List<Purchase> purchases() {
-        return purchaseRepository.findAll();
+        return purchaseRepository.findAll(Sort.by("id").descending());
     }
 
     public Purchase findById(int id) {
