@@ -23,13 +23,13 @@ VALUES ('ROLE_CLIENT'), ('ROLE_ADMIN'), ('ROLE_OWNER');
 #     ('Австрійский сніданок', 50, 'saldkfg;lakjsdlkfjlaskjdf;lkjsdj', 20, 'Breakfasts'),
 #     ('Флет уайт', 20, 'lksjhlkjfhsaldkjfhakjhsdlkfjhakjhsdlfkhalkf', 7, 'Cold_drinks');
 
-INSERT INTO Item(item_name, price, description, prep_time, category, item_img)
+INSERT INTO Item(item_name, price, description, prep_time, category, image)
 VALUES
-    ('Бургер зі свининою', 35, 'asdfa;slkjhfljahsdlfkjhalkjshdflas', 10, 'Pork', 'PorkBurger.jpeg'),
-    ('Чізбургер з рибою', 30, 'asdfalksjdlhflkjahsldkfjhlakjhsdflf', 10, 'Fish_and_chicken', 'FishCheeseburger.jpeg'),
-    ('Картопля по-запорізьки', 60, 'sadflgkja;skdjflkajsldkjfhlakf', 15, 'Fries_and_sauces', 'ZaporPotato.jpeg'),
-    ('Австрійский сніданок', 50, 'saldkfg;lakjsdlkfjlaskjdf;lkjsdj', 20, 'Breakfasts', 'austrianBreakfast.jpeg'),
-    ('Флет уайт', 20, 'lksjhlkjfhsaldkjfhakjhsdlkfjhakjhsdlfkhalkf', 7, 'Cold_drinks', 'flatWhite.jpeg');
+    ('Бургер зі свининою', 35, 'asdfa;slkjhfljahsdlfkjhalkjshdflas', 10, 'Pork', 3),
+    ('Чізбургер з рибою', 30, 'asdfalksjdlhflkjahsldkfjhlakjhsdflf', 10, 'Fish_and_chicken', 2),
+    ('Картопля по-запорізьки', 60, 'sadflgkja;skdjflkajsldkjfhlakf', 15, 'Fries_and_sauces', 5),
+    ('Австрійский сніданок', 50, 'saldkfg;lakjsdlkfjlaskjdf;lkjsdj', 20, 'Breakfasts', 4),
+    ('Флет уайт', 20, 'lksjhlkjfhsaldkjfhakjhsdlkfjhakjhsdlfkhalkf', 7, 'Cold_drinks', 6);
 
 INSERT INTO Order_Item(count, prep_time, item_id)
 VALUES (1, 45, 3),
@@ -38,12 +38,12 @@ VALUES (1, 45, 3),
        (4, 20, 3),
        (5, 23, 2);
 
-INSERT INTO person(name, surname, phone, email, username, person_password, person_role)
-VALUES ('Ілля', 'Камаралі', '+380972224444', 'kamaraliilya@gmail.com', 'IlliaKamarali', '12345678', 'ROLE_OWNER'),
-       ('Ілля', 'Кисельов', '+380972342344', 'illia.kamarali.work@gmail.com', '1902Illia', '14141414', 'ROLE_ADMIN'),
-       ('Богдан', 'Хохлов', '+380923234234', 'khokhlov@gmail.com', 'Bodya0301', '01010101', 'ROLE_ADMIN'),
-       ('Андрій', 'Мацієвский', '+380972435678', 'matsiev2006@gmail.com', 'SushiMaster', '11111111', 'ROLE_ADMIN'),
-       ('Денис', 'Кухарик', '+380978765432', 'kykharykden11223@gmail.com', 'Kukhar_ua', '11112222', 'ROLE_ADMIN');
+INSERT INTO person(name, surname, phone, email, username, person_password, person_role, image)
+VALUES ('Ілля', 'Камаралі', '+380972224444', 'kamaraliilya@gmail.com', 'IlliaKamarali', '12345678', 'ROLE_OWNER', 7),
+       ('Ілля', 'Кисельов', '+380972342344', 'illia.kamarali.work@gmail.com', '1902Illia', '14141414', 'ROLE_ADMIN', 1),
+       ('Богдан', 'Хохлов', '+380923234234', 'khokhlov@gmail.com', 'Bodya0301', '01010101', 'ROLE_ADMIN', 8),
+       ('Андрій', 'Мацієвский', '+380972435678', 'matsiev2006@gmail.com', 'SushiMaster', '11111111', 'ROLE_ADMIN', 9),
+       ('Денис', 'Кухарик', '+380978765432', 'kykharykden11223@gmail.com', 'Kukhar_ua', '11112222', 'ROLE_ADMIN', 10);
 
 INSERT INTO city(name, longitude, latitude) VALUES
     ('Маріуполь', 47.104500, 37.543761),

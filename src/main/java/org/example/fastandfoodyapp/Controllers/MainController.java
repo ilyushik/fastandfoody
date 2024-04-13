@@ -3,6 +3,7 @@ package org.example.fastandfoodyapp.Controllers;
 import lombok.AllArgsConstructor;
 import org.example.fastandfoodyapp.Mails.MailService;
 import org.example.fastandfoodyapp.Mails.MailStructure;
+import org.example.fastandfoodyapp.Model.DTO.ItemDTO;
 import org.example.fastandfoodyapp.Model.DTO.RestaurantDTO;
 import org.example.fastandfoodyapp.Model.Enumerables.Status;
 import org.example.fastandfoodyapp.Model.Person;
@@ -13,6 +14,7 @@ import org.example.fastandfoodyapp.Services.PersonService;
 import org.example.fastandfoodyapp.Services.PurchaseService;
 import org.example.fastandfoodyapp.Services.RestaurantService;
 import org.example.fastandfoodyapp.Services.Service.ItemService;
+import org.example.fastandfoodyapp.Services.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,9 +23,12 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Iterator;
 import java.util.List;
 
@@ -46,11 +51,25 @@ public class MainController {
     @Autowired
     private PurchaseService purchaseService;
 
+    @Autowired
+    private StorageService storageService;
+
     // main page
 //    @GetMapping()
 //    public String mainPage() {
 //        return "client/main";
 //    }
+
+    @GetMapping("/form")
+    public String uploadForm() {
+        return "mainForm";
+    }
+
+    @PostMapping("/uploadImage")
+    public String uploadImage(@RequestParam("image") MultipartFile image) throws IOException {
+        storageService.uploadImage(image);
+        return "redirect:/form";
+    }
 
     @GetMapping("/")
     public String defaultAfterLogin(HttpServletRequest request) {
@@ -65,7 +84,13 @@ public class MainController {
     // menu with items
     @GetMapping("/menu")
     public String items(Model model) {
-        model.addAttribute("items", itemService.getAllItemDTO());
+        List<ItemDTO> itemDTOS = itemService.getAllItemDTO();
+        for (ItemDTO i : itemDTOS) {
+            String image = Base64.getEncoder().encodeToString(storageService.
+                    downloadImage(itemService.findItemById(i.getId()).getImage().getName()));
+            i.setImage(image);
+        }
+        model.addAttribute("items", itemDTOS);
         return "client/menu";
     }
 
@@ -126,6 +151,8 @@ public class MainController {
             }
         }
 
+        String logo = Base64.getEncoder().encodeToString(storageService.downloadImage(person.getImage().getName()));
+        model.addAttribute("logo", logo);
         model.addAttribute("person", person);
         model.addAttribute("purchases", usersActivePurchases);
         return "client/account";

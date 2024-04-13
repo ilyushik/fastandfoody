@@ -28,14 +28,12 @@ CREATE TABLE IF NOT EXISTS User_Role (
     user_role VARCHAR(32) UNIQUE NOT NULL
 );
 
-# CREATE TABLE IF NOT EXISTS Image(
-#     id BIGINT PRIMARY KEY AUTO_INCREMENT,
-#     name VARCHAR(64) NOT NULL,
-#     originalFileName VARCHAR(64) NOT NULL ,
-#     size BIGINT NOT NULL ,
-#     contentType VARCHAR(64) NOT NULL ,
-#     bytes LONGBLOB
-# );
+create table Image (
+    id bigint primary key auto_increment,
+    image_data mediumblob,
+    name varchar(255),
+    type varchar(255)
+);
 
 CREATE TABLE IF NOT EXISTS Item (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -43,8 +41,7 @@ CREATE TABLE IF NOT EXISTS Item (
     price INT NOT NULL,
     description TEXT NOT NULL,
     prep_time INT NOT NULL,
-    item_img varchar(64) UNIQUE NOT NULL ,
-#     image int UNIQUE REFERENCES Image(id),
+    image int UNIQUE REFERENCES Image(id),
     category VARCHAR(32) REFERENCES Category(category_name)
 );
 
@@ -63,8 +60,8 @@ CREATE TABLE IF NOT EXISTS Person(
   email VARCHAR(64) NOT NULL ,
   username VARCHAR(32) UNIQUE NOT NULL,
   person_password VARCHAR(32) CHECK (length(person_password) > 7),
-  person_role VARCHAR(32) NOT NULL REFERENCES User_Role(user_role)
-#   image int UNIQUE REFERENCES Image(id)
+  person_role VARCHAR(32) NOT NULL REFERENCES User_Role(user_role),
+  image int REFERENCES Image(id)
 );
 
 CREATE TABLE IF NOT EXISTS City(

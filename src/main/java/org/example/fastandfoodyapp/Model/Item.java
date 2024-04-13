@@ -34,9 +34,6 @@ public class Item {
     @Column(name = "prep_time", nullable = false)
     private int prep_time;
 
-    @Column(name = "item_img", nullable = false)
-    private String item_img;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "category")
     private Category category;
@@ -44,13 +41,16 @@ public class Item {
     @OneToMany(mappedBy = "item_id", cascade = CascadeType.ALL)
     private List<Order_Item> order_items;
 
+    @OneToOne
+    @JoinColumn(name = "image", referencedColumnName = "id")
+    private Image image;
 
-    public Item(String item_name, int price, String description, int prep_time, String item_img, Category category) {
+
+    public Item(String item_name, int price, String description, int prep_time, Category category) {
         this.item_name = item_name;
         this.price = price;
         this.description = description;
         this.prep_time = prep_time;
-        this.item_img = item_img;
         this.category = category;
     }
 }

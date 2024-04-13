@@ -58,6 +58,10 @@ public class Person {
     @OneToMany(mappedBy = "person_id", cascade = CascadeType.ALL)
     private List<Purchase> purchases;
 
+    @OneToOne
+    @JoinColumn(name = "image", referencedColumnName = "id")
+    private Image image;
+
     public Person(String name, String surname, String phone,
                   String email, String username, String person_password) {
         this.name = name;
