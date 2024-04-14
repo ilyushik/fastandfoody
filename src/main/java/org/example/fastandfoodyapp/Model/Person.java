@@ -58,7 +58,7 @@ public class Person {
     @OneToMany(mappedBy = "person_id", cascade = CascadeType.ALL)
     private List<Purchase> purchases;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "image", referencedColumnName = "id")
     private Image image;
 

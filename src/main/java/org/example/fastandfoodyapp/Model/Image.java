@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "Image")
 @Data
@@ -22,8 +24,8 @@ public class Image {
     @Column(name = "imageData", length = 10000000)
     private byte[] imageData;
 
-    @OneToOne(mappedBy = "image")
-    private Person person;
+    @OneToMany(mappedBy = "image", cascade = CascadeType.ALL)
+    private List<Person> person;
 
     @OneToOne(mappedBy = "image")
     private Item item;

@@ -32,9 +32,10 @@
       <input type="password" th:field="*{person_password}" id="person_password">
       <div style="color: red" th:if="${#fields.hasErrors('person_password')}" th:errors="*{person_password}">Проблема з паролем</div>
       <br>
-      <label for="file">Виберіть картинку</label><br>
-      <input type="file" name="file" id="file" accept="image/*">
-      <br><br>
+<!--      if person wants to upload image -->
+<!--      <label for="file">Виберіть картинку</label><br>-->
+<!--      <input type="file" name="file" id="file" accept="image/*">-->
+<!--      <br><br>-->
       <input type="submit" value="Зареєструватися">
   </form>
 </body>

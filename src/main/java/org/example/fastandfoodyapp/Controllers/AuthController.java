@@ -36,14 +36,28 @@ public class AuthController {
         return "auth/registration";
     }
 
+    // registration with uploading image
+//    @PostMapping("/registration")
+//    public String performRegistration(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult,
+//                                      @RequestParam("file") MultipartFile file) throws IOException {
+//        personValidation.validate(person, bindingResult);
+//        if(bindingResult.hasErrors()) {
+//            return "/auth/registration";
+//        }
+//        registrationService.registration(person, file);
+//        MailStructure mail = new MailStructure("Реєстрація успішна", person.getName() +
+//                ", вітаємо Вас у нашому ресторані");
+//        mailService.sendMail(person.getEmail(), mail);
+//        return "redirect:/auth/login";
+//    }
+
     @PostMapping("/registration")
-    public String performRegistration(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult,
-                                      @RequestParam("file") MultipartFile file) throws IOException {
+    public String performRegistration(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
         personValidation.validate(person, bindingResult);
         if(bindingResult.hasErrors()) {
             return "/auth/registration";
         }
-        registrationService.registration(person, file);
+        registrationService.registration(person);
         MailStructure mail = new MailStructure("Реєстрація успішна", person.getName() +
                 ", вітаємо Вас у нашому ресторані");
         mailService.sendMail(person.getEmail(), mail);

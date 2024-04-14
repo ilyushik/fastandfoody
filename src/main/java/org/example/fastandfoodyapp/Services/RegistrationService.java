@@ -24,12 +24,20 @@ public class RegistrationService {
         this.storageRepository = storageRepository;
     }
 
+    // registration with uploading image
+//    @Transactional
+//    public void registration(Person person, MultipartFile file) throws IOException {
+//        storageService.uploadImage(file);
+//        person.setPersonRole(User_Role.ROLE_CLIENT);
+//        Image image = storageRepository.findByName(file.getOriginalFilename()).orElseThrow();
+//        person.setImage(image);
+//        personRepository.save(person);
+//    }
+
     @Transactional
-    public void registration(Person person, MultipartFile file) throws IOException {
-        storageService.uploadImage(file);
+    public void registration(Person person) {
         person.setPersonRole(User_Role.ROLE_CLIENT);
-        Image image = storageRepository.findByName(file.getOriginalFilename()).orElseThrow();
-        person.setImage(image);
+        person.setImage(storageRepository.findByName("default.png").orElseThrow());
         personRepository.save(person);
     }
 }

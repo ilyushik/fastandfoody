@@ -41,7 +41,7 @@ public class Item {
     @OneToMany(mappedBy = "item_id", cascade = CascadeType.ALL)
     private List<Order_Item> order_items;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "image", referencedColumnName = "id")
     private Image image;
 
