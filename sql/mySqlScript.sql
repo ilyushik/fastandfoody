@@ -28,14 +28,14 @@ CREATE TABLE IF NOT EXISTS User_Role (
     user_role VARCHAR(32) UNIQUE NOT NULL
 );
 
-# CREATE TABLE IF NOT EXISTS Image(
-#     id BIGINT PRIMARY KEY AUTO_INCREMENT,
-#     name VARCHAR(64) NOT NULL,
-#     originalFileName VARCHAR(64) NOT NULL ,
-#     size BIGINT NOT NULL ,
-#     contentType VARCHAR(64) NOT NULL ,
-#     bytes LONGBLOB
-# );
+-- # CREATE TABLE IF NOT EXISTS Image(
+-- #     id BIGINT PRIMARY KEY AUTO_INCREMENT,
+-- #     name VARCHAR(64) NOT NULL,
+-- #     originalFileName VARCHAR(64) NOT NULL ,
+-- #     size BIGINT NOT NULL ,
+-- #     contentType VARCHAR(64) NOT NULL ,
+-- #     bytes LONGBLOB
+-- # );
 
 CREATE TABLE IF NOT EXISTS Item (
     id INT PRIMARY KEY AUTO_INCREMENT,
