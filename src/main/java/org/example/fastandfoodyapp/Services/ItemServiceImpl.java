@@ -24,7 +24,7 @@ public class ItemServiceImpl implements ItemService {
                     itemDTO.setId(s.getId());
                     itemDTO.setName(s.getItem_name());
                     itemDTO.setCategory(s.getCategory().getDisplayName());
-                    itemDTO.setImage(s.getItem_img());
+                    itemDTO.setImage("");
                     itemDTO.setPrice(s.getPrice());
                     return itemDTO;
                 }).collect(Collectors.toList());

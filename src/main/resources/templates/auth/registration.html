@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-  <form th:method="POST" th:action="@{/auth/registration}" th:object="${person}">
+  <form th:method="POST" th:action="@{/auth/registration}" th:object="${person}" enctype="multipart/form-data">
       <label for="name">Введіть ім'я</label>
       <input type="text" th:field="*{name}" id="name">
       <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Проблема з ім'ям</div>
@@ -32,6 +32,10 @@
       <input type="password" th:field="*{person_password}" id="person_password">
       <div style="color: red" th:if="${#fields.hasErrors('person_password')}" th:errors="*{person_password}">Проблема з паролем</div>
       <br>
+<!--      if person wants to upload image -->
+<!--      <label for="file">Виберіть картинку</label><br>-->
+<!--      <input type="file" name="file" id="file" accept="image/*">-->
+<!--      <br><br>-->
       <input type="submit" value="Зареєструватися">
   </form>
 </body>

@@ -3,15 +3,18 @@ package org.example.fastandfoodyapp.Controllers;
 import lombok.AllArgsConstructor;
 import org.example.fastandfoodyapp.Mails.MailService;
 import org.example.fastandfoodyapp.Mails.MailStructure;
+import org.example.fastandfoodyapp.Model.DTO.ItemDTO;
 import org.example.fastandfoodyapp.Model.DTO.RestaurantDTO;
 import org.example.fastandfoodyapp.Model.Enumerables.Status;
+import org.example.fastandfoodyapp.Model.Image;
+import org.example.fastandfoodyapp.Model.Item;
 import org.example.fastandfoodyapp.Model.Person;
 import org.example.fastandfoodyapp.Model.Purchase;
 import org.example.fastandfoodyapp.Repositories.CityRepository;
+import org.example.fastandfoodyapp.Repositories.PersonRepository;
+import org.example.fastandfoodyapp.Repositories.StorageRepository;
 import org.example.fastandfoodyapp.Security.PersonDetails;
-import org.example.fastandfoodyapp.Services.PersonService;
-import org.example.fastandfoodyapp.Services.PurchaseService;
-import org.example.fastandfoodyapp.Services.RestaurantService;
+import org.example.fastandfoodyapp.Services.*;
 import org.example.fastandfoodyapp.Services.Service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -21,11 +24,11 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.io.IOException;
+import java.util.*;
 
 @Controller
 @AllArgsConstructor
@@ -46,11 +49,32 @@ public class MainController {
     @Autowired
     private PurchaseService purchaseService;
 
+    @Autowired
+    private StorageService storageService;
+
+    @Autowired
+    private ItemServiceImpl itemServiceImpl;
+    @Autowired
+    private StorageRepository storageRepository;
+    @Autowired
+    private PersonRepository personRepository;
+
     // main page
 //    @GetMapping()
 //    public String mainPage() {
 //        return "client/main";
 //    }
+
+    @GetMapping("/form")
+    public String uploadForm() {
+        return "mainForm";
+    }
+
+    @PostMapping("/uploadImage")
+    public String uploadImage(@RequestParam("image") MultipartFile image) throws IOException {
+        storageService.uploadImage(image);
+        return "redirect:/form";
+    }
 
     @GetMapping("/")
     public String defaultAfterLogin(HttpServletRequest request) {
@@ -65,13 +89,22 @@ public class MainController {
     // menu with items
     @GetMapping("/menu")
     public String items(Model model) {
-        model.addAttribute("items", itemService.getAllItemDTO());
+        List<ItemDTO> itemDTOS = itemService.getAllItemDTO();
+        for (ItemDTO i : itemDTOS) {
+            String image = Base64.getEncoder().encodeToString(storageService.
+                    downloadImage(itemService.findItemById(i.getId()).getImage().getName()));
+            i.setImage(image);
+        }
+        model.addAttribute("items", itemDTOS);
         return "client/menu";
     }
 
     @GetMapping("/menu/{id}")
     public String itemDetails(@PathVariable("id") int id, Model model) {
-        model.addAttribute("item", itemService.findItemById(id));
+        Item item = itemServiceImpl.findItemById(id);
+        String image = Base64.getEncoder().encodeToString(storageService.downloadImage(item.getImage().getName()));
+        model.addAttribute("item", item);
+        model.addAttribute("image", image);
         return "client/itemDetails";
     }
 
@@ -126,6 +159,8 @@ public class MainController {
             }
         }
 
+        String logo = Base64.getEncoder().encodeToString(storageService.downloadImage(person.getImage().getName()));
+        model.addAttribute("logo", logo);
         model.addAttribute("person", person);
         model.addAttribute("purchases", usersActivePurchases);
         return "client/account";
@@ -135,7 +170,10 @@ public class MainController {
     // edit person info
     @GetMapping("/my_info/edit")
     public String edit(@AuthenticationPrincipal PersonDetails personDetails, Model model) {
-        model.addAttribute("person", personDetails.getPerson());
+        Person person = personDetails.getPerson();
+        String image = Base64.getEncoder().encodeToString(storageService.downloadImage(person.getImage().getName()));
+        model.addAttribute("person", person);
+        model.addAttribute("image", image);
         return "client/editPerson";
     }
 
@@ -145,6 +183,21 @@ public class MainController {
         personService.editInfo(person, id);
         MailStructure mail = new MailStructure("Ви успішно змінили ваші дані", "");
         mailService.sendMail(personDetails.getPerson().getEmail(), mail);
+        return "redirect:/my_info";
+    }
+
+    @PostMapping("/my_info/{id}/uploadImage")
+    public String imageEdit(@PathVariable("id") int id, @RequestParam("file") MultipartFile file, @AuthenticationPrincipal PersonDetails personDetails) throws IOException {
+        storageService.uploadImage(file);
+        Image image = storageRepository.findByName(file.getOriginalFilename()).orElseThrow();
+        Person person = personDetails.getPerson();
+        String imageBefore = person.getImage().getName();
+        Image imageToDelete = storageRepository.findByName(imageBefore).orElseThrow();
+        person.setImage(image);
+        personRepository.save(person);
+        if (!imageBefore.equals("default.png")) {
+            storageRepository.delete(imageToDelete);
+        }
         return "redirect:/my_info";
     }
 
@@ -159,7 +212,9 @@ public class MainController {
         MailStructure mail = new MailStructure("Ви видалили свій акаунт", "");
         mailService.sendMail(personDetails.getPerson().getEmail(), mail);
 
+        Image image = personDetails.getPerson().getImage();
         personService.deletePerson(personDetails.getPerson().getId());
+        storageRepository.delete(image);
         return "redirect:/";
     }
 

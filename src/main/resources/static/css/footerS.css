@@ -1,0 +1,52 @@
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 5%;
+}
+
+.logo_footer {
+    width: 82px;
+}
+
+.corp_name {
+    width: 209px;
+    font-size: 19px;
+    padding: 0 5px;
+}
+
+.logo_and_corp_name {
+    position: fixed;
+    left: 5%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.social_media {
+    display: flex;
+    align-items: center;
+}
+
+.social_media a {
+    width: 50px;
+    height: 50px;
+    transition: 0.4s ease;
+}
+
+.social_media a:hover {
+    transform: scale(1.3);
+}
+
+.payment {
+    position: fixed;
+    right: 5%;
+    display: flex;
+    justify-content: right;
+    align-items: right
+}
+
+.payment img {
+    width: 100px;
+    height: 60px;
+}

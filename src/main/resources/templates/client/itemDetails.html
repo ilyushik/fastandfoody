@@ -7,7 +7,7 @@
 <body>
     <div>
         <p th:text="${item.getItem_name()}"></p>
-        <img style="width: 100px; height: 100px" th:src="'/images/' + ${item.getItem_img()}" alt=""/>
+        <img class="item-image" th:src="@{'data:image/png;base64,' + ${image}}" alt="">
         <p th:text="${item.getDescription()}"></p>
     </div>
 </body>
