@@ -3,47 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <title>Ресторани (Restaurants)</title>
-    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/head.css">
     <link rel="stylesheet" type="text/css" href="/css/contacts.css">
-    <link rel="stylesheet" type="text/css" href="/css/footer.css">
+    <link rel="stylesheet" type="text/css" href="/css/footerS.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+<div class="back"></div>
+<div th:insert="client/header :: header"></div>
 <div class="hole_screen">
-    <div th:insert="client/header :: header"></div>
-    <div>
-        <h1>Ресторани</h1>
+
+    <div class="all_info">
         <div style="padding-left: 20%; padding-right: 20%">
-            <form th:action="@{/contacts}" method="get">
-                <label for="city">Оберіть місто (Choose City):</label>
-                <select id="city" name="city">
-                    <option value="">Всі (All)</option>
-                    <option th:each="city : ${cities}" th:value="${city.getName()}" th:text="${city.getName()}"></option>
-                </select>
+            <form id="searchForm" th:action="@{/contacts}" method="get">
+                <label class="choose_city" for="city">Оберіть ваше місто:</label>
+                <div class="select">
+                    <select id="city" name="city">
+                        <option value="">Всі</option>
+                        <option th:each="city : ${cities}" th:value="${city.getName()}" th:text="${city.getName()}"></option>
+                    </select>
+                </div>
                 <button type="submit">Пошук</button>
             </form>
 
-            <div th:each="r : ${restaurants}">
+            <div class="address_link" th:each="r : ${restaurants}">
                 <div class="restaurant">
+                    <div class="restaurant_info">
+                        <p class="restaurant_number" th:text="'Ресторан №' + ${r.getId()}"></p>
+                        <p class="restaurant_address" th:text="${r.getAddress()}"></p>
+                    </div>
                     <a th:href="'/contacts/' + ${r.getId()}">
-                        <h3 th:text="${r.getCity_id().getName()}"></h3>
-                        <p th:text="${r.getAddress()}"></p>
+                        <img class="arrow" src="/images/arrow-right-short.png" alt="">
                     </a>
                 </div>
+                <br>
             </div>
         </div>
+    </div>
+
+    <div class="map">
+
     </div>
 </div>
 <div th:insert="client/footer :: footer"></div>
 <script>
-    menu.onclick = function myFunc() {
-        var x = document.getElementById("myTopnav");
-        if(x.className === "topnav") {
-            x.className += " responsive";
-        } else {
-            x.className = "topnav";
-        }
-    }
+    const citySelect = document.getElementById('city');
+
+    citySelect.addEventListener('change', function() {
+        const form = document.getElementById('searchForm');
+        form.submit();
+    });
+</script>
+
+<script>
+    document.querySelector('.burger').addEventListener('click', function() {
+        this.classList.toggle('active');
+        document.querySelector('.nav').classList.toggle('open');
+    })
 </script>
 </body>
 </html>
