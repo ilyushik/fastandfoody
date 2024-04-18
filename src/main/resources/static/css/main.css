@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 .back {
     position: fixed;
     display: block;
@@ -48,17 +50,23 @@
     color: #ffffff;
     font-size: 38px;
     padding-bottom: 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: normal;
 }
 
 .text p {
     color: #eeeeee;
     font-size: 23px;
     padding-bottom: 5%;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: normal;
 }
 
 .text a button {
     text-decoration: none;
     color: #eeeeee;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: normal;
 }
 
 .text button {
@@ -68,8 +76,9 @@
     border-radius: 20px;
     padding: 10px;
     font-size: 26px;
-    font-weight: bold;
     transition: 0.4s ease;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: normal;
 }
 
 a button:hover {

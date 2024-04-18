@@ -1,0 +1,27 @@
+body {
+    height: 100%;
+    margin: 0;
+    /*text-align: center;*/
+}
+
+#map {
+    border-radius: 30px;
+}
+
+@media screen and (min-width: 1600px) {
+    .map_class {
+        height: 60vh;
+        width: 60vw;
+        margin-top: 2vh;
+        margin-left: 15vw
+    }
+}
+
+@media screen and (max-width: 1600px) {
+    .map_class {
+        height: 70vh;
+        width: 60vw;
+        margin-top: 2vh;
+        margin-left: 15vw
+    }
+}

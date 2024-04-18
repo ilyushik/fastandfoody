@@ -3,52 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <title>Про нас</title>
-    <link rel="stylesheet" type="text/css" href="/css/header.css">
-    <link rel="stylesheet" type="text/css" href="/css/footer.css">
+    <link rel="stylesheet" type="text/css" href="/css/head.css">
+    <link rel="stylesheet" type="text/css" href="/css/footerS.css">
+    <link rel="stylesheet" type="text/css" href="/css/map.css">
     <link rel="stylesheet" type="text/css" href="/css/about.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+<div class="back"></div>
+<div th:insert="client/header :: header"></div>
 <div class="hole_screen_about">
-    <div th:insert="client/header :: header"></div>
-    <div style="padding-left: 20%; padding-right: 20%; padding-bottom: 20vh">
-        <h2>Про нас</h2>
-        <p>Ласкаво просимо в наш затишний куточок кулінарних насолод - ресторан Fast&Foody. Ми пишаємося тим, що пропонуємо не просто страви, а справжні шедеври гастрономії, створені з любов'ю та натхненням.
-
-            У Fast&Foody ми прагнемо задовольнити найвишуканіші смаки наших гостей. Наша кухня - це поєднання традицій та інновацій, в якій кожна страва - це унікальне поєднання свіжих, високоякісних інгредієнтів і тонкої майстерності наших шеф-кухарів.
-
-            Ми запрошуємо вас у дивовижну подорож світом смаку та аромату, де кожен шматочок приносить радість і насолоду. Незалежно від того, чи приходите ви до нас на романтичну вечерю, сімейний обід або ділову зустріч, наша команда готова створити для вас
-            незабутній досвід.
-
-            Наша атмосфера - це спокійний і затишний простір, наповнений теплом і гостинністю. Ми прагнемо до того, щоб кожен гість почувався як удома і насолоджувався кожним моментом, проведеним у нашому ресторані.
-
-            Ми запрошуємо вас насолодитися чудовими стравами, вишуканими напоями та чудовим обслуговуванням у ресторані Fast&Foody. Дозвольте нам подбати про ваш досвід і перетворити ваше відвідування на незабутню пригоду у світі смаку та гастрономічних відкриттів.
-
-            Ласкаво просимо до Fast&Foody - де кожен прийом їжі стає святом!</p>
-        <h2>Історія створення</h2>
-        <p>Наша історія почалася багато років тому, коли два пристрасних любителя кулінарії, Джон і Анна, зустрілися в університеті, де вони навчалися на кулінарних курсах. Їхня спільна пристрасть до їжі та бажання створити щось унікальне привели їх до ідеї
-            відкриття власного ресторану.
-
-            З кожним роком їхня мрія ставала дедалі конкретнішою, і разом вони почали працювати над своїм проєктом. Ідея полягала не тільки у створенні місця, де можна було б насолоджуватися чудовою кухнею, а й у створенні унікальної атмосфери, яка б відображала
-            їхню пристрасть до гастрономії та гостинності.
-
-            Після багатьох років праці та відданості, їхня мрія стала реальністю. У 2010 році ресторан Fast&Foody відкрив свої двері для відвідувачів. Відтоді він став не просто місцем, де можна поїсти, а справжнім символом кулінарного мистецтва і теплого прийому.
-
-            Ми пишаємося нашим шляхом, нашими досягненнями і нашою здатністю приносити радість і задоволення кожному, хто відвідує наш ресторан. Наша історія - це історія пристрасті, відданості та любові до їжі, яка продовжує надихати нас і наших гостей щодня.
-
-            Дякуємо, що робите нас частиною своїх історій і пригод. Ласкаво просимо до Fast&Foody, де кожен куточок сповнений смаком і теплом!</p>
+    <div class="block_1">
+        <div class="text">
+            <p class="title">Про нас</p>
+            <div class="text_info">
+                <p>
+                    Ласкаво просимо в наш затишний куточок
+                    кулінарних насолод - ресторан Fast&Foody.
+                    Ми пишаємося тим, що пропонуємо не просто страви,
+                    а справжні шедеври гастрономії, створені з любов'ю
+                    та натхненням.
+                </p>
+                <br>
+                <p>
+                    У Fast&Foody ми прагнемо
+                    задовольнити найвишуканіші смаки наших гостей.
+                    Наша кухня - це поєднання традицій та інновацій,
+                    в якій кожна страва - це унікальне поєднання свіжих,
+                    високоякісних інгредієнтів і тонкої майстерності
+                    наших шеф-кухарів.
+                </p>
+                <br>
+                <p>
+                    Ми запрошуємо вас у
+                    дивовижну подорож світом смаку та аромату, де
+                    кожен шматочок приносить радість і насолоду.
+                    Незалежно від того, чи приходите ви до нас на
+                    романтичну вечерю, сімейний обід або ділову
+                    зустріч, наша команда готова створити для вас
+                    незабутній досвід.
+                </p>
+            </div>
+        </div>
+        <img src="/images/about_us_img.png" alt="">
     </div>
+    <br>
+    <div class="block_2">
+        <div class="text">
+            <p class="title">Історія створення</p>
+            <div class="text_info">
+                <p>
+                    Наша історія почалася багато років тому, коли два
+                    пристрасних любителя кулінарії, Джон і Анна, зустрілися
+                    в університеті, де вони навчалися на кулінарних курсах.
+                    Їхня спільна пристрасть до їжі та бажання створити щось
+                    унікальне привели їх до ідеї відкриття власного
+                    ресторану.
+                </p>
+                <br>
+                <p>
+                    З кожним роком їхня мрія ставала дедалі конкретнішою, і
+                    разом вони почали працювати над своїм проєктом. Ідея
+                    полягала не тільки у створенні місця, де можна було б
+                    насолоджуватися чудовою кухнею, а й у створенні
+                    унікальної атмосфери, яка б відображала їхню пристрасть
+                    до гастрономії та гостинності.
+                </p>
+                <br>
+                <p>
+                    Після багатьох років праці та відданості, їхня мрія
+                    стала реальністю. У 1963 році ресторан Fast&Foody
+                    відкрив свої двері для відвідувачів. Відтоді він став
+                    не просто місцем, де можна поїсти, а справжнім символом
+                    кулінарного мистецтва і теплого прийому.
+                </p>
+            </div>
+        </div>
+        <img src="/images/history_img.png" alt="">
+    </div>
+
+    <div id="map" class="map_class"></div>
 </div>
     <div th:insert="client/footer :: footer"></div>
-    <script>
-        menu.onclick = function myFunc() {
-            var x = document.getElementById("myTopnav");
-            if(x.className === "topnav") {
-                x.className += " responsive";
-            } else {
-                x.className = "topnav";
-            }
-        }
-    </script>
+
+<script>
+    function initMap() {
+        const map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: 48.935852, lng: 31.468681 },
+            zoom: 6,
+        });
+        const infowindow = new google.maps.InfoWindow();
+
+        const serviceUrl = "http://localhost:8080/maps";
+
+        fetch(serviceUrl)
+            .then(response => response.json())
+            .then(markers => {
+                markers.forEach(marker => {
+                    const { id, address, latitude, longitude } = marker;
+
+                    const markerPosition = { lat: longitude, lng: latitude };
+
+                    const newMarker = new google.maps.Marker({
+                        map,
+                        position: markerPosition
+                    });
+
+                    google.maps.event.addListener(newMarker, "click", () => {
+                        const content = document.createElement("div");
+                        const nameElement = document.createElement("h2");
+
+                        nameElement.textContent = id;
+                        content.appendChild(nameElement);
+
+                        const placeIdElement = document.createElement("p");
+
+                        placeIdElement.textContent = id;
+                        content.appendChild(placeIdElement);
+
+                        const placeAddressElement = document.createElement("p");
+
+                        placeAddressElement.textContent = address;
+                        content.appendChild(placeAddressElement);
+
+                        infowindow.setContent(content);
+                        infowindow.open(map, newMarker);
+                    });
+                });
+            })
+            .catch(error => console.error("Error fetching markers:", error));
+    }
+
+    window.initMap = initMap;
+</script>
+
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHjH0Z1pCYmXr5y7AuHZgS-2rmU8VbOiQ&callback=initMap"
+        async defer
+></script>
+<script>
+    document.querySelector('.burger').addEventListener('click', function() {
+        this.classList.toggle('active');
+        document.querySelector('.nav').classList.toggle('open');
+    })
+</script>
 </body>
 </html>

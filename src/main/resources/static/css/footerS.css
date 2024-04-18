@@ -43,7 +43,7 @@
     right: 5%;
     display: flex;
     justify-content: right;
-    align-items: right
+    /*align-items: right;*/
 }
 
 .payment img {

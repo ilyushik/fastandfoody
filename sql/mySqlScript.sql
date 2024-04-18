@@ -28,23 +28,12 @@ CREATE TABLE IF NOT EXISTS User_Role (
     user_role VARCHAR(32) UNIQUE NOT NULL
 );
 
-<<<<<<< HEAD
--- # CREATE TABLE IF NOT EXISTS Image(
--- #     id BIGINT PRIMARY KEY AUTO_INCREMENT,
--- #     name VARCHAR(64) NOT NULL,
--- #     originalFileName VARCHAR(64) NOT NULL ,
--- #     size BIGINT NOT NULL ,
--- #     contentType VARCHAR(64) NOT NULL ,
--- #     bytes LONGBLOB
--- # );
-=======
 create table Image (
     id bigint primary key auto_increment,
     image_data mediumblob,
     name varchar(255),
     type varchar(255)
 );
->>>>>>> c0839cc2281b73db834c3ded104cf559b9161e6c
 
 CREATE TABLE IF NOT EXISTS Item (
     id INT PRIMARY KEY AUTO_INCREMENT,

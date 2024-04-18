@@ -108,12 +108,6 @@ public class MainController {
         return "client/itemDetails";
     }
 
-    // map with restaurants
-    @GetMapping("/map")
-    public String maps(Model model) {
-        return "client/map";
-    }
-
     // find contacts of restaurants
     @GetMapping("/contacts")
     public String contacts(@RequestParam(name = "city", required = false) String city, Model model) {
