@@ -75,6 +75,7 @@
     grid-column-gap: 5vw;
     justify-content: center;
     padding-top: 4vh;
+    margin-bottom: 150px;
 }
 
 @media screen and (min-width: 1600px) {
@@ -94,9 +95,23 @@
 
     .address, .phone, .mail {
         grid-template-columns: 10% 20%;
+        font-size: 15px;
+    }
+
+    .img_address, .img_phone, .img_mail {
+        width: 35px;
     }
 
     .week_timetable p {
+        font-size: 15px;
         padding: 5px;
+    }
+
+    .text_timetable {
+        font-size: 25px;
+    }
+
+    .title {
+        font-size: 35px;
     }
 }

@@ -9,7 +9,7 @@
 <body>
 <div class="user_container">
     <div class="user_navigation">
-        <img th:src="@{'data:image/png;base64,' + ${logo}}" alt="">
+        <img style="width: 200px" th:src="@{'data:image/png;base64,' + ${logo}}" alt="">
         <div class="user_buttons">
             <a href="/my_info/edit"><input class="edit" type="submit" value="Редагувати дані" /></a>
             <a href="/my_info/orders"><input class="orders" type="submit" value="Мої замовлення" /></a>

@@ -9,16 +9,6 @@ body {
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
-.footer {
-    width: 100%;
-    height: 120px;
-    background-color: rgb(255, 255, 255);
-    border: 1px 0 0 0 solid black;
-    position: fixed;
-    bottom: 0;
-    box-shadow: 0 -4px 13px  grey;
-}
-
 *{
     padding: 0;
     margin: 0;
