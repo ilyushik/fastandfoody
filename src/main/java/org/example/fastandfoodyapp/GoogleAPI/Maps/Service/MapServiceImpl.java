@@ -17,13 +17,16 @@ public class MapServiceImpl implements MapService{
 
     public List<MarkerDTO> getAllMarkerDTO() {
         List<Restaurant> restaurants = restaurantRepository.findAll();
+        List<MarkerDTO> markers = restaurantToMarkerDTO(restaurants);
+        return markers;
+    }
 
+    public List<MarkerDTO> restaurantToMarkerDTO(List<Restaurant> restaurants) {
         List<MarkerDTO> markers = restaurants.stream().map(r -> MarkerDTO.builder().id(r.getId())
-                .address(r.getAddress())
-                .longitude(r.getLongitude())
-                .latitude(r.getLatitude()).build())
+                        .address(r.getAddress())
+                        .longitude(r.getLongitude())
+                        .latitude(r.getLatitude()).build())
                 .toList();
-
         return markers;
     }
 }

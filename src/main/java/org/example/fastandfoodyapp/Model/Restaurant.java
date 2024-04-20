@@ -46,17 +46,17 @@ public class Restaurant {
     private List<Purchase> purchases;
 
     @ManyToOne
-    @JoinColumn(name = "city_id", referencedColumnName = "id")
-    private City city_id;
+    @JoinColumn(name = "cityId", referencedColumnName = "id")
+    private City cityId;
 
     public Restaurant(Person adminId, String address, double longitude, double latitude,
-                      String phone, String email, City city_id) {
+                      String phone, String email, City cityId) {
         this.adminId = adminId;
         this.address = address;
         this.longitude = longitude;
         this.latitude = latitude;
         this.phone = phone;
         this.email = email;
-        this.city_id = city_id;
+        this.cityId = cityId;
     }
 }

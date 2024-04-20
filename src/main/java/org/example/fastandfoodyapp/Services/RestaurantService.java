@@ -7,7 +7,6 @@ import org.example.fastandfoodyapp.Repositories.CityRepository;
 import org.example.fastandfoodyapp.Repositories.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ public class RestaurantService {
         restaurantDTO.setPhone(restaurant.getPhone());
         restaurantDTO.setAddress(restaurant.getAddress());
         restaurantDTO.setEmail(restaurant.getEmail());
-        restaurantDTO.setCity_id(restaurant.getCity_id());
+        restaurantDTO.setCityId(restaurant.getCityId());
         restaurantDTO.setLongitude(restaurantDTO.getLongitude());
         restaurantDTO.setLatitude(restaurantDTO.getLatitude());
         return restaurantDTO;
@@ -45,7 +44,7 @@ public class RestaurantService {
 
     public List<RestaurantDTO> byCity() {
         City city = cityRepository.findCityByName("Mariupol");
-        return restaurantRepository.findByCity_id(city.getId()).stream()
+        return restaurantRepository.findByCityId(city.getId()).stream()
                 .map(this::getRestaurantDTO).collect(Collectors.toList());
     }
 
@@ -53,7 +52,7 @@ public class RestaurantService {
         List<RestaurantDTO> allRestaurants = restaurantsDTO();
         List<RestaurantDTO> restaurantsByCity = new ArrayList<>();
         for (RestaurantDTO r : allRestaurants) {
-            if (r.getCity_id().getName().equals(city)) {
+            if (r.getCityId().getName().equals(city)) {
                 restaurantsByCity.add(r);
             }
         }

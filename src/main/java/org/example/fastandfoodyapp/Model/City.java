@@ -29,7 +29,7 @@ public class City {
     @Column(name = "latitude", nullable = false)
     private double latitude;
 
-    @OneToMany(mappedBy = "city_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cityId", cascade = CascadeType.ALL)
     private List<Restaurant> restaurants;
 
     public City(String name, double longitude, double latitude) {

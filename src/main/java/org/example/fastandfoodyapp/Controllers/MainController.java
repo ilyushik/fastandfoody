@@ -77,12 +77,19 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String defaultAfterLogin(HttpServletRequest request) {
+    public String defaultAfterLogin(HttpServletRequest request, @AuthenticationPrincipal PersonDetails personDetails, Model model) {
         if (request.isUserInRole("ROLE_ADMIN")) {
             return "redirect:/admin";
         } else if (request.isUserInRole("ROLE_OWNER")) {
             return "redirect:/owner";
         }
+        boolean authenticated = false;
+        if (personDetails != null) {
+            authenticated = true;
+        } else {
+            authenticated = false;
+        }
+        model.addAttribute("authenticated", authenticated);
         return "client/main";
     }
 
@@ -112,11 +119,16 @@ public class MainController {
     @GetMapping("/contacts")
     public String contacts(@RequestParam(name = "city", required = false) String city, Model model) {
         List<RestaurantDTO> restaurants;
+        boolean filter = false;
         if (city != null && !city.isEmpty()) {
             restaurants = restaurantService.findRestaurantByCity(city);
+            filter = true;
         } else {
             restaurants = restaurantService.restaurantsDTO();
+            filter = false;
         }
+        model.addAttribute("filteredCity", cityRepository.findCityByName(city));
+        model.addAttribute("filter", filter);
         model.addAttribute("restaurants", restaurants);
         model.addAttribute("cities", cityRepository.findAll());
         return "client/contacts";

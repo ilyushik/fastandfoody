@@ -3,89 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <title>Контактна інформація</title>
-    <link rel="stylesheet" type="text/css" href="/css/restContactsStyle.css">
-    <link rel="stylesheet" type="text/css" href="/css/mapS.css">
+    <link rel="stylesheet" type="text/css" href="/css/head.css">
+    <link rel="stylesheet" type="text/css" href="/css/restContact.css">
+    <link rel="stylesheet" type="text/css" href="/css/footerS.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<h1>Контактна інформація</h1>
-<div class="contact-info">
-    <h3><p th:text="${restContacts.getCity_id().getName()}"></p></h3>
-    <h4><p th:text="${restContacts.getAddress()}"></p></h4>
-    <p th:text="${restContacts.getPhone()}"></p>
-    <a th:href="'mailto:' + ${restContacts.getEmail()}" th:text="${restContacts.getEmail()}"></a>
-    <input type="hidden" id="restContactId" th:value="${restContacts.getId()}" />
-    <input type="hidden" id="restLat" th:value="${restContacts.getCity_id().getLatitude()}" />
-    <input type="hidden" id="restLon" th:value="${restContacts.getCity_id().getLongitude()}" />
+<div class="back"></div>
+<div th:insert="client/header :: header"></div>
+<div class="hole_screen">
+    <div class="block_left">
+        <p class="title" th:text="'Ресторан №' + ${restContacts.getId()}">Ресторан №1</p>
+        <div class="contact-info">
+            <div class="address">
+                <img class="img_address" src="/images/marker.png" alt="">
+                <p th:text="${restContacts.getAddress()}">  Вул. Шаргородська 4</p>
+            </div>
+            <br>
+            <div class="phone">
+                <img class="img_phone" src="/images/phone.png" alt="">
+                <p th:text="${restContacts.getPhone()}">+380(98)-453-67-21</p>
+            </div>
+            <br>
+            <div class="mail">
+                <img class="img_mail" src="/images/mail.png" alt="">
+                <a th:href="'mailto:' + ${restContacts.getEmail()}" th:text="${restContacts.getEmail()}">fastandfoodycorp@gmail.com</a>
+            </div>
+            <br>
+            <div class="timetable">
+                <p class="text_timetable">Графік роботи</p>
+                <div class="week_timetable">
+                    <p>Понеділок 08:00 - 20:00</p>
+                    <p>Вівторок 08:00 - 20:00</p>
+                    <p>Середа 08:00 - 20:00</p>
+                    <p>Четвер 08:00 - 20:00</p>
+                    <p>П’ятниця 08:00 - 20:00</p>
+                    <p>Субота 09:00 - 17:00</p>
+                    <p>Неділя 10:00 - 15:00</p>
+                </div>
+            </div>
+
+            <input type="hidden" id="restContactId" th:value="${restContacts.getId()}" />
+            <input type="hidden" id="restLat" th:value="${restContacts.getCityId().getLatitude()}" />
+            <input type="hidden" id="restLon" th:value="${restContacts.getCityId().getLongitude()}" />
+        </div>
+    </div>
+
+    <div class="map-container">
+        <div id="map" class="map_class"></div>
+    </div>
 </div>
+<script>
+    function fetchData(url) {
+        // Возвращаем результат вызова fetch
+        return fetch(url)
+            .then(response => {
+                // Проверяем успешность ответа
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                // Возвращаем парсинг JSON
+                return response.json();
+            })
+            .catch(error => {
+                // Обрабатываем ошибки fetch
+                console.error('Fetch error:', error);
+                // Возвращаем пустой массив или другое значение по умолчанию при ошибке
+                return [];
+            });
+    }
 
-<div class="map-container">
-    <div id="map"></div>
-    <script>
-        function fetchData(url) {
-            // Возвращаем результат вызова fetch
-            return fetch(url)
-                .then(response => {
-                    // Проверяем успешность ответа
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    // Возвращаем парсинг JSON
-                    return response.json();
-                })
-                .catch(error => {
-                    // Обрабатываем ошибки fetch
-                    console.error('Fetch error:', error);
-                    // Возвращаем пустой массив или другое значение по умолчанию при ошибке
-                    return [];
-                });
-        }
+    const restContactId = document.getElementById("restContactId").value;
+    const link = `http://localhost:8080/maps/${restContactId}`
 
-        const restContactId = document.getElementById("restContactId").value;
-        const link = `http://localhost:8080/maps/${restContactId}`
+    const marker = fetchData(link);
+    fetchData(link)
+        .then(marker => {
+            console.log(marker); // Здесь можно обрабатывать данные marker
+        });
 
-        const marker = fetchData(link);
-        fetchData(link)
+    const { id, address, latitude, longitude } = marker;
+
+    function initMap() {
+        const cityLon = parseFloat(document.getElementById("restLon").value);
+        const cityLat = parseFloat(document.getElementById("restLat").value);
+
+        const map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: cityLon, lng: cityLat },
+            zoom: 12,
+        });
+        const infowindow = new google.maps.InfoWindow();
+
+        fetch(link)
+            .then(response => response.json())
             .then(marker => {
-                console.log(marker); // Здесь можно обрабатывать данные marker
-            });
+                const { id, address, latitude, longitude } = marker;
 
-        const { id, address, latitude, longitude } = marker;
+                const markerPosition = { lat: longitude, lng: latitude };
 
-        function initMap() {
-            const cityLon = parseFloat(document.getElementById("restLon").value);
-            const cityLat = parseFloat(document.getElementById("restLat").value);
+                const newMarker = new google.maps.Marker({
+                    map,
+                    position: markerPosition
+                });
+            })
+            .catch(error => console.error("Error fetching marker:", error));
 
-            const map = new google.maps.Map(document.getElementById("map"), {
-                center: { lat: cityLon, lng: cityLat },
-                zoom: 12,
-            });
-            const infowindow = new google.maps.InfoWindow();
+    }
 
-            fetch(link)
-                .then(response => response.json())
-                .then(marker => {
-                    const { id, address, latitude, longitude } = marker;
-
-                    const markerPosition = { lat: longitude, lng: latitude };
-
-                    const newMarker = new google.maps.Marker({
-                        map,
-                        position: markerPosition
-                    });
-                })
-                .catch(error => console.error("Error fetching marker:", error));
-
-        }
-
-        window.initMap = initMap;
-    </script>
+    window.initMap = initMap;
+</script>
 
 
-    <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHjH0Z1pCYmXr5y7AuHZgS-2rmU8VbOiQ&callback=initMap"
-            async defer
-    ></script>
-</div>
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHjH0Z1pCYmXr5y7AuHZgS-2rmU8VbOiQ&callback=initMap"
+        async defer
+></script>
 </body>
 </html>

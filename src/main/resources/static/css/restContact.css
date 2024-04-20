@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.back {
+    position: fixed;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: url(../images/background.png);
+    background-repeat: repeat;
+    filter: blur(5px);
+    z-index: -5;
+    background-color: black;
+    opacity: 0.8;
+}
+
+.address, .phone, .mail {
+    display: grid;
+    grid-template-columns: 7% 9%;
+    grid-column-gap: 10px;
+    white-space: nowrap;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 23px;
+    color: #eeeeee;
+    align-items: center;
+}
+
+.mail a {
+    color: #EEEEEE;
+}
+
+.img_address, .img_phone, .img_mail {
+    width: 45px;
+}
+
+.title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: #eeeeee;
+    font-size: 45px;
+}
+
+.contact-info {
+    margin-left: 3vw;
+}
+
+.text_timetable {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: #eeeeee;
+    font-size: 38px;
+}
+
+.week_timetable {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: #eeeeee;
+    font-size: 23px;
+    margin-left: 3vw;
+}
+
+.week_timetable p {
+    padding: 10px;
+}
+
+#map, #mapFilter {
+    border-radius: 30px;
+}
+
+.hole_screen {
+    display: grid;
+    grid-template-columns: 30% 40%;
+    grid-column-gap: 5vw;
+    justify-content: center;
+    padding-top: 4vh;
+}
+
+@media screen and (min-width: 1600px) {
+    .map_class, .mapFilter_class {
+        height: 900px;
+        width: 900px;
+        margin-top: 2vh;
+    }
+}
+
+@media screen and (max-width: 1600px) {
+    .map_class, .mapFilter_class {
+        height: 500px;
+        width: 500px;
+        margin-top: 2vh;
+    }
+
+    .address, .phone, .mail {
+        grid-template-columns: 10% 20%;
+    }
+
+    .week_timetable p {
+        padding: 5px;
+    }
+}

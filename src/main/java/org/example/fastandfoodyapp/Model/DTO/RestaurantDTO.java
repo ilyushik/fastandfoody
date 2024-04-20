@@ -13,15 +13,15 @@ public class RestaurantDTO {
     private String address;
     private String email;
     private String phone;
-    private City city_id;
+    private City cityId;
     private double longitude;
     private double latitude;
 
-    public RestaurantDTO(String address, String email, String phone, City city_id, double longitude, double latitude) {
+    public RestaurantDTO(String address, String email, String phone, City cityId, double longitude, double latitude) {
         this.address = address;
         this.email = email;
         this.phone = phone;
-        this.city_id = city_id;
+        this.cityId = cityId;
         this.longitude = longitude;
         this.latitude = latitude;
     }

@@ -15,7 +15,7 @@
     <main class="main">
         <div class="restaurantInfoEdit">
             <h2 th:text="'Ресторан №' + ${restaurant.getId()}"></h2>
-            <h4 th:text="${restaurant.getCity_id().getName()}"></h4>
+            <h4 th:text="${restaurant.getCityId().getName()}"></h4>
             <h4 th:text="${restaurant.getAddress()}"></h4>
             <form th:method="POST" th:action="@{/admin/restaurantEdit}" th:object="${restaurant}">
                 <label for="phone">Телефон</label>

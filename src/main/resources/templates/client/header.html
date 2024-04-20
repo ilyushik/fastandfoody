@@ -18,8 +18,12 @@
                 <div class="topnav">
                     <a href="/about_us">Про нас</a>
                     <a href="/contacts">Контакти</a>
-                    <a href="/my_info">Особистій кабінет</a>
-                    <a href="/map">Ми на карті</a>
+                    <div th:if="${authenticated}">
+                        <a href="/my_info">Особистій кабінет</a>
+                    </div>
+                    <div th:unless="${authenticated}">
+                        <a href="/my_info">Увійти в кабінет</a>
+                    </div>
                     <a href="/menu">Меню</a>
                 </div>
             </nav>

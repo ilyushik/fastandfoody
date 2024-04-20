@@ -12,6 +12,6 @@ import java.util.Optional;
 
 @Repository
 public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
-    @Query("select r from Restaurant r where r.city_id = :id")
-    public List<Restaurant> findByCity_id(@Param("id") int id);
+    @Query("select r from Restaurant r where r.cityId = :id")
+    public List<Restaurant> findByCityId(int id);
 }
