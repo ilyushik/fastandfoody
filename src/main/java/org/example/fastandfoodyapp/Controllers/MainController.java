@@ -5,6 +5,7 @@ import org.example.fastandfoodyapp.Mails.MailService;
 import org.example.fastandfoodyapp.Mails.MailStructure;
 import org.example.fastandfoodyapp.Model.DTO.ItemDTO;
 import org.example.fastandfoodyapp.Model.DTO.RestaurantDTO;
+import org.example.fastandfoodyapp.Model.Enumerables.Category;
 import org.example.fastandfoodyapp.Model.Enumerables.Status;
 import org.example.fastandfoodyapp.Model.Image;
 import org.example.fastandfoodyapp.Model.Item;
@@ -102,7 +103,41 @@ public class MainController {
                     downloadImage(itemService.findItemById(i.getId()).getImage().getName()));
             i.setImage(image);
         }
-        model.addAttribute("items", itemDTOS);
+        List<ItemDTO> coldDrinks = new ArrayList<>();
+        List<ItemDTO> hotDrinks = new ArrayList<>();
+        List<ItemDTO> beef = new ArrayList<>();
+        List<ItemDTO> pork = new ArrayList<>();
+        List<ItemDTO> fishAndChicken = new ArrayList<>();
+        List<ItemDTO> desserts = new ArrayList<>();
+        List<ItemDTO> breakfasts = new ArrayList<>();
+        List<ItemDTO> friesAndSauces = new ArrayList<>();
+        for (ItemDTO i : itemDTOS) {
+            if (i.getCategory().equals(Category.Cold_drinks.getDisplayName())) {
+                coldDrinks.add(i);
+            } else if (i.getCategory().equals(Category.Hot_drinks.getDisplayName())) {
+                hotDrinks.add(i);
+            } else if (i.getCategory().equals(Category.Beef.getDisplayName())) {
+                beef.add(i);
+            } else if (i.getCategory().equals(Category.Pork.getDisplayName())) {
+                pork.add(i);
+            } else if (i.getCategory().equals(Category.Fish_and_chicken.getDisplayName())) {
+                fishAndChicken.add(i);
+            } else if (i.getCategory().equals(Category.Desserts.getDisplayName())) {
+                desserts.add(i);
+            } else if(i.getCategory().equals(Category.Breakfasts.getDisplayName())) {
+                breakfasts.add(i);
+            } else  {
+                friesAndSauces.add(i);
+            }
+        }
+        model.addAttribute("coldDrinks", coldDrinks);
+        model.addAttribute("hotDrinks", hotDrinks);
+        model.addAttribute("beef", beef);
+        model.addAttribute("pork", pork);
+        model.addAttribute("fishAndChicken", fishAndChicken);
+        model.addAttribute("desserts", desserts);
+        model.addAttribute("breakfast", breakfasts);
+        model.addAttribute("friesAndSauces", friesAndSauces);
         return "client/menu";
     }
 

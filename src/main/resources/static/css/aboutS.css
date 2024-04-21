@@ -45,10 +45,14 @@
     text-align: left;
 }
 
-.hole_screen_about {
-    margin-bottom: 150px;
+.hole_screen {
     padding-top: 20px;
     justify-content: center;
+}
+
+.map_class {
+    margin-top: 100px;
+    margin-bottom: 200px;
 }
 
 @media screen and (max-width: 1600px) {
