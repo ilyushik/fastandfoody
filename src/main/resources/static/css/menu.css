@@ -20,9 +20,15 @@ a {
 }
 
 .hole_screen {
-    display: block;
+    display: flex;
     padding: 20px;
     padding-bottom: 150px;
+    justify-content: center;
+}
+
+.list_menu {
+    display: block;
+    width: 80%;
 }
 
 .title {
@@ -88,5 +94,9 @@ a {
     .item_text {
         font-size: 15px;
         padding: 2vh 2vw;
+    }
+
+    .list_menu {
+        width: 90%;
     }
 }

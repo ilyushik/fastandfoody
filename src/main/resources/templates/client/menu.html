@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Меню</title>
     <link rel="stylesheet" type="text/css" href="/css/headS.css">
-    <link rel="stylesheet" type="text/css" href="/css/menuS.css">
+    <link rel="stylesheet" type="text/css" href="/css/menu.css">
     <link rel="stylesheet" type="text/css" href="/css/footer.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -13,107 +13,109 @@
 <div th:insert="client/header :: header"></div>
 <div class="hole_screen">
 
-    <div class="cold_drinks" th:if="${!coldDrinks.isEmpty()}">
-        <p class="title">Холодні напої</p>
-        <div class="grid" th:each="cd : ${coldDrinks}">
-            <a th:href="'/menu/' + ${cd.getId()}"><div class="item">
-                <img class="item_img" th:src="@{'data:image/png;base64,' + ${cd.getImage()}}" alt="">
-                <div class="item_text">
-                    <p class="item_name" th:text="${cd.getName()}"></p>
-                    <p class="item_price" th:text="${cd.getPrice()} + 'грн'"></p>
-                </div>
-            </div></a>
+    <div class="list_menu">
+        <div class="cold_drinks" th:if="${!coldDrinks.isEmpty()}">
+            <p class="title">Холодні напої</p>
+            <div class="grid" th:each="cd : ${coldDrinks}">
+                <a th:href="'/menu/' + ${cd.getId()}"><div class="item">
+                    <img class="item_img" th:src="@{'data:image/png;base64,' + ${cd.getImage()}}" alt="">
+                    <div class="item_text">
+                        <p class="item_name" th:text="${cd.getName()}"></p>
+                        <p class="item_price" th:text="${cd.getPrice()} + 'грн'"></p>
+                    </div>
+                </div></a>
+            </div>
         </div>
-    </div>
 
-    <div class="hot_drinks" th:if="${!hotDrinks.isEmpty()}">
-        <p class="title">Гарячі напої</p>
-        <div class="grid" th:each="hd : ${hotDrinks}">
-            <a th:href="'/menu/' + ${hd.getId()}"><div class="item">
-                <img class="item_img" th:src="@{'data:image/png;base64,' + ${hd.getImage()}}" alt="">
-                <div class="item_text">
-                    <p class="item_name" th:text="${hd.getName()}"></p>
-                    <p class="item_price" th:text="${hd.getPrice()} + 'грн'"></p>
-                </div>
-            </div></a>
+        <div class="hot_drinks" th:if="${!hotDrinks.isEmpty()}">
+            <p class="title">Гарячі напої</p>
+            <div class="grid" th:each="hd : ${hotDrinks}">
+                <a th:href="'/menu/' + ${hd.getId()}"><div class="item">
+                    <img class="item_img" th:src="@{'data:image/png;base64,' + ${hd.getImage()}}" alt="">
+                    <div class="item_text">
+                        <p class="item_name" th:text="${hd.getName()}"></p>
+                        <p class="item_price" th:text="${hd.getPrice()} + 'грн'"></p>
+                    </div>
+                </div></a>
+            </div>
         </div>
-    </div>
 
-    <div class="beef" th:if="${!beef.isEmpty()}">
-        <p class="title">Телятина</p>
-        <div class="grid" th:each="b : ${beef}">
-            <a th:href="'/menu/' + ${b.getId()}"><div class="item">
-                <img class="item_img" th:src="@{'data:image/png;base64,' + ${b.getImage()}}" alt="">
-                <div class="item_text">
-                    <p class="item_name" th:text="${b.getName()}"></p>
-                    <p class="item_price" th:text="${b.getPrice()} + 'грн'"></p>
-                </div>
-            </div></a>
+        <div class="beef" th:if="${!beef.isEmpty()}">
+            <p class="title">Телятина</p>
+            <div class="grid" th:each="b : ${beef}">
+                <a th:href="'/menu/' + ${b.getId()}"><div class="item">
+                    <img class="item_img" th:src="@{'data:image/png;base64,' + ${b.getImage()}}" alt="">
+                    <div class="item_text">
+                        <p class="item_name" th:text="${b.getName()}"></p>
+                        <p class="item_price" th:text="${b.getPrice()} + 'грн'"></p>
+                    </div>
+                </div></a>
+            </div>
         </div>
-    </div>
 
-    <div class="pork" th:if="${!pork.isEmpty()}">
-        <p class="title">Свинина</p>
-        <div class="grid" th:each="p : ${pork}">
-            <a th:href="'/menu/' + ${p.getId()}"><div class="item">
-                <img class="item_img" th:src="@{'data:image/png;base64,' + ${p.getImage()}}" alt="">
-                <div class="item_text">
-                    <p class="item_name" th:text="${p.getName()}"></p>
-                    <p class="item_price" th:text="${p.getPrice()} + 'грн'"></p>
-                </div>
-            </div></a>
+        <div class="pork" th:if="${!pork.isEmpty()}">
+            <p class="title">Свинина</p>
+            <div class="grid" th:each="p : ${pork}">
+                <a th:href="'/menu/' + ${p.getId()}"><div class="item">
+                    <img class="item_img" th:src="@{'data:image/png;base64,' + ${p.getImage()}}" alt="">
+                    <div class="item_text">
+                        <p class="item_name" th:text="${p.getName()}"></p>
+                        <p class="item_price" th:text="${p.getPrice()} + 'грн'"></p>
+                    </div>
+                </div></a>
+            </div>
         </div>
-    </div>
 
-    <div class="fishAndChicken" th:if="${!fishAndChicken.isEmpty()}">
-        <p class="title">Риба та курка</p>
-        <div class="grid" th:each="fch : ${fishAndChicken}">
-            <a th:href="'/menu/' + ${fch.getId()}"><div class="item">
-                <img class="item_img" th:src="@{'data:image/png;base64,' + ${fch.getImage()}}" alt="">
-                <div class="item_text">
-                    <p class="item_name" th:text="${fch.getName()}"></p>
-                    <p class="item_price" th:text="${fch.getPrice()} + 'грн'"></p>
-                </div>
-            </div></a>
+        <div class="fishAndChicken" th:if="${!fishAndChicken.isEmpty()}">
+            <p class="title">Риба та курка</p>
+            <div class="grid" th:each="fch : ${fishAndChicken}">
+                <a th:href="'/menu/' + ${fch.getId()}"><div class="item">
+                    <img class="item_img" th:src="@{'data:image/png;base64,' + ${fch.getImage()}}" alt="">
+                    <div class="item_text">
+                        <p class="item_name" th:text="${fch.getName()}"></p>
+                        <p class="item_price" th:text="${fch.getPrice()} + 'грн'"></p>
+                    </div>
+                </div></a>
+            </div>
         </div>
-    </div>
 
-    <div class="desserts" th:if="${!desserts.isEmpty()}">
-        <p class="title">Десерти</p>
-        <div class="grid" th:each="d : ${desserts}">
-            <a th:href="'/menu/' + ${d.getId()}"><div class="item">
-                <img class="item_img" th:src="@{'data:image/png;base64,' + ${d.getImage()}}" alt="">
-                <div class="item_text">
-                    <p class="item_name" th:text="${d.getName()}"></p>
-                    <p class="item_price" th:text="${d.getPrice()} + 'грн'"></p>
-                </div>
-            </div></a>
+        <div class="desserts" th:if="${!desserts.isEmpty()}">
+            <p class="title">Десерти</p>
+            <div class="grid" th:each="d : ${desserts}">
+                <a th:href="'/menu/' + ${d.getId()}"><div class="item">
+                    <img class="item_img" th:src="@{'data:image/png;base64,' + ${d.getImage()}}" alt="">
+                    <div class="item_text">
+                        <p class="item_name" th:text="${d.getName()}"></p>
+                        <p class="item_price" th:text="${d.getPrice()} + 'грн'"></p>
+                    </div>
+                </div></a>
+            </div>
         </div>
-    </div>
 
-    <div class="breakfast" th:if="${!breakfast.isEmpty()}">
-        <p class="title">Телятина</p>
-        <div class="grid" th:each="br : ${breakfast}">
-            <a th:href="'/menu/' + ${br.getId()}"><div class="item">
-                <img class="item_img" th:src="@{'data:image/png;base64,' + ${br.getImage()}}" alt="">
-                <div class="item_text">
-                    <p class="item_name" th:text="${br.getName()}"></p>
-                    <p class="item_price" th:text="${br.getPrice()} + 'грн'"></p>
-                </div>
-            </div></a>
+        <div class="breakfast" th:if="${!breakfast.isEmpty()}">
+            <p class="title">Телятина</p>
+            <div class="grid" th:each="br : ${breakfast}">
+                <a th:href="'/menu/' + ${br.getId()}"><div class="item">
+                    <img class="item_img" th:src="@{'data:image/png;base64,' + ${br.getImage()}}" alt="">
+                    <div class="item_text">
+                        <p class="item_name" th:text="${br.getName()}"></p>
+                        <p class="item_price" th:text="${br.getPrice()} + 'грн'"></p>
+                    </div>
+                </div></a>
+            </div>
         </div>
-    </div>
 
-    <div class="friesAndSauces" th:if="${!friesAndSauces.isEmpty()}">
-        <p class="title">Картопля-фрі та соуси</p>
-        <div class="grid" th:each="fasa : ${friesAndSauces}">
-            <a th:href="'/menu/' + ${fasa.getId()}"><div class="item">
-                <img class="item_img" th:src="@{'data:image/png;base64,' + ${fasa.getImage()}}" alt="">
-                <div class="item_text">
-                    <p class="item_name" th:text="${fasa.getName()}"></p>
-                    <p class="item_price" th:text="${fasa.getPrice()} + 'грн'"></p>
-                </div>
-            </div></a>
+        <div class="friesAndSauces" th:if="${!friesAndSauces.isEmpty()}">
+            <p class="title">Картопля-фрі та соуси</p>
+            <div class="grid" th:each="fasa : ${friesAndSauces}">
+                <a th:href="'/menu/' + ${fasa.getId()}"><div class="item">
+                    <img class="item_img" th:src="@{'data:image/png;base64,' + ${fasa.getImage()}}" alt="">
+                    <div class="item_text">
+                        <p class="item_name" th:text="${fasa.getName()}"></p>
+                        <p class="item_price" th:text="${fasa.getPrice()} + 'грн'"></p>
+                    </div>
+                </div></a>
+            </div>
         </div>
     </div>
 
