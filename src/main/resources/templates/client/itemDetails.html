@@ -2,13 +2,34 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/headS.css">
+    <link rel="stylesheet" type="text/css" href="/css/footer.css">
+    <link rel="stylesheet" type="text/css" href="/css/itemDetails.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${item.getItem_name()}"></title>
 </head>
 <body>
+<div class="back"></div>
+<div th:insert="client/header :: header"></div>
+<div class="hole_screen">
     <div>
-        <p th:text="${item.getItem_name()}"></p>
-        <img class="item-image" th:src="@{'data:image/png;base64,' + ${image}}" alt="">
-        <p th:text="${item.getDescription()}"></p>
+        <p class="item_name" th:text="${item.getItem_name()}"></p>
+        <div class="item_details">
+            <img class="item_image" th:src="@{'data:image/png;base64,' + ${image}}" alt="">
+            <div class="item_text">
+                <p class="item_price" th:text="'Ціна: ' + ${item.getPrice()} + 'грн'"></p>
+                <p class="item_category" th:text="'Категорія: ' + ${item.getCategory().getDisplayName()}"></p>
+                <p class="item_description" th:text="${item.getDescription()}"></p>
+            </div>
+        </div>
     </div>
+</div>
+<div th:insert="client/footer :: footer"></div>
+<script>
+    document.querySelector('.burger').addEventListener('click', function() {
+        this.classList.toggle('active');
+        document.querySelector('.nav').classList.toggle('open');
+    })
+</script>
 </body>
 </html>
