@@ -3,45 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <title>Редагування</title>
+    <link rel="stylesheet" type="text/css" href="/css/headS.css">
+    <link rel="stylesheet" type="text/css" href="/css/editPerson.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-  <div class="side_one">
-    <img th:src="@{'data:image/png;base64,' + ${image}}" alt="">
-    <form th:method="POST" th:action="@{/my_info/{id}/uploadImage(id = ${person.getId()})}" enctype="multipart/form-data">
-      <input type="file" name="file" id="file" accept="image/*">
-      <br>
-      <input type="submit" value="Upload">
-    </form>
+<div class="back"></div>
+<div th:insert="client/header :: header"></div>
+<div class="hole">
+  <div class="hole_screen_back">
+    <div class="hole_screen">
+      <div class="one_justify">
+        <div class="one_align">
+          <div class="side_one">
+            <img class="person_image" th:src="@{'data:image/png;base64,' + ${image}}" alt="">
+<!--            <img class="person_image" src="/img/avatar228.png" alt="">-->
+            <form th:method="POST" th:action="@{/my_info/{id}/uploadImage(id = ${person.getId()})}" enctype="multipart/form-data">
+              <input class="upload_file" type="file" name="file" id="file" accept="image/*">
+              <div class="label_justify">
+                <label class="label_file" for="file">Виберіть фото</label>
+              </div>
+              <br>
+              <div class="border_justify">
+                <input class="file_button" type="submit" value="Замінити">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="two_justify">
+        <div class="two_align">
+          <div class="side_two">
+            <form th:method="POST" th:action="@{/my_info/{id}/uploadInfo(id=${person.getId()})}" th:object="${person}">
+              <div class="input">
+                <label class="label_field" for="name"><p class="p_field">Введіть ім'я</p></label>
+                <input class="input_field" type="text" th:field="*{name}" id="name">
+              </div>
+
+              <div class="input">
+                <label class="label_field" for="surname"><p class="p_field">Введіть прізвище</p></label>
+                <input class="input_field" type="text" th:field="*{surname}" id="surname">
+              </div>
+
+              <div class="input">
+                <label class="label_field" for="username"><p class="p_field">Введіть ім'я користувача</p></label>
+                <input class="input_field" type="text" th:field="*{username}" id="username">
+              </div>
+
+              <div class="input">
+                <label class="label_field" for="phone"><p class="p_field">Введіть номер телефону</p></label>
+                <input class="input_field" type="text" th:field="*{phone}" id="phone">
+              </div>
+
+              <div class="input">
+                <label class="label_field" for="email"><p class="p_field">Введіть пошту</p></label>
+                <input class="input_field" type="text" th:field="*{email}" id="email">
+              </div>
+
+              <div class="input">
+                <label class="label_field" for="person_password"><p class="p_field">Введіть пароль</p></label>
+                <input class="input_field" type="text" th:field="*{person_password}" id="person_password">
+              </div>
+
+              <input class="button_confirm" type="submit" value="Підтвердити">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-<br><br>
-  <div class="side_two">
-    <form th:method="POST" th:action="@{/my_info/{id}/uploadInfo(id=${person.getId()})}" th:object="${person}">
-      <label for="name">Введіть ім'я</label>
-      <input type="text" th:field="*{name}" id="name">
-      <!--    <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Проблема з ім'ям</div>-->
-      <br>
-      <label for="surname">Введіть прізвище</label>
-      <input type="text" th:field="*{surname}" id="surname">
-      <!--    <div style="color: red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Проблема з прізвищем</div>-->
-      <br>
-      <label for="username">Введіть ім'я користувача</label>
-      <input type="text" th:field="*{username}" id="username">
-      <!--    <div style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Проблема з ім'ям користувача</div>-->
-      <br>
-      <label for="phone">Введіть номер телефону</label>
-      <input type="text" th:field="*{phone}" id="phone">
-      <!--    <div style="color: red" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Проблема з номером телефону</div>-->
-      <br>
-      <label for="email">Введіть пошту</label>
-      <input type="text" th:field="*{email}" id="email">
-      <!--    <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Проблема з поштою</div>-->
-      <br>
-      <label for="person_password">Введіть пароль</label>
-      <input type="text" th:field="*{person_password}" id="person_password">
-      <!--    <div style="color: red" th:if="${#fields.hasErrors('person_password')}" th:errors="*{person_password}">Проблема з паролем</div>-->
-      <br>
-      <input type="submit" value="Підтвердити">
-    </form>
-  </div>
+</div>
+
+<script>
+  document.querySelector('.burger').addEventListener('click', function() {
+    this.classList.toggle('active');
+    document.querySelector('.nav').classList.toggle('open');
+  })
+</script>
 </body>
 </html>

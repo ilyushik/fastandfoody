@@ -57,6 +57,7 @@
 
 .person_image {
     width: 200px;
+    height: 200px;
 }
 
 .person_phone, .person_email, .person_username {
@@ -146,6 +147,15 @@
     .all {
         width: 450px;
     }
+    .about_person {
+        display: flex;
+        justify-content: center;
+    }
+
+    .image_justify {
+        display: flex;
+        justify-content: center;
+    }
 
     .hole_block {
         margin-top: 5vh;
@@ -166,10 +176,13 @@
     }
 
     .person_image {
-        width: 120px;
+        width: 220px;
+        height: 220px;
+        margin-bottom: 30px;
     }
 
     .about_person_grid {
-        grid-template-columns: 42% 20%;
+        display: block;
+        text-align: left;
     }
 }

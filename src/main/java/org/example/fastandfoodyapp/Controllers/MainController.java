@@ -206,8 +206,9 @@ public class MainController {
     @GetMapping("/my_info/edit")
     public String edit(@AuthenticationPrincipal PersonDetails personDetails, Model model) {
         Person person = personDetails.getPerson();
+        Person person1 = personService.findById(person.getId());
         String image = Base64.getEncoder().encodeToString(storageService.downloadImage(person.getImage().getName()));
-        model.addAttribute("person", person);
+        model.addAttribute("person", person1);
         model.addAttribute("image", image);
         return "client/editPerson";
     }
@@ -230,9 +231,9 @@ public class MainController {
         Image imageToDelete = storageRepository.findByName(imageBefore).orElseThrow();
         person.setImage(image);
         personRepository.save(person);
-//        if (!imageBefore.equals("default.png")) {
-//            storageRepository.delete(imageToDelete);
-//        }
+        if (!imageBefore.equals("default.png")) {
+            storageRepository.delete(imageToDelete);
+        }
         return "redirect:/my_info";
     }
 
@@ -250,9 +251,9 @@ public class MainController {
         Image image = personDetails.getPerson().getImage();
         String imageName = image.getName();
         personService.deletePerson(personDetails.getPerson().getId());
-//        if (!imageName.equals("default.png")) {
-//            storageRepository.delete(image);
-//        }
+        if (!imageName.equals("default.png")) {
+            storageRepository.delete(image);
+        }
         return "redirect:/";
     }
 

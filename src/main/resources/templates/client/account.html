@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Особистий кабінет</title>
-    <link rel="stylesheet" type="text/css" href="/css/accountS.css">
+    <link rel="stylesheet" type="text/css" href="/css/account.css">
     <link rel="stylesheet" type="text/css" href="/css/headS.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -16,7 +16,9 @@
             <div class="hole_block">
                 <div class="about_person">
                     <div class="about_person_grid">
-                        <img class="person_image" th:src="@{'data:image/png;base64,' + ${logo}}" alt="">
+                        <div class="image_justify">
+                            <img class="person_image" th:src="@{'data:image/png;base64,' + ${logo}}" alt="">
+                        </div>
                         <div class="person_info">
                             <p class="person_name" th:text="${person.getName()} + ' ' + ${person.getSurname()}"></p>
                             <p class="person_email" th:text="${person.getEmail()}"></p>
