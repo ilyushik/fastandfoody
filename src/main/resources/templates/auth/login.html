@@ -3,22 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <title>Вхід</title>
-    <link rel="stylesheet" type="text/css" href="/css/login.css">
+    <link rel="stylesheet" type="text/css" href="/css/loginS.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-  <form name="f" method="post" action="/process_login">
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-    <label for="username">Введіть ім'я користувача:</label>
-    <input type="text" name="username" id="username"/><br>
-    <label for="password">Введіть пароль:</label>
-    <input type="password" name="password" id="password"/><br>
-    <input type="submit" value="Вхід">
-    <div th:if="${param.error}" style="color: red">
-      Неправильне ім'я користувача чи пароль!
+    <div class="back"></div>
+    <div class="hole_screen">
+        <div class="empty_area"></div>
+
+        <div class="login">
+            <div class="login_block">
+                <div class="login_info">
+                    <div class="image_block">
+                        <img class="logo" src="/logo/logo.png" alt="">
+                    </div>
+
+                    <div class="title_block">
+                        <p class="title">Увійти</p>
+                    </div>
+
+                    <div class="login_form">
+                        <form name="f" method="post" action="/process_login">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                            <div class="justify_field">
+                                <div class="field_block">
+                                    <label for="username"></label>
+                                    <input type="text" name="username" id="username" class="field" placeholder="Введіть ім'я користувача"/>
+                                </div>
+                            </div>
+
+                            <div class="justify_field">
+                                <div class="field_block">
+                                    <label for="password"></label>
+                                    <input type="password" name="password" class="field" id="password" placeholder="Введіть пароль"/>
+                                </div>
+                            </div>
+
+                            <div class="button_block">
+                                <input class="login_button" type="submit" value="Продовжити">
+                            </div>
+                            <div class="error_block">
+                                <div class="error" th:if="${param.error}" style="color: red">
+                                    Неправильне ім'я користувача чи пароль!
+                                </div>
+                            </div>
+
+                            <div class="justify_block">
+                                <div class="align_block">
+                                    <a class="toSignUp" href="/auth/registration">Ще не маю аккаунту</a>
+                                    <a class="toResetPassword" href="/forget_password">Не памʼятаю пароль</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <a href="/auth/registration">Ще не маю аккаунту</a>
-      <a href="/forget_password">Не памʼятаю пароль</a>
-  </form>
 </body>
 </html>
