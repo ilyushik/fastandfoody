@@ -186,24 +186,18 @@ public class MainController {
     @GetMapping("/my_info")
     public String account(@AuthenticationPrincipal PersonDetails personDetails, Model model) {
         Person person = personService.findById(personDetails.getPerson().getId());
+        List<Purchase> userPurchases = new ArrayList<>(person.getPurchases());
         List<Purchase> usersActivePurchases = new ArrayList<>(person.getPurchases());
 
-        Iterator<Purchase> iterator = usersActivePurchases.iterator();
-        while (iterator.hasNext()) {
-            Purchase p = iterator.next();
-            if (!p.getPerson_id().equals(person)) {
-                iterator.remove();
-            } else {
-                if (p.getStatus().equals(Status.Delivered) || p.getStatus().equals(Status.Canceled)) {
-                    iterator.remove();
-                }
-            }
-        }
+        userPurchases.removeIf(p -> p.getStatus().equals(Status.In_progress) || p.getStatus().equals(Status.On_way));
+
+        usersActivePurchases.removeIf(p -> p.getStatus().equals(Status.Delivered) || p.getStatus().equals(Status.Canceled));
 
         String logo = Base64.getEncoder().encodeToString(storageService.downloadImage(person.getImage().getName()));
         model.addAttribute("logo", logo);
         model.addAttribute("person", person);
-        model.addAttribute("purchases", usersActivePurchases);
+        model.addAttribute("activePurchases", usersActivePurchases);
+        model.addAttribute("purchases", userPurchases);
         return "client/account";
     }
 
@@ -236,9 +230,9 @@ public class MainController {
         Image imageToDelete = storageRepository.findByName(imageBefore).orElseThrow();
         person.setImage(image);
         personRepository.save(person);
-        if (!imageBefore.equals("default.png")) {
-            storageRepository.delete(imageToDelete);
-        }
+//        if (!imageBefore.equals("default.png")) {
+//            storageRepository.delete(imageToDelete);
+//        }
         return "redirect:/my_info";
     }
 
@@ -254,8 +248,11 @@ public class MainController {
         mailService.sendMail(personDetails.getPerson().getEmail(), mail);
 
         Image image = personDetails.getPerson().getImage();
+        String imageName = image.getName();
         personService.deletePerson(personDetails.getPerson().getId());
-        storageRepository.delete(image);
+//        if (!imageName.equals("default.png")) {
+//            storageRepository.delete(image);
+//        }
         return "redirect:/";
     }
 

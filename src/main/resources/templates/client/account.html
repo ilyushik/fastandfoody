@@ -4,42 +4,112 @@
     <meta charset="UTF-8">
     <title>Особистий кабінет</title>
     <link rel="stylesheet" type="text/css" href="/css/accountS.css">
+    <link rel="stylesheet" type="text/css" href="/css/headS.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<div class="user_container">
-    <div class="user_navigation">
-        <img style="width: 200px" th:src="@{'data:image/png;base64,' + ${logo}}" alt="">
-        <div class="user_buttons">
-            <a href="/my_info/edit"><input class="edit" type="submit" value="Редагувати дані" /></a>
-            <a href="/my_info/orders"><input class="orders" type="submit" value="Мої замовлення" /></a>
-            <form th:action="@{/logout}" th:method="POST">
-                <input class="logout" type="submit" value="Вийти з аккаунту">
-            </form>
-            <form th:method="post" th:action="@{/my_info/delete}">
-                <input class="delete" type="submit" value="Видалити обліковий запис" />
-            </form>
-        </div>
-    </div>
-    <div class="user_info">
-        <h3 class="user_name" th:text="${person.getName()} + ' ' + ${person.getSurname()}">Імʼя Прізвище</h3>
-        <h4 class="user_email" th:text="${person.getEmail()}">Пошта</h4>
-        <h4 class="user_phone" th:text="${person.getPhone()}">Телефон</h4>
-        <h4 class="user_username" th:text="${person.getUsername()}">Юзернейм</h4>
-        <br><br>
-        <div th:if="${not purchases.isEmpty()}" class="active_orders">
-            <h2>Активні замовлення:</h2>
-            <div th:each="p : ${purchases}">
-                <div class="order_link">
-                    <a class="zamovlennya" th:href="'/my_info/orders/' + ${p.getId()}" th:text="'Замовлення #' + ${p.getId()}">Замовлення #<span th:text="${p.getId()}"></span></a>
-                    <p class="link_arrow">></p>
+<div class="back"></div>
+<div th:insert="client/header :: header"></div>
+<div class="hole_screen">
+    <div class="main_div">
+        <div class="all">
+            <div class="hole_block">
+                <div class="about_person">
+                    <div class="about_person_grid">
+                        <img class="person_image" th:src="@{'data:image/png;base64,' + ${logo}}" alt="">
+                        <div class="person_info">
+                            <p class="person_name" th:text="${person.getName()} + ' ' + ${person.getSurname()}"></p>
+                            <p class="person_email" th:text="${person.getEmail()}"></p>
+                            <p class="person_phone" th:text="${person.getPhone()}"></p>
+                            <p class="person_username" th:text="${person.getUsername()}"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="person_buttons">
+                    <div class="person_buttons_grid">
+                        <a href="/my_info/edit">
+                            <input class="button" type="submit" value="Редагувати дані" />
+                        </a>
+
+                        <form th:action="@{/logout}" th:method="POST">
+                            <input class="button" type="submit" value="Вийти з аккаунту">
+                        </form>
+
+                        <form th:method="post" th:action="@{/my_info/delete}">
+                            <input class="button" type="submit" value="Видалити обліковий запис" />
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-        <div th:if="${purchases.isEmpty()}">
-            <h2>Немає активних замовлень</h2>
+
+        <div class="orders">
+            <div class="active" th:if="${!activePurchases.isEmpty()}">
+                <p class="orders_title">Активні замовлення</p>
+                <div class="orders" th:each="ap : ${activePurchases}">
+                    <div class="order">
+                        <div class="number_of_order">
+                            <p class="zamovlennya_text">Замовлення</p>
+                            <p class="number_of_zamovlennya" th:text="'№' + ${ap.getId()}"></p>
+                        </div>
+
+                        <div class="status_of_order">
+                            <p class="status_text">Статус</p>
+                            <p class="status_of_zamovlennya" th:text="${ap.getStatus().getDisplayName()}"></p>
+                        </div>
+
+                        <div class="price_of_order">
+                            <p class="price_text">Сума</p>
+                            <p class="price_of_zamovlennya">123грн.</p>
+                        </div>
+
+                        <div class="link_button">
+                            <a th:href="'/my_info/orders/' + ${ap.getId()}"><img class="arrow_link" src="/images/arrow.png" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ready" th:if="${!purchases.isEmpty()}">
+                <p class="orders_title">Завершені замовлення</p>
+                <div class="orders" th:each="p : ${purchases}">
+                    <div class="order">
+                        <div class="number_of_order">
+                            <p class="zamovlennya_text">Замовлення</p>
+                            <p class="number_of_zamovlennya" th:text="'№' + ${p.getId()}"></p>
+                        </div>
+
+                        <div class="status_of_order">
+                            <p class="status_text">Статус</p>
+                            <p class="status_of_zamovlennya" th:text="${p.getStatus().getDisplayName()}"></p>
+                        </div>
+
+                        <div class="price_of_order">
+                            <p class="price_text">Сума</p>
+                            <p class="price_of_zamovlennya">123грн.</p>
+                        </div>
+
+                        <div class="link_button">
+                            <a th:href="'/my_info/orders/' + ${p.getId()}"><img class="arrow_link" src="/images/arrow.png" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${activePurchases.isEmpty()}">
+                <div th:if="${purchases.isEmpty()}">
+                    <p class="no_purchases">Ще немає замовлень</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+<script>
+    document.querySelector('.burger').addEventListener('click', function() {
+        this.classList.toggle('active');
+        document.querySelector('.nav').classList.toggle('open');
+    })
+</script>
 </body>
 </html>
