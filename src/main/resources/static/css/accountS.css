@@ -139,7 +139,7 @@
     transform: scale(1.3);
 }
 
-@media screen and (max-width: 1600px) {
+@media screen and (max-width: 1900px) {
     .hole_screen {
         width: 90%;
     }

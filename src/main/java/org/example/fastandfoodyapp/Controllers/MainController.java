@@ -274,7 +274,13 @@ public class MainController {
     // client can see order details by id
     @GetMapping("/my_info/orders/{id}")
     public String detailInfo(@PathVariable("id") int id, Model model) {
-        model.addAttribute("purchase", purchaseService.findById(id));
+        Purchase purchase = purchaseService.findById(id);
+        purchase.setPrice(purchase.getOrder_item_id());
+        for (Order_Item i : purchase.getOrder_item_id()) {
+            i.setStringImage(Base64.getEncoder().encodeToString(storageService.downloadImage(i.getItem_id().getImage().getName())));
+            i.setSum(i.getCount(), i.getItem_id().getPrice());
+        }
+        model.addAttribute("purchase", purchase);
         return "client/detailOrder";
     }
 

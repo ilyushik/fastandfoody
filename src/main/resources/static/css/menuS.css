@@ -74,13 +74,13 @@ a {
     color: #e39600;
 }
 
-@media screen and (min-width: 1600px) {
+@media screen and (min-width: 1900px) {
     .item_text {
         padding: 3vh 2vw;
     }
 }
 
-@media screen and (max-width: 1600px) {
+@media screen and (max-width: 1900px) {
     .item {
         height: 350px;
         width: 250px;

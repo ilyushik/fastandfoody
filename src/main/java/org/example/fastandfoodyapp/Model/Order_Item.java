@@ -30,10 +30,24 @@ public class Order_Item {
     @JoinColumn(referencedColumnName = "id", name = "purchase_id")
     private Purchase purchase_id;
 
+    @Transient
+    public String string_image;
+
+    @Transient
+    public double sum;
+
     public Order_Item(int count, int prep_time,
                       Item item_id) {
         this.count = count;
         this.prep_time = prep_time;
         this.item_id = item_id;
+    }
+
+    public void setStringImage(String image) {
+        this.string_image = image;
+    }
+
+    public void setSum(int count, int price) {
+        this.sum = count * price;
     }
 }

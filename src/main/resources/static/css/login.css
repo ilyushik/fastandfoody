@@ -20,7 +20,7 @@
     grid-template-columns: 60% 40%;
 }
 
-.resetPass {
+.login {
     display: flex;
     justify-content: center;
     background-color: #eeeeee;
@@ -29,11 +29,11 @@
     padding-top: 50px;
 }
 
-.reset_block {
+.login_block {
     display: block;
     position: absolute;
     align-items: center;
-    margin-top: 20vh;
+    margin-top: 15vh;
 }
 
 .image_block {
@@ -56,14 +56,20 @@
     font-size: 60px;
 }
 
-.reset_form {
+.login_form {
     display: flex;
     justify-content: center;
 }
 
+.justify_field {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+}
+
 .field_block {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     width: 20vw;
 }
 
@@ -79,12 +85,17 @@
     height: 50px;
 }
 
-.reset_form .field_block label {
+.login_form .field_block label {
     position: absolute;
     left: 0;
     font-size: 12px;
     color: #818181;
     pointer-events: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+}
+
+.error {
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
 }
@@ -95,7 +106,7 @@ input::placeholder {
     font-size: 17px;
 }
 
-.reset_button {
+.login_button {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-size: 17px;
@@ -111,7 +122,7 @@ input::placeholder {
     justify-content: center;
 }
 
-.reset_button:hover {
+.login_button:hover {
     transform: scale(1.1);
 }
 
@@ -121,7 +132,33 @@ input::placeholder {
     padding: 15px;
 }
 
-@media screen and (max-width: 1600px) {
+.justify_block {
+    display: flex;
+    justify-content: center;
+}
+
+.align_block {
+    display: grid;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.align_block a {
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    color: #858585;
+    transition: ease-in 0.2s;
+}
+
+.align_block a:hover {
+    transform: scale(1.1);
+    color: black;
+    font-weight: 500;
+}
+
+@media screen and (max-width: 1800px) {
     .login {
         padding-top: 20px;
     }
