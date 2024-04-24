@@ -143,11 +143,11 @@ select::-ms-expand {
     margin-top: 5vh;
 }
 
-#map, #mapFilter {
+#map {
     border-radius: 30px;
 }
 
-@media screen and (min-width: 1600px) {
+@media screen and (min-width: 1900px) {
     .map_class, .mapFilter_class {
         height: 45vh;
         width: 45vw;
@@ -155,7 +155,7 @@ select::-ms-expand {
     }
 }
 
-@media screen and (max-width: 1600px) {
+@media screen and (max-width: 1900px) {
     .map_class, .mapFilter_class {
         height: 45vh;
         width: 45vw;

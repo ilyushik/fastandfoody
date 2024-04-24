@@ -20,7 +20,7 @@
     grid-template-columns: 60% 40%;
 }
 
-.login {
+.registration {
     display: flex;
     justify-content: center;
     background-color: #eeeeee;
@@ -29,11 +29,9 @@
     padding-top: 50px;
 }
 
-.login_block {
-    display: block;
+.reg_block {
     position: absolute;
     align-items: center;
-    margin-top: 15vh;
 }
 
 .image_block {
@@ -45,26 +43,15 @@
     width: 100px;
 }
 
-.title_block {
-    display: flex;
-    justify-content: center;
-}
-
 .title {
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
     font-size: 60px;
 }
 
-.login_form {
+.registration_form {
     display: flex;
     justify-content: center;
-}
-
-.justify_field {
-    display: flex;
-    justify-content: center;
-    padding: 15px;
 }
 
 .field_block {
@@ -85,7 +72,7 @@
     height: 50px;
 }
 
-.login_form .field_block label {
+.registration_form .field_block label {
     position: absolute;
     left: 0;
     font-size: 12px;
@@ -106,7 +93,7 @@ input::placeholder {
     font-size: 17px;
 }
 
-.login_button {
+.registration_button {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-size: 17px;
@@ -122,44 +109,18 @@ input::placeholder {
     justify-content: center;
 }
 
-.login_button:hover {
+.registration_button:hover {
     transform: scale(1.1);
 }
 
-.error_block {
-    display: flex;
-    justify-content: center;
-    padding: 15px;
+@media screen and (min-width: 1800px) {
+    .button_block {
+        margin-top: 30px;
+    }
 }
 
-.justify_block {
-    display: flex;
-    justify-content: center;
-}
-
-.align_block {
-    display: grid;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.align_block a {
-    text-decoration: none;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: 15px;
-    color: #858585;
-    transition: ease-in 0.2s;
-}
-
-.align_block a:hover {
-    transform: scale(1.1);
-    color: black;
-    font-weight: 500;
-}
-
-@media screen and (max-width: 1600px) {
-    .login {
+@media screen and (max-width: 1800px) {
+    .registration {
         padding-top: 20px;
     }
 
@@ -174,7 +135,6 @@ input::placeholder {
 
     .field {
         height: 20px;
-        font-size: 15px;
     }
 
     input::placeholder {

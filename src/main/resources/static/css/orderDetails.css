@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.back {
+    position: fixed;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: url(../images/background.png);
+    background-repeat: repeat;
+    filter: blur(5px);
+    z-index: -5;
+    background-color: black;
+    opacity: 0.8;
+}
+
+.screen {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 170px;
+}
+
+.hole_screen {
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    margin-top: 40px;
+}
+
+.text_info {
+    display: flex;
+    gap: 20vw;
+    margin-left: 5vw;
+}
+
+.column_1, .column_2 {
+    display: block;
+}
+
+.field {
+    height: 100px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.field_name {
+    color: #eeeeeeda;
+    font-size: 17px;
+}
+
+.field_text {
+    color: #eeeeee;
+    font-size: 30px;
+}
+
+.item_info {
+    display: flex;
+    justify-content: center;
+}
+
+.item {
+    display: flex;
+    gap: 15px;
+    width: 700px;
+    height: 300px;
+    background-color: #e39600;
+    border-radius: 15px;
+    margin: 20px 30px;
+    transition: ease-in 0.2s;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.498);
+}
+
+.item:hover {
+    transform: scale(1.1);
+}
+
+.item_text {
+    width: 350px;
+}
+
+.title {
+    font-size: 25px;
+    height: 40px;
+    margin-top: 30px;
+}
+
+.item .title, .field_text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: #eeeeee;
+}
+
+.item .field_name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: #eeeeeeda;
+}
+
+.item_img {
+    width: 300px;
+    height: 300px;
+    border-radius: 15px 0 0 15px
+}
+
+.price_count {
+    display: flex;
+    gap: 75px;
+    height: 100px;
+    border-top: 2px solid #eeeeee;
+}
+
+.price, .count {
+    margin-top: 10px;
+}
+
+.item_info_align {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@media screen and (max-width: 1900px) {
+    .hole_screen {
+        width: 90%;
+    }
+
+    .field {
+        height: 80px;
+    }
+
+    .field_name {
+        font-size: 15px;
+    }
+
+    .field_text {
+        font-size: 25px;
+    }
+
+    .item {
+        width: 480px;
+        height: 220px;
+    }
+
+    .title {
+        font-size: 20px;
+        height: 30px;
+        margin-top: 20px;
+    }
+
+    .item_img {
+        height: 220px;
+        width: 220px;
+    }
+
+    .price_count {
+        height: 70px;
+        width: 230px;
+        gap: 40px;
+    }
+}

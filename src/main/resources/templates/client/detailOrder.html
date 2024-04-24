@@ -3,20 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="'Замовлення #' + ${purchase.getId()}"></title>
+    <link rel="stylesheet" type="text/css" href="/css/headS.css">
+    <link rel="stylesheet" type="text/css" href="/css/footer.css">
+    <link rel="stylesheet" type="text/css" href="/css/orderDetails.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-  <div>
-    <p th:text="${purchase.getDelivery_way().getDisplayName()}"></p>
-    <h4>Список товарів:</h4>
-    <div th:each="p : ${purchase.getOrder_item_id()}">
-      <p th:text="${p.getItem_id().getItem_name()} + ' ' + ${p.getCount()} + 'шт.'"></p>
+<div class="back"></div>
+<div th:insert="client/header :: header"></div>
+<div class="screen">
+    <div class="hole_screen">
+        <div class="hole_screen_align">
+            <div class="text_info">
+                <div class="column_1">
+                    <div class="field">
+                        <p class="field_name">Замовлення</p>
+                        <p class="field_text" th:text="'№' + ${purchase.getId()}">№12122367</p>
+                    </div>
+
+                    <div class="field">
+                        <p class="field_name">Адреса ресторану</p>
+                        <p class="field_text" th:text="'Ресторан №' + ${purchase.getRestaurant_id().getId()}"></p>
+                        <p class="field_text" th:text="${purchase.getRestaurant_id().getAddress()}"></p>
+                    </div>
+
+                    <div class="field">
+                        <p class="field_name">Спосіб оплати</p>
+                        <p class="field_text" th:text="${purchase.getPayment_way().getDisplayName()}">Безготівковий розрахунок</p>
+                    </div>
+
+                    <div class="field">
+                        <p class="field_name">Статус</p>
+                        <p class="field_text" th:text="${purchase.getStatus().getDisplayName()}">Доставлено</p>
+                    </div>
+
+                    <div class="field">
+                        <p class="field_name">Дата</p>
+                        <p class="field_text" th:text="${purchase.getDate()}">2024-03-11 12:00:00</p>
+                    </div>
+
+                    <div class="field">
+                        <p class="field_name">Побажання</p>
+                        <p class="field_text" th:text="${purchase.getWish()}">Не додавати гірчицю</p>
+                    </div>
+                </div>
+
+                <div class="column_2">
+                    <div class="field">
+                        <p class="field_name">Сума</p>
+                        <p class="field_text" th:text="${purchase.getPrice()}">1600.00грн</p>
+                    </div>
+
+                    <div class="field">
+                        <p class="field_name">Адреса доставки</p>
+                        <div th:if="${!purchase.getDelivery_way().equals(T(org.example.fastandfoodyapp.Model.Enumerables.Delivery_Way).PickUp)}">
+                            <p class="field_text" th:text="'м.' + ${purchase.getRestaurant_id().getCityId().getName()} + ', ' + ${purchase.getAddress()}">м.Запоріжжя <br> Вул. Іванова 3</p>
+                        </div>
+                        <div th:if="${purchase.getDelivery_way().equals(T(org.example.fastandfoodyapp.Model.Enumerables.Delivery_Way).PickUp)}">
+                            <p class="field_text" th:text="'м.' + ${purchase.getRestaurant_id().getCityId().getName()}">м.Запоріжжя</p>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <p class="field_name">Орієнтовний час доставки</p>
+                        <p class="field_text" th:text="${purchase.getPrep_time()}">11.03.2024 12:45</p>
+                    </div>
+
+                    <div class="field">
+                        <p class="field_name">Промокод</p>
+                        <div th:if="${!purchase.getPromo_code().equals(null)}">
+                            <p class="field_text" th:text="${purchase.getPromo_code().getCode()}">g132fe23e2</p>
+                        </div>
+                        <div th:if="${purchase.getPromo_code().equals(null)}">
+                            <p class="field_text">Немає промокоду</p>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <p class="field_name">Спосіб доставки</p>
+                        <p class="field_text" th:text="${purchase.getDelivery_way().getDisplayName()}">Доставка курʼєром</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item_info">
+                <div class="item_info_align" th:each="i : ${purchase.getOrder_item_id()}">
+                    <div class="item">
+                        <img class="item_img" th:src="@{'data:image/png;base64,' + ${i.getString_image()}}" alt="">
+                        <div class="item_text_align">
+                            <div class="item_text">
+                                <p class="title" th:text="${i.getItem_id().getItem_name()}">Чізбургер</p>
+                                <div class="price_count">
+                                    <div class="price">
+                                        <p class="field_name">Вартість</p>
+                                        <p class="field_text" th:text="${i.getItem_id().getPrice()} + 'грн.'">60грн</p>
+                                    </div>
+
+                                    <div class="count">
+                                        <p class="field_name">Кількість</p>
+                                        <p class="field_text" th:text="${i.getCount()}">4</p>
+                                    </div>
+                                </div>
+
+                                <div class="item_sum">
+                                    <p class="field_name">Разом</p>
+                                    <p class="field_text" th:text="${i.getSum()}">240грн</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-      <br>
-      <div th:if="${!purchase.getStatus().equals(T(org.example.fastandfoodyapp.Model.Enumerables.Status).Canceled) and !purchase.getStatus().equals(T(org.example.fastandfoodyapp.Model.Enumerables.Status).Delivered)}">
-          <form th:method="post" th:action="@{/order/{id}/cancel(id = ${purchase.getId()})}">
-              <button type="submit">Скасувати замовлення</button>
-          </form>
-      </div>
-  </div>
+</div>
+<div th:insert="client/footer :: footer"></div>
+
+<script>
+    document.querySelector('.burger').addEventListener('click', function() {
+        this.classList.toggle('active');
+        document.querySelector('.nav').classList.toggle('open');
+    })
+</script>
 </body>
 </html>
