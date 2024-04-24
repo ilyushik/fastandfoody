@@ -17,7 +17,6 @@
         <div class="one_align">
           <div class="side_one">
             <img class="person_image" th:src="@{'data:image/png;base64,' + ${image}}" alt="">
-<!--            <img class="person_image" src="/img/avatar228.png" alt="">-->
             <form th:method="POST" th:action="@{/my_info/{id}/uploadImage(id = ${person.getId()})}" enctype="multipart/form-data">
               <input class="upload_file" type="file" name="file" id="file" accept="image/*">
               <div class="label_justify">

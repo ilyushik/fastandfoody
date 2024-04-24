@@ -3,14 +3,11 @@ package org.example.fastandfoodyapp.Controllers;
 import lombok.AllArgsConstructor;
 import org.example.fastandfoodyapp.Mails.MailService;
 import org.example.fastandfoodyapp.Mails.MailStructure;
+import org.example.fastandfoodyapp.Model.*;
 import org.example.fastandfoodyapp.Model.DTO.ItemDTO;
 import org.example.fastandfoodyapp.Model.DTO.RestaurantDTO;
 import org.example.fastandfoodyapp.Model.Enumerables.Category;
 import org.example.fastandfoodyapp.Model.Enumerables.Status;
-import org.example.fastandfoodyapp.Model.Image;
-import org.example.fastandfoodyapp.Model.Item;
-import org.example.fastandfoodyapp.Model.Person;
-import org.example.fastandfoodyapp.Model.Purchase;
 import org.example.fastandfoodyapp.Repositories.CityRepository;
 import org.example.fastandfoodyapp.Repositories.PersonRepository;
 import org.example.fastandfoodyapp.Repositories.StorageRepository;
@@ -152,7 +149,8 @@ public class MainController {
 
     // find contacts of restaurants
     @GetMapping("/contacts")
-    public String contacts(@RequestParam(name = "city", required = false) String city, Model model) {
+    public String contacts(@RequestParam(name = "city", defaultValue = "Київ") String city, Model model) {
+        City defaultCity = cityRepository.findCityByName("Київ");
         List<RestaurantDTO> restaurants;
         boolean filter = false;
         if (city != null && !city.isEmpty()) {
@@ -166,6 +164,7 @@ public class MainController {
         model.addAttribute("filter", filter);
         model.addAttribute("restaurants", restaurants);
         model.addAttribute("cities", cityRepository.findAll());
+        model.addAttribute("defaultCity", defaultCity);
         return "client/contacts";
     }
 
@@ -190,8 +189,14 @@ public class MainController {
         List<Purchase> usersActivePurchases = new ArrayList<>(person.getPurchases());
 
         userPurchases.removeIf(p -> p.getStatus().equals(Status.In_progress) || p.getStatus().equals(Status.On_way));
+        for (Purchase p : userPurchases) {
+            p.setPrice(p.getOrder_item_id());
+        }
 
         usersActivePurchases.removeIf(p -> p.getStatus().equals(Status.Delivered) || p.getStatus().equals(Status.Canceled));
+        for (Purchase p : usersActivePurchases) {
+            p.setPrice(p.getOrder_item_id());
+        }
 
         String logo = Base64.getEncoder().encodeToString(storageService.downloadImage(person.getImage().getName()));
         model.addAttribute("logo", logo);

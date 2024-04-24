@@ -20,16 +20,20 @@
                 <div class="sel">
                     <div class="select">
                         <select id="city" name="city">
-                            <option value="">Всі</option>
+                            <option th:value="${filteredCity.getName()}" th:text="${filteredCity.getName()}"></option>
                             <option th:each="city : ${cities}" th:value="${city.getName()}" th:text="${city.getName()}"></option>
                         </select>
                     </div>
-                    <div th:if="${filteredCity != null}">
-                        <input type="hidden" id="cityLatitude" th:value="${filteredCity.getLatitude()}">
-                        <input type="hidden" id="cityLongitude" th:value="${filteredCity.getLongitude()}">
-                        <input type="hidden" id="cityName" th:value="${filteredCity.getName()}">
-                        <input type="hidden" id="filter" th:value="${filter}">
-                    </div>
+                    <input type="hidden" id="cityLatitude" th:value="${filteredCity.getLatitude()}">
+                    <input type="hidden" id="cityLongitude" th:value="${filteredCity.getLongitude()}">
+                    <input type="hidden" id="cityName" th:value="${filteredCity.getName()}">
+                    <input type="hidden" id="filter" th:value="${filter}">
+<!--                    <div th:if="${filteredCity != null}">-->
+<!--                        <input type="hidden" id="cityLatitude" th:value="${filteredCity.getLatitude()}">-->
+<!--                        <input type="hidden" id="cityLongitude" th:value="${filteredCity.getLongitude()}">-->
+<!--                        <input type="hidden" id="cityName" th:value="${filteredCity.getName()}">-->
+<!--                        <input type="hidden" id="filter" th:value="${filter}">-->
+<!--                    </div>-->
                     <button class="filter_button" type="submit">Пошук</button>
                 </div>
             </form>
@@ -52,62 +56,117 @@
     </div>
 
     <div class="map-container">
-        <div th:if="${!filter}">
-            <div id="map" class="map_class"></div>
-        </div>
+<!--        <div th:if="${!filter}">-->
+<!--            <div id="map" class="map_class"></div>-->
+<!--        </div>-->
+        <div id="map" class="map_class"></div>
     </div>
 </div>
 <div th:insert="client/footer :: footer"></div>
 
 <script>
-    function initMainMap() {
+    const filter = document.getElementById("filter").value;
+    if (filter) {
+        function initMainMap() {
+            const cityLongitude = parseFloat(document.getElementById("cityLongitude").value);
+            const cityLatitude = parseFloat(document.getElementById("cityLatitude").value);
+            const cityName = document.getElementById("cityName").value;
 
-        const map = new google.maps.Map(document.getElementById("map"), {
-            center: { lat: 48.935852, lng: 31.468681 },
-            zoom: 6,
-        });
+            const map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: cityLongitude, lng: cityLatitude },
+                zoom: 10,
+            });
+            const infowindow = new google.maps.InfoWindow();
 
-        const infowindow = new google.maps.InfoWindow();
+            const serviceUrlFilter = `http://localhost:8080/maps/filter?city=${cityName}`;
 
-        const serviceUrl = `http://localhost:8080/maps`;
+            fetch(serviceUrlFilter)
+                .then(response => response.json())
+                .then(markers => {
+                    markers.forEach(marker => {
+                        const { id, address, latitude, longitude } = marker;
+                        const markerPosition = { lat: longitude, lng: latitude };
 
-        fetch(serviceUrl)
-            .then(response => response.json())
-            .then(markers => {
-                markers.forEach(marker => {
-                    const { id, address, latitude, longitude } = marker;
+                        const newMarker = new google.maps.Marker({
+                            map: map,
+                            position: markerPosition
+                        });
 
-                    const markerPosition = { lat: longitude, lng: latitude };
+                        google.maps.event.addListener(newMarker, "click", () => {
+                            const content = document.createElement("div");
+                            const nameElement = document.createElement("h2")
 
-                    const newMarker = new google.maps.Marker({
-                        map: map,
-                        position: markerPosition
+                            nameElement.textContent = id;
+                            content.appendChild(nameElement);
+
+                            const placeIdElement = document.createElement("p");
+
+                            placeIdElement.textContent = id;
+                            content.appendChild(placeIdElement);
+
+                            const placeAddressElement = document.createElement("p");
+
+                            placeAddressElement.textContent = address;
+                            content.appendChild(placeAddressElement);
+
+                            infowindow.setContent(content);
+                            infowindow.open(map, newMarker);
+                        });
                     });
+                })
+                .catch(error => console.error("Error fetching markers:", error));
+        }
+    } else {
+        function initMainMap() {
+            const map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: 48.935852, lng: 31.468681 },
+                zoom: 6,
+            });
 
-                    google.maps.event.addListener(newMarker, "click", () => {
-                        const content = document.createElement("div");
-                        const nameElement = document.createElement("h2");
+            const infowindow = new google.maps.InfoWindow();
 
-                        nameElement.textContent = id;
-                        content.appendChild(nameElement);
+            const serviceUrl = "http://localhost:8080/maps";
 
-                        const placeIdElement = document.createElement("p");
+            fetch(serviceUrl)
+                .then(response => response.json())
+                .then(markers => {
+                    markers.forEach(marker => {
+                        const { id, address, latitude, longitude } = marker;
 
-                        placeIdElement.textContent = id;
-                        content.appendChild(placeIdElement);
+                        const markerPosition = { lat: longitude, lng: latitude };
 
-                        const placeAddressElement = document.createElement("p");
+                        const newMarker = new google.maps.Marker({
+                            map: map,
+                            position: markerPosition
+                        });
 
-                        placeAddressElement.textContent = address;
-                        content.appendChild(placeAddressElement);
+                        google.maps.event.addListener(newMarker, "click", () => {
+                            const content = document.createElement("div");
+                            const nameElement = document.createElement("h2");
 
-                        infowindow.setContent(content);
-                        infowindow.open(map, newMarker);
+                            nameElement.textContent = id;
+                            content.appendChild(nameElement);
+
+                            const placeIdElement = document.createElement("p");
+
+                            placeIdElement.textContent = id;
+                            content.appendChild(placeIdElement);
+
+                            const placeAddressElement = document.createElement("p");
+
+                            placeAddressElement.textContent = address;
+                            content.appendChild(placeAddressElement);
+
+                            infowindow.setContent(content);
+                            infowindow.open(map, newMarker);
+                        });
                     });
-                });
-            })
-            .catch(error => console.error("Error fetching markers:", error));
+                })
+                .catch(error => console.error("Error fetching markers:", error));
+        }
     }
+
+
 
     window.initMainMap = initMainMap;
 </script>
@@ -116,110 +175,6 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHjH0Z1pCYmXr5y7AuHZgS-2rmU8VbOiQ&callback=initMainMap"
         async defer
 ></script>
-
-<!--<script>-->
-<!--    function initFilterMap() {-->
-<!--        const filter = document.getElementById("filter").value;-->
-
-<!--        const map = new google.maps.Map(document.getElementById("map"), {-->
-<!--            center: {lat: 48.935852, lng: 31.468681},-->
-<!--            zoom: 6,-->
-<!--        });-->
-
-<!--        const infowindow = new google.maps.InfoWindow();-->
-
-<!--        const serviceUrl = `http://localhost:8080/maps`;-->
-
-<!--        fetch(serviceUrl)-->
-<!--            .then(response => response.json())-->
-<!--            .then(markers => {-->
-<!--                markers.forEach(marker => {-->
-<!--                    const {id, address, latitude, longitude} = marker;-->
-
-<!--                    const markerPosition = {lat: longitude, lng: latitude};-->
-
-<!--                    const newMarker = new google.maps.Marker({-->
-<!--                        map: map,-->
-<!--                        position: markerPosition-->
-<!--                    });-->
-
-<!--                    google.maps.event.addListener(newMarker, "click", () => {-->
-<!--                        const content = document.createElement("div");-->
-<!--                        const nameElement = document.createElement("h2");-->
-
-<!--                        nameElement.textContent = id;-->
-<!--                        content.appendChild(nameElement);-->
-
-<!--                        const placeIdElement = document.createElement("p");-->
-
-<!--                        placeIdElement.textContent = id;-->
-<!--                        content.appendChild(placeIdElement);-->
-
-<!--                        const placeAddressElement = document.createElement("p");-->
-
-<!--                        placeAddressElement.textContent = address;-->
-<!--                        content.appendChild(placeAddressElement);-->
-
-<!--                        infowindow.setContent(content);-->
-<!--                        infowindow.open(map, newMarker);-->
-<!--                    });-->
-<!--                });-->
-<!--            })-->
-<!--            .catch(error => console.error("Error fetching markers:", error));-->
-
-<!--        // const cityLongitude = parseFloat(document.getElementById("cityLongitude").value);-->
-<!--        // const cityLatitude = parseFloat(document.getElementById("cityLatitude").value);-->
-<!--        // const cityName = document.getElementById("cityName").value;-->
-<!--        //-->
-<!--        // const mapFilter = new google.maps.Map(document.getElementById("map"), {-->
-<!--        //     center: { lat: cityLongitude, lng: cityLatitude },-->
-<!--        //     zoom: 11,-->
-<!--        // });-->
-<!--        // const infowindow = new google.maps.InfoWindow();-->
-<!--        //-->
-<!--        // const serviceUrlFilter = `http://localhost:8080/maps/filter?city=${cityName}`;-->
-<!--        //-->
-<!--        // fetch(serviceUrlFilter)-->
-<!--        //     .then(response => response.json())-->
-<!--        //     .then(markers => {-->
-<!--        //         markers.forEach(marker => {-->
-<!--        //             const { id, address, latitude, longitude } = marker;-->
-<!--        //             const markerPosition = { lat: longitude, lng: latitude };-->
-<!--        //-->
-<!--        //             const newMarker = new google.maps.Marker({-->
-<!--        //                 map: mapFilter,-->
-<!--        //                 position: markerPosition-->
-<!--        //             });-->
-<!--        //-->
-<!--        //             google.maps.event.addListener(newMarker, "click", () => {-->
-<!--        //                 const content = document.createElement("div");-->
-<!--        //                 const nameElement = document.createElement("h2");-->
-<!--        //-->
-<!--        //                 nameElement.textContent = id;-->
-<!--        //                 content.appendChild(nameElement);-->
-<!--        //-->
-<!--        //                 const placeIdElement = document.createElement("p");-->
-<!--        //-->
-<!--        //                 placeIdElement.textContent = id;-->
-<!--        //                 content.appendChild(placeIdElement);-->
-<!--        //-->
-<!--        //                 const placeAddressElement = document.createElement("p");-->
-<!--        //-->
-<!--        //                 placeAddressElement.textContent = address;-->
-<!--        //                 content.appendChild(placeAddressElement);-->
-<!--        //-->
-<!--        //                 infowindow.setContent(content);-->
-<!--        //                 infowindow.open(mapFilter, newMarker);-->
-<!--        //             });-->
-<!--        //         });-->
-<!--        //     })-->
-<!--        //     .catch(error => console.error("Error fetching markers:", error));-->
-
-
-<!--    }-->
-
-<!--    window.initFilterMap = initFilterMap;-->
-<!--</script>-->
 
 <script>
     document.querySelector('.burger').addEventListener('click', function() {

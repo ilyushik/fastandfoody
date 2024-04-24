@@ -48,7 +48,7 @@ public class MapController {
     }
 
     @GetMapping("/maps/filter")
-    public List<MarkerDTO> markers(@RequestParam("city") String city) {
+    public List<MarkerDTO> markers(@RequestParam(value = "city", required = true, defaultValue = "Київ") String city) {
         City city1 = cityRepository.findCityByName(city);
         int cityId = city1.getId();
 //        List<Restaurant> restaurants = restaurantRepository.findByCityId(cityId);

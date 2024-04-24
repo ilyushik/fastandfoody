@@ -67,16 +67,16 @@ CREATE TABLE IF NOT EXISTS Person(
 CREATE TABLE IF NOT EXISTS City(
     id int PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(32) NOT NULL ,
-    longitude numeric NOT NULL ,
-    latitude numeric NOT NULL
+    longitude decimal(8, 6) NOT NULL ,
+    latitude decimal(8, 6) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Restaurant(
     id int PRIMARY KEY AUTO_INCREMENT,
     admin_id int UNIQUE NOT NULL REFERENCES Person(id)  ,
     address VARCHAR(64) NOT NULL UNIQUE ,
-    longitude numeric NOT NULL ,
-    latitude numeric NOT NULL ,
+    longitude decimal(8, 6) NOT NULL ,
+    latitude decimal(8, 6) NOT NULL ,
     city_id int REFERENCES  City(id),
     phone VARCHAR(16) NOT NULL ,
     email VARCHAR(64) NOT NULL

@@ -63,7 +63,7 @@
 
                         <div class="price_of_order">
                             <p class="price_text">Сума</p>
-                            <p class="price_of_zamovlennya">123грн.</p>
+                            <p class="price_of_zamovlennya" th:text="${ap.getPrice()} + 'грн.'"></p>
                         </div>
 
                         <div class="link_button">
@@ -89,7 +89,7 @@
 
                         <div class="price_of_order">
                             <p class="price_text">Сума</p>
-                            <p class="price_of_zamovlennya">123грн.</p>
+                            <p class="price_of_zamovlennya"th:text="${p.getPrice()} + 'грн.'"></p>
                         </div>
 
                         <div class="link_button">

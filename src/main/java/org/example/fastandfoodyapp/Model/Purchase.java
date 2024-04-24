@@ -51,6 +51,9 @@ public class Purchase {
     @OneToMany(mappedBy = "purchase_id",cascade = CascadeType.ALL)
     private List<Order_Item> order_item_id;
 
+    @Transient
+    private double price;
+
     @ManyToOne
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person person_id;
@@ -75,5 +78,11 @@ public class Purchase {
         this.status = status;
         this.delivery_way = delivery_way;
         this.person_id = person_id;
+    }
+
+    public void setPrice(List<Order_Item> order_items) {
+        for (Order_Item o : order_items) {
+            this.price += o.getItem_id().getPrice() * o.getCount();
+        }
     }
 }
