@@ -9,4 +9,8 @@ public interface ItemService {
     List<ItemDTO> getAllItemDTO();
 
     Item findItemById(int id);
+
+    void deleteById(int id);
+
+    List<Item> findByName(String name);
 }

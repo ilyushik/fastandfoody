@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurants</title>
+</head>
+<body>
+<div th:insert="client/header :: header"></div>
+<div class="hole_screen">
+
+    <form id="restaurantSearch" th:action="@{/...}" method="post">
+        <input class="restaurant_input_search" placeholder="Знайти ресторан" th:type="text">
+        <button class="city_search_button" type="submit">Пошук</button>
+    </form>
+
+    <form id="searchForm" th:action="@{/...}" method="get">
+        <label class="choose_city" for="city">Оберіть ваше місто:</label>
+        <div class="sel">
+            <div class="select">
+                <select id="city" name="city">
+                    <option th:value="${filteredCity.getName()}" th:text="${filteredCity.getName()}"></option>
+                    <option th:each="city : ${cities}" th:value="${city.getName()}" th:text="${city.getName()}"></option>
+                </select>
+            </div>
+            <button class="filter_button" type="submit">Пошук</button>
+        </div>
+    </form>
+
+    <button class="restaurant_add_button" type="button" href="...">Додати ресторан</button>
+
+    <div th:if="${restaurants.isEmpty()}">
+        <h1>Список ресторанів порожній</h1>
+    </div>
+    <div class="restaurant_list" th:unless="${restaurants.isEmpty()}">
+        <div th:each="restaurant: ${restaurants}">
+            <p th:text="Ресторан'№' ${restaurant.getId()}"></p>
+            <p th:text="${restaurant.getAddress()}"></p>
+            <button class="restaurant_info" href="..." type="button">Переглянути інформацію</button>
+            <form th:method="post" th:action="@{/...}">
+                <input class="button" type="submit" value="Видалити ресторан" />
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -297,4 +297,17 @@ public class MainController {
         personService.resetPassword(username);
         return "redirect:/auth/login";
     }
+
+    @GetMapping("/order")
+    public String makeOrder() {
+        return "client/order";
+    }
+
+    //Showing menu to a client
+    @GetMapping("order/{restaurantId}")
+    public String showMenu() {
+        return "client/orderMenu";
+    }
+
+
 }

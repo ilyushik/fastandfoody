@@ -5,7 +5,6 @@ import org.example.fastandfoodyapp.Model.DTO.ItemDTO;
 import org.example.fastandfoodyapp.Model.Item;
 import org.example.fastandfoodyapp.Repositories.ItemRepository;
 import org.example.fastandfoodyapp.Services.Service.ItemService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +31,19 @@ public class ItemServiceImpl implements ItemService {
 
     public Item findItemById(int id) {
         return itemRepository.findById(id).orElseThrow();
+    }
+
+    public void deleteById(int id) {
+        itemRepository.deleteById(id);
+    }
+
+    public List<Item> findByName(String name) {
+        return itemRepository.findAll().
+                stream().
+                filter(i -> i.getItem_name().
+                        toLowerCase().
+                        contains(name.toLowerCase())).
+                collect(Collectors.toList());
     }
 }
 

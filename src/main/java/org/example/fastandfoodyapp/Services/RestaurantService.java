@@ -69,4 +69,8 @@ public class RestaurantService {
         restaurant1.setPhone(restaurant.getPhone());
         restaurantRepository.save(restaurant1);
     }
+
+    public void deleteById(int id) {
+        restaurantRepository.deleteById(id);
+    }
 }
