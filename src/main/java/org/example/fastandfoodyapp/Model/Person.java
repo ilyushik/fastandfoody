@@ -62,6 +62,9 @@ public class Person {
     @JoinColumn(name = "image", referencedColumnName = "id")
     private Image image;
 
+    @Transient
+    private String view_image;
+
     public Person(String name, String surname, String phone,
                   String email, String username, String person_password) {
         this.name = name;

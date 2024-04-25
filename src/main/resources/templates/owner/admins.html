@@ -5,8 +5,30 @@
     <title>Адміністратори</title>
 </head>
 <body>
-  <div th:each="admin : ${admins}">
-    <p th:text="${admin.getName()}"></p>
-  </div>
+<div th:insert="client/header :: header"></div>
+<div class="whole_screen">
+    <form id="clientSearch" th:action="@{/...}" method="post">
+        <input class="admin_input_search" placeholder="Пошук адміністратора за номером" th:type="text">
+        <button class="admin_search_button" type="submit">
+            <img class="buttonImage" src="/images/arrow-right-short.png" alt="">
+        </button>
+    </form>
+
+    <a class="add_admin_button" th:href="..." >Додати адміністраторa</a>
+
+    <div th:if="${admins.isEmpty()}">
+        <h1>Список адміністраторів порожній</h1>
+    </div>
+    <div class="admins_list" th:unless="${admins.isEmpty()}">
+      <div th:each="admin : ${admins}">
+          <img class="person_image" th:src="@{'data:image/png;base64,' + ${admin.getView_image()}}" alt="">
+          <p th:text="${admin.getName()}"></p>
+          <button class="restaurant_info" href="..." type="button">Переглянути інформацію</button>
+          <form th:method="post" th:action="@{/...}">
+              <input class="button" type="submit" value="Видалити"/>
+          </form>
+      </div>
+    </div>
+</div>
 </body>
 </html>

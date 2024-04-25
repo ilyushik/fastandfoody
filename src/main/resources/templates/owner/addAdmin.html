@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Додати адміністратора</title>
+</head>
+<body>
+<div th:insert="client/header :: header"></div>
+<div class="whole_screen">
+    <form id="clientSearch" th:action="@{/...}" method="post">
+        <input class="admin_input_search" placeholder="Пошук клієнта за номером" th:type="text">
+        <button class="admin_search_button" type="submit">
+            <img class="buttonImage" src="/img/arrow-right-short.png" alt="">
+        </button>
+    </form>
+
+    <div th:if="${admins.isEmpty()}">
+        <h1>Список клієнтів порожній</h1>
+    </div>
+    <div class="clients_list" th:unless="${admins.isEmpty()}">
+        <div th:each="admin : ${admins}">
+            <img class="person_image" th:src="@{'data:image/png;base64,' + ${admin.getView_image()}}" alt="">
+            <p th:text="${admin.getName()}"></p>
+            <form th:method="post" th:action="@{/...}">
+                <input class="button" type="submit" value="Зробити адміністратором"/>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

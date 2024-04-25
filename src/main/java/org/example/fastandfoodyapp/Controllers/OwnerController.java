@@ -10,13 +10,17 @@ import org.example.fastandfoodyapp.Repositories.RestaurantRepository;
 import org.example.fastandfoodyapp.Services.PersonService;
 import org.example.fastandfoodyapp.Services.RestaurantService;
 import org.example.fastandfoodyapp.Services.Service.ItemService;
+import org.example.fastandfoodyapp.Services.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/owner")
@@ -25,6 +29,8 @@ public class OwnerController {
     private PersonService personService;
     @Autowired
     private RestaurantService restaurantService;
+    @Autowired
+    private StorageService storageService;
     @Autowired
     private ItemService itemService;
     @Autowired
@@ -43,6 +49,9 @@ public class OwnerController {
     @GetMapping("/admins")
     public String pageWithAdmins(Model model) {
         List<Person> admins = personService.findByRole(User_Role.ROLE_ADMIN);
+        for (Person p: admins) {
+            p.setView_image(Base64.getEncoder().encodeToString(storageService.downloadImage(p.getImage().getName())));
+        }
         model.addAttribute("admins", admins);
         return "owner/admins";
     }
@@ -53,6 +62,9 @@ public class OwnerController {
                 stream().
                 filter(p -> p.getPersonRole() == User_Role.ROLE_ADMIN).
                 toList();
+        for (Person p: adminsList) {
+            p.setView_image(Base64.getEncoder().encodeToString(storageService.downloadImage(p.getImage().getName())));
+        }
         model.addAttribute("admins", adminsList);
         return "owner/admins";
     }
@@ -66,8 +78,34 @@ public class OwnerController {
     @GetMapping("/admins/{adminId}")
     public String getFullAdminInfo(@PathVariable("adminId") int adminId, Model model) {
         Person p = personService.findById(adminId);
+        p.setView_image(Base64.getEncoder().encodeToString(storageService.downloadImage(p.getImage().getName())));
         model.addAttribute("admin", p);
         return "owner/adminDetails";
+    }
+
+    @GetMapping("/admins/addAdmin")
+    public String addAdminPage(Model model) {
+        List<Person> adminsList = personService.people().
+                stream().
+                filter(p -> p.getPersonRole() == User_Role.ROLE_CLIENT).
+                toList();
+        for (Person p: adminsList) {
+            p.setView_image(Base64.getEncoder().encodeToString(storageService.downloadImage(p.getImage().getName())));
+        }
+        model.addAttribute("admins", adminsList);
+        return "owner/addAdmin";
+    }
+
+    @PostMapping("/admins/addAdmin/filter")
+    public String findNewAdminByPhone(@RequestParam("phone") String phone, Model model) {
+        Optional<Person> p = personService.byPhone(phone).stream().findFirst();
+        Person person = null;
+        if (p.isPresent()) {
+            person = p.get();
+            person.setView_image(Base64.getEncoder().encodeToString(storageService.downloadImage(person.getImage().getName())));
+        }
+        model.addAttribute("person", person);
+        return "owner/addAdmin";
     }
 
     @PostMapping("admins/addAdmin/{personId}")
