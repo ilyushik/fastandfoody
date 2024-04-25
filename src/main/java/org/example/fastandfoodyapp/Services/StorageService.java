@@ -20,7 +20,8 @@ public class StorageService {
 
     public String uploadImage(MultipartFile file) throws IOException {
         Image image = storageRepository.save(Image.builder().name(file.getOriginalFilename())
-                .type(file.getContentType())
+//                .type(file.getContentType())
+                        .type("image/png")
                 .imageData(ImageUtils.compressImage(file.getBytes())).build());
         if (image != null) {
             return "file uploaded successfully : " + file.getOriginalFilename();

@@ -3,63 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <title>Головна</title>
-    <style>
-        .main {
-            display: grid;
-            grid-template-columns: 40% 40%;
-            grid-column-gap: 10%;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/css/adminHeader.css">
+    <link rel="stylesheet" type="text/css" href="/css/adminMain.css">
 </head>
 <body>
+    <div th:insert="admin/adminHeader :: header"></div>
+
     <main class="main">
         <div class="restaurantInfoEdit">
-            <h2 th:text="'Ресторан №' + ${restaurant.getId()}"></h2>
-            <h4 th:text="${restaurant.getCityId().getName()}"></h4>
-            <h4 th:text="${restaurant.getAddress()}"></h4>
+            <p class="restaurant_number" th:text="'Ресторан №' + ${restaurant.getId()}">Ресторан №1</p>
+            <p class="info" th:text="${restaurant.getCityId().getName()}">Маріуполь</p>
+            <p class="info" th:text="${restaurant.getAddress()}">Вул.Шаргородська 4</p>
             <form th:method="POST" th:action="@{/admin/restaurantEdit}" th:object="${restaurant}">
-                <label for="phone">Телефон</label>
-                <input type="text" th:field="*{phone}" id="phone"><br>
-                <label for="email">Електронна адреса</label>
-                <input type="email" th:field="*{email}" id="email">
-                <br>
-                <input type="submit" value="Підтвердити">
+                <div class="field_block">
+                    <label for="phone"></label>
+                    <input class="field" type="text" th:field="*{phone}" id="phone" placeholder="Телефон"><br>
+                </div>
+                <div class="field_block">
+                    <label for="email"></label>
+                    <input class="field" type="email" th:field="*{email}" id="email" placeholder="Електронна адреса"><br>
+                </div>
+                <input class="find_button" type="submit" value="Зберегти">
             </form>
-            <form th:method="POST" th:action="@{/admin/filter}">
-                <label for="phoneU">Знайти людину:</label>
-                <input type="text" name="phone" id="phoneU">
-                <input type="submit" value="Пошук">
+
+            <form class="find_person" th:method="POST" th:action="@{/admin/filter}">
+                <label for="phoneU"></label>
+                <div class="field_image">
+                    <input class="field" type="text" name="phone" id="phoneU" placeholder="Знайти людину:">
+                    <button class="button" type="submit"><img class="buttonImage" src="/images/arrow-right-short.png" alt=""></button>
+                </div>
             </form>
             <div th:if="${!people.isEmpty()}" th:each="p : ${people}">
                 <a th:href="'/admin/person/' + ${p.getId()} + '/orders'">
-                    <p th:text="${p.getName()} + ' ' + ${p.getSurname()}"></p>
+                    <p class="finded_person" th:text="${p.getName()} + ' ' + ${p.getSurname()}">Ілля Камаралі</p>
                 </a>
                 <br>
             </div>
         </div>
+
         <div class="adminsInfoEdit">
-            <form th:method="POST" th:action="@{/admin/adminEdit}" th:object="${admin}">
-                <label for="name">Введіть ім'я</label>
-                <input type="text" th:field="*{name}" id="name">
-                <br>
-                <label for="surname">Введіть прізвище</label>
-                <input type="text" th:field="*{surname}" id="surname">
-                <br>
-                <label for="username">Введіть ім'я користувача</label>
-                <input type="text" th:field="*{username}" id="username">
-                <br>
-                <label for="adminPhone">Введіть номер телефону</label>
-                <input type="text" th:field="*{phone}" id="adminPhone">
-                <br>
-                <label for="adminEmail">Введіть пошту</label>
-                <input type="text" th:field="*{email}" id="adminEmail">
-                <br>
-                <label for="person_password">Введіть пароль</label>
-                <input type="text" th:field="*{person_password}" id="person_password">
-                <br>
-                <input type="submit" value="Підтвердити">
-            </form>
+            <div class="title_justify">
+                <p class="title">Інформація про адміністратора</p>
+            </div>
+            <div class="form_justify">
+                <form th:method="POST" th:action="@{/admin/adminEdit}" th:object="${admin}">
+                    <div class="field_block">
+                        <label for="name"></label>
+                        <input class="field" type="text" th:field="*{name}" id="name" placeholder="Введіть ім'я">
+                        <br>
+                    </div>
+
+                    <div class="field_block">
+                        <label for="surname"></label>
+                        <input class="field" type="text" th:field="*{surname}" id="surname" placeholder="Введіть прізвище">
+                        <br>
+                    </div>
+
+                    <div class="field_block">
+                        <label for="username"></label>
+                        <input class="field" type="text" th:field="*{username}" id="username" placeholder="Введіть ім'я користувача">
+                        <br>
+                    </div>
+
+                    <div class="field_block">
+                        <label for="adminPhone"></label>
+                        <input class="field" type="text" th:field="*{phone}" id="adminPhone" placeholder="Введіть номер телефону">
+                        <br>
+                    </div>
+
+                    <div class="field_block">
+                        <label for="adminEmail"></label>
+                        <input class="field" type="text" th:field="*{email}" id="adminEmail" placeholder="Введіть пошту">
+                        <br>
+                    </div>
+
+                    <div class="field_block">
+                        <label for="person_password"></label>
+                        <input class="field" type="text" th:field="*{person_password}" id="person_password" placeholder="Введіть пароль">
+                        <br>
+                    </div>
+                    <input class="find_button" type="submit" value="Підтвердити">
+                </form>
+            </div>
         </div>
     </main>
+
+
+
+
+
+
+
+<!--    <main class="main">-->
+<!--        <div class="restaurantInfoEdit">-->
+<!--            <h2 th:text="'Ресторан №' + ${restaurant.getId()}"></h2>-->
+<!--            <h4 th:text="${restaurant.getCityId().getName()}"></h4>-->
+<!--            <h4 th:text="${restaurant.getAddress()}"></h4>-->
+<!--            <form th:method="POST" th:action="@{/admin/restaurantEdit}" th:object="${restaurant}">-->
+<!--                <label for="phone">Телефон</label>-->
+<!--                <input type="text" th:field="*{phone}" id="phone"><br>-->
+<!--                <label for="email">Електронна адреса</label>-->
+<!--                <input type="email" th:field="*{email}" id="email">-->
+<!--                <br>-->
+<!--                <input type="submit" value="Підтвердити">-->
+<!--            </form>-->
+<!--            <form th:method="POST" th:action="@{/admin/filter}">-->
+<!--                <label for="phoneU">Знайти людину:</label>-->
+<!--                <input type="text" name="phone" id="phoneU">-->
+<!--                <input type="submit" value="Пошук">-->
+<!--            </form>-->
+<!--            <div th:if="${!people.isEmpty()}" th:each="p : ${people}">-->
+<!--                <a th:href="'/admin/person/' + ${p.getId()} + '/orders'">-->
+<!--                    <p th:text="${p.getName()} + ' ' + ${p.getSurname()}"></p>-->
+<!--                </a>-->
+<!--                <br>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="adminsInfoEdit">-->
+<!--            <form th:method="POST" th:action="@{/admin/adminEdit}" th:object="${admin}">-->
+<!--                <label for="name">Введіть ім'я</label>-->
+<!--                <input type="text" th:field="*{name}" id="name">-->
+<!--                <br>-->
+<!--                <label for="surname">Введіть прізвище</label>-->
+<!--                <input type="text" th:field="*{surname}" id="surname">-->
+<!--                <br>-->
+<!--                <label for="username">Введіть ім'я користувача</label>-->
+<!--                <input type="text" th:field="*{username}" id="username">-->
+<!--                <br>-->
+<!--                <label for="adminPhone">Введіть номер телефону</label>-->
+<!--                <input type="text" th:field="*{phone}" id="adminPhone">-->
+<!--                <br>-->
+<!--                <label for="adminEmail">Введіть пошту</label>-->
+<!--                <input type="text" th:field="*{email}" id="adminEmail">-->
+<!--                <br>-->
+<!--                <label for="person_password">Введіть пароль</label>-->
+<!--                <input type="text" th:field="*{person_password}" id="person_password">-->
+<!--                <br>-->
+<!--                <input type="submit" value="Підтвердити">-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </main>-->
 </body>
 </html>

@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.main {
+    display: flex;
+    justify-content: center;
+    gap: 30%;
+    margin-bottom: 170px;
+}
+
+.restaurant_number {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+}
+
+.info {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.adminsInfoEdit {
+    margin-top: 5vh;
+}
+
+.field_block {
+    position: relative;
+    margin-bottom: 10px;
+    width: 20vw;
+}
+
+.field {
+    border: none;
+    width: 100%;
+    background: transparent;
+    outline: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    height: 50px;
+    background-color: #d9d9d9;
+    border-radius: 10px;
+    color: #707070;
+    padding-left: 10px;
+    margin: 20px 0;
+}
+
+.field::placeholder {
+    position: absolute;
+    left: 0;
+    font-size: 19px;
+    color: #707070;
+    pointer-events: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 350;
+    margin-left: 10px;
+}
+
+.find_button {
+    width: 100%;
+    height: 50px;
+    background-color: #e39600;
+    border: none;
+    border-radius: 10px;
+    color: #eeeeee;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 19px;
+    margin-top: 20px;
+    transition: ease-in 0.2s;
+}
+
+.find_person {
+    margin-top: 100px;
+}
+
+.field_image {
+    display: flex;
+}
+
+.button {
+    border: none;
+    background-color: transparent;
+}
+
+.buttonImage {
+    height: 50px;
+    border-radius: 10px;
+    transition: ease-in 0.2s;
+}
+
+.finded_person {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    padding: 15px;
+    background-color: #e39600;
+    border-radius: 15px;
+    transition: ease-in 0.2s;
+    color: #eeeeee;
+}
+
+.find_button:hover, .buttonImage:hover, .finded_person:hover {
+    transform: scale(1.1);
+}
+
+.adminsInfoEdit .title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+}
+
+.title_justify {
+    display: flex;
+    justify-content: center;
+}
+
+.form_justify {
+    display: flex;
+    justify-content: center;
+}
+ a {
+     text-decoration: none;
+ }
+
+@media screen and (max-width: 2000px) {
+    .main {
+        gap: 20%;
+    }
+
+    .field_block {
+        width: 30vw;
+    }
+
+    .field {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 500;
+        font-size: 20px;
+        height: 40px;
+        background-color: #d9d9d9;
+        border-radius: 10px;
+        color: black;
+        padding-left: 10px;
+        margin: 20px 0;
+    }
+
+    .field::placeholder {
+        position: absolute;
+        left: 0;
+        font-size: 19px;
+        color: #707070;
+        pointer-events: none;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 350;
+        margin-left: 10px;
+    }
+
+    .find_button {
+        width: 100%;
+        height: 40px;
+        background-color: #e39600;
+        border: none;
+        border-radius: 10px;
+        color: #eeeeee;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 500;
+        font-size: 19px;
+        margin-top: 20px;
+        transition: ease-in 0.2s;
+    }
+
+    .adminsInfoEdit .title {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 20px;
+    }
+
+    .buttonImage {
+        height: 40px;
+    }
+}
