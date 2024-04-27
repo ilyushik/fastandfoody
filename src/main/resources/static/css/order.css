@@ -1,0 +1,13 @@
+.text_chose {
+    margin-top: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: #eeeeee;
+    font-size: 35px;
+}
+
+@media screen and (max-width: 1900px) {
+    .text_chose {
+        font-size: 25px;
+    }
+}

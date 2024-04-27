@@ -304,14 +304,71 @@ public class MainController {
         return "redirect:/auth/login";
     }
 
+    //page with map
     @GetMapping("/order")
-    public String makeOrder() {
+    public String makeOrder(@RequestParam(name = "city", defaultValue = "Київ") String city, Model model) {
+        City defaultCity = cityRepository.findCityByName("Київ");
+        List<RestaurantDTO> restaurants;
+        boolean filter = false;
+        if (city != null && !city.isEmpty()) {
+            restaurants = restaurantService.findRestaurantByCity(city);
+            filter = true;
+        } else {
+            restaurants = restaurantService.restaurantsDTO();
+            filter = false;
+        }
+        model.addAttribute("filteredCity", cityRepository.findCityByName(city));
+        model.addAttribute("filter", filter);
+        model.addAttribute("restaurants", restaurants);
+        model.addAttribute("cities", cityRepository.findAll());
+        model.addAttribute("defaultCity", defaultCity);
         return "client/order";
     }
 
     //Showing menu to a client
-    @GetMapping("order/{restaurantId}")
-    public String showMenu() {
+    @GetMapping("/order/{restaurantId}")
+    public String showMenu(Model model) {
+        List<ItemDTO> itemDTOS = itemService.getAllItemDTO();
+        for (ItemDTO i : itemDTOS) {
+            String image = Base64.getEncoder().encodeToString(storageService.
+                    downloadImage(itemService.findItemById(i.getId()).getImage().getName()));
+            i.setImage(image);
+        }
+        List<ItemDTO> coldDrinks = new ArrayList<>();
+        List<ItemDTO> hotDrinks = new ArrayList<>();
+        List<ItemDTO> beef = new ArrayList<>();
+        List<ItemDTO> pork = new ArrayList<>();
+        List<ItemDTO> fishAndChicken = new ArrayList<>();
+        List<ItemDTO> desserts = new ArrayList<>();
+        List<ItemDTO> breakfasts = new ArrayList<>();
+        List<ItemDTO> friesAndSauces = new ArrayList<>();
+        for (ItemDTO i : itemDTOS) {
+            if (i.getCategory().equals(Category.Cold_drinks.getDisplayName())) {
+                coldDrinks.add(i);
+            } else if (i.getCategory().equals(Category.Hot_drinks.getDisplayName())) {
+                hotDrinks.add(i);
+            } else if (i.getCategory().equals(Category.Beef.getDisplayName())) {
+                beef.add(i);
+            } else if (i.getCategory().equals(Category.Pork.getDisplayName())) {
+                pork.add(i);
+            } else if (i.getCategory().equals(Category.Fish_and_chicken.getDisplayName())) {
+                fishAndChicken.add(i);
+            } else if (i.getCategory().equals(Category.Desserts.getDisplayName())) {
+                desserts.add(i);
+            } else if(i.getCategory().equals(Category.Breakfasts.getDisplayName())) {
+                breakfasts.add(i);
+            } else  {
+                friesAndSauces.add(i);
+            }
+        }
+        model.addAttribute("coldDrinks", coldDrinks);
+        model.addAttribute("hotDrinks", hotDrinks);
+        model.addAttribute("beef", beef);
+        model.addAttribute("pork", pork);
+        model.addAttribute("fishAndChicken", fishAndChicken);
+        model.addAttribute("desserts", desserts);
+        model.addAttribute("breakfast", breakfasts);
+        model.addAttribute("friesAndSauces", friesAndSauces);
         return "client/orderMenu";
     }
 

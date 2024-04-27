@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.whole_screen_justify {
+    display: flex;
+    justify-content: center;
+    margin-right: 10vw;
+    margin-bottom: 150px;
+}
+
+
+.text_info {
+    display: flex;
+    gap: 20vw;
+    margin-left: 5vw;
+}
+
+.column_1, .column_2 {
+    display: block;
+}
+
+.field {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+.field_name {
+    color: black;
+    font-size: 17px;
+}
+
+.field_text {
+    color: black;
+    font-size: 30px;
+}
+
+select {
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    -ms-appearance:none;
+    appearance:none;
+    outline:0;
+    box-shadow:none;
+    border:0!important;
+    background: #eeeeee;
+    background-image: none;
+    flex: 1;
+    padding: 0 .5em;
+    color: black;
+    cursor:pointer;
+    font-size: 25px;
+}
+select::-ms-expand {
+    display: none;
+}
+.select {
+    position: relative;
+    display: flex;
+    width: 350px;
+    height: 50px;
+    line-height: 3;
+    background: #eeeeee;
+    overflow: hidden;
+    border-radius: 10px 0 0 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+}
+.select::after {
+    content: '\25BE';
+    transform: scale(1.5);
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 1em;
+    background: #eeeeee;
+    cursor:pointer;
+    pointer-events:none;
+    transition:.25s all ease;
+}
+
+.filter_button {
+    border: none;
+    height: 50px;
+    width: 50px;
+    border-radius: 0 10px 10px 0;
+    background-color: #E39600;
+    color: #eeeeee;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    padding: 5px;
+}
+
+.sel {
+    display: flex;
+}
+
+.item {
+    height: 150px;
+    align-items: center;
+}
+
+.items {
+    margin-top: 50px;
+}
+
+.name_align {
+    display: block;
+    align-items: center;
+}
+
+.item_img {
+    height: 150px;
+    border-radius: 15px 0 0 15px;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    margin-left: 5vw;
+    background-color: #d9d9d9;
+    border-radius: 15px;
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.355);
+}
+
+.item_name {
+    font-size: 30px;
+}
+
+
+.title {
+    font-size: 17px;
+}
+
+.text {
+    font-size: 25px;
+}
+
+.item_just {
+    margin-top: 50px;
+}
+
+@media screen and (max-width: 1900px) {
+    .whole_screen_justify {
+        margin-right: 5vw;
+    }
+}

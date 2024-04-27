@@ -3,6 +3,7 @@ package org.example.fastandfoodyapp.Controllers;
 import org.example.fastandfoodyapp.Mails.MailService;
 import org.example.fastandfoodyapp.Mails.MailStructure;
 import org.example.fastandfoodyapp.Model.Enumerables.Status;
+import org.example.fastandfoodyapp.Model.Order_Item;
 import org.example.fastandfoodyapp.Model.Person;
 import org.example.fastandfoodyapp.Model.Purchase;
 import org.example.fastandfoodyapp.Model.Restaurant;
@@ -10,12 +11,14 @@ import org.example.fastandfoodyapp.Security.PersonDetails;
 import org.example.fastandfoodyapp.Services.PersonService;
 import org.example.fastandfoodyapp.Services.PurchaseService;
 import org.example.fastandfoodyapp.Services.RestaurantService;
+import org.example.fastandfoodyapp.Services.StorageService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 @Controller
@@ -25,12 +28,14 @@ public class AdminController {
     private final MailService mailService;
     private final RestaurantService restaurantService;
     private final PersonService personService;
+    private final StorageService storageService;
 
-    public AdminController(PurchaseService purchaseService, MailService mailService, RestaurantService restaurantService, PersonService personService) {
+    public AdminController(PurchaseService purchaseService, MailService mailService, RestaurantService restaurantService, PersonService personService, StorageService storageService) {
         this.purchaseService = purchaseService;
         this.mailService = mailService;
         this.restaurantService = restaurantService;
         this.personService = personService;
+        this.storageService = storageService;
     }
 
     // main admin page
@@ -66,7 +71,14 @@ public class AdminController {
     // detail page purchase
     @GetMapping("/person/{personId}/orders/{orderId}")
     public String orderDetails(@PathVariable("orderId") int orderId, Model model, @PathVariable("personId") int personId) {
-        model.addAttribute("purchase", purchaseService.findById(orderId));
+        Purchase purchase = purchaseService.findById(orderId);
+        List<Order_Item> orderItems = purchase.getOrder_item_id();
+        for (Order_Item o : orderItems) {
+            o.setStringImage(Base64.getEncoder().encodeToString(storageService.downloadImage(o.getItem_id().getImage().getName())));
+            o.setSum(o.getCount(), o.getItem_id().getPrice());
+        }
+        purchase.setPrice(orderItems);
+        model.addAttribute("purchase", purchase);
         model.addAttribute("statuses", Status.values());
         return "admin/orderDetails";
     }

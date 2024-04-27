@@ -3,22 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <title>Details</title>
+    <link rel="stylesheet" type="text/css" href="/css/adminHeader.css">
+    <link rel="stylesheet" type="text/css" href="/css/detailOrderAdmin.css">
 </head>
 <body>
-<div>
-    <a href="/admin">На головну</a>
-    <h3 th:text="'Замовлення №' + ${purchase.getId()}"></h3>
-    <p>ID замовлення: <span th:text="${purchase.getId()}"></span></p>
-    <form th:action="@{/admin/submitOrder/{id}(id=${purchase.getId()})}" th:object="${purchase}" method="post">
-        <label for="status">Змінити статус:</label>
-        <select id="status" name="status" th:field="*{status}">
-            <option th:each="status : ${statuses}"
-                    th:value="${status}"
-                    th:text="${#strings.capitalize(status.getDisplayName().toLowerCase())}">
-            </option>
-        </select>
-        <button type="submit">Змінити статус</button>
-    </form>
+<div th:insert="admin/adminHeader :: header"></div>
+
+<div class="whole_screen_justify">
+    <div class="whole_screen">
+        <div class="text_info">
+            <div class="column_1">
+                <div class="field">
+                    <p class="field_name">Замовлення</p>
+                    <p class="field_text" th:text="'№ ' + ${purchase.getId()}">№12122367</p>
+                </div>
+
+                <div class="field">
+                    <p class="field_name">Адреса ресторану</p>
+                    <p class="field_text" th:text="'Ресторан №' + ${purchase.getRestaurant_id().getId()}"></p>
+                    <p class="field_text" th:text="${purchase.getRestaurant_id().getAddress()}"></p>
+                </div>
+
+                <div class="field">
+                    <p class="field_name">Спосіб оплати</p>
+                    <p class="field_text" th:text="${purchase.getPayment_way().getDisplayName()}">Безготівковий розрахунок</p>
+                </div>
+
+                <div class="field">
+                    <p class="field_name">Статус</p>
+                    <form th:action="@{/admin/submitOrder/{id}(id=${purchase.getId()})}" th:object="${purchase}" method="post">
+                        <label for="status">Змінити статус:</label>
+                        <div class="sel">
+                            <div class="select">
+                                <select id="status" name="status" th:field="*{status}">
+                                    <option th:each="status : ${statuses}"
+                                            th:value="${status}"
+                                            th:text="${#strings.capitalize(status.getDisplayName().toLowerCase())}">
+                                    </option>
+                                </select>
+                            </div>
+                            <button class="filter_button" type="submit">✔</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="field">
+                    <p class="field_name">Дата</p>
+                    <p class="field_text" th:text="${purchase.getDate()}">2024-03-11 12:00:00</p>
+                </div>
+
+                <div class="field">
+                    <p class="field_name">Побажання</p>
+                    <p class="field_text" th:text="${purchase.getWish()}">Не додавати гірчицю</p>
+                </div>
+            </div>
+
+            <div class="column_2">
+                <div class="field">
+                    <p class="field_name">Сума</p>
+                    <p class="field_text" th:text="${purchase.getPrice()}">1600.00грн</p>
+                </div>
+
+                <div class="field">
+                    <p class="field_name">Адреса доставки</p>
+                    <div th:if="${!purchase.getDelivery_way().equals(T(org.example.fastandfoodyapp.Model.Enumerables.Delivery_Way).PickUp)}">
+                        <p class="field_text" th:text="'м.' + ${purchase.getRestaurant_id().getCityId().getName()} + ', ' + ${purchase.getAddress()}">м.Запоріжжя <br> Вул. Іванова 3</p>
+                    </div>
+                    <div th:if="${purchase.getDelivery_way().equals(T(org.example.fastandfoodyapp.Model.Enumerables.Delivery_Way).PickUp)}">
+                        <p class="field_text" th:text="'м.' + ${purchase.getRestaurant_id().getCityId().getName()}">м.Запоріжжя</p>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <p class="field_name">Орієнтовний час доставки</p>
+                    <p class="field_text" th:text="${purchase.getPrep_time()}">11.03.2024 12:45</p>
+                </div>
+
+                <div class="field">
+                    <p class="field_name">Промокод</p>
+                    <div th:if="${!purchase.getPromo_code().equals(null)}">
+                        <p class="field_text" th:text="${purchase.getPromo_code().getCode()}">g132fe23e2</p>
+                    </div>
+                    <div th:if="${purchase.getPromo_code().equals(null)}">
+                        <p class="field_text">Немає промокоду</p>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <p class="field_name">Спосіб доставки</p>
+                    <p class="field_text" th:text="${purchase.getDelivery_way().getDisplayName()}">Доставка курʼєром</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="items">
+            <div class="item_just" th:each="o : ${purchase.getOrder_item_id()}">
+                <div class="item">
+                    <img class="item_img" th:src="@{'data:image/png;base64,' + ${o.getString_image()}}" alt="">
+                    <br><br>
+                    <div class="name_align">
+                        <p class="item_name" th:text="${o.getItem_id().getItem_name()}">Бургер зі свининою</p>
+                    </div>
+                    <br><br>
+
+                    <div class="block">
+                        <p class="title">Вартість</p>
+                        <p class="text" th:text="${o.getItem_id().getPrice()} + 'грн.'">400.00$</p>
+                    </div>
+                    <br><br>
+
+                    <div class="block">
+                        <p class="title">Кількість</p>
+                        <p class="text" th:text="${o.getCount()}">4</p>
+                    </div>
+                    <br><br>
+
+                    <div class="block">
+                        <p class="title">Разом</p>
+                        <p class="text" th:text="${o.getSum()}">1600.00$</p>
+                    </div>
+                    <br><br>
+                </div>
+            </div>
+        </div>
+    </diV>
 </div>
 </body>
 </html>
