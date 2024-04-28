@@ -71,7 +71,8 @@ public class OwnerController {
     @GetMapping("/admins")
     public String pageWithAdmins(Model model) {
         List<Person> admins = personService.findByRole(User_Role.ROLE_ADMIN);
-        for (Person p: admins) {
+
+        for (Person p : admins) {
             p.setView_image(Base64.getEncoder().encodeToString(storageService.downloadImage(p.getImage().getName())));
         }
         model.addAttribute("admins", admins);
@@ -80,14 +81,11 @@ public class OwnerController {
 
     @PostMapping("/admins/filter")
     public String filterAdminByPhone(@RequestParam("phone") String phone, Model model) {
-        List<Person> adminsList = personService.byPhone(phone).
-                stream().
-                filter(p -> p.getPersonRole() == User_Role.ROLE_ADMIN).
-                toList();
-        for (Person p: adminsList) {
+        List<Person> personOrder = personService.byPhone(phone);
+        for (Person p: personOrder) {
             p.setView_image(Base64.getEncoder().encodeToString(storageService.downloadImage(p.getImage().getName())));
         }
-        model.addAttribute("admins", adminsList);
+        model.addAttribute("admins", personOrder);
         return "owner/admins";
     }
 
@@ -107,10 +105,7 @@ public class OwnerController {
 
     @GetMapping("/admins/addAdmin")
     public String addAdminPage(Model model) {
-        List<Person> adminsList = personService.people().
-                stream().
-                filter(p -> p.getPersonRole() == User_Role.ROLE_CLIENT).
-                toList();
+        List<Person> adminsList = personService.findByRole(User_Role.ROLE_CLIENT);
         for (Person p: adminsList) {
             p.setView_image(Base64.getEncoder().encodeToString(storageService.downloadImage(p.getImage().getName())));
         }
