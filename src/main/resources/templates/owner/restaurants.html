@@ -3,44 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <title>Restaurants</title>
+    <link rel="stylesheet" type="text/css" href="/css/adminHeader.css">
+    <link rel="stylesheet" type="text/css" href="/css/ownerRestaurants.css">
 </head>
 <body>
-<div th:insert="client/header :: header"></div>
+<div th:insert="owner/ownerHeader :: header"></div>
+
 <div class="whole_screen">
-
-    <form id="restaurantSearch" th:action="@{/...}" method="post">
-        <input class="restaurant_input_search" placeholder="Знайти ресторан" th:type="text">
-        <button class="city_search_button" type="submit">Пошук</button>
-    </form>
-
-    <form id="searchForm" th:action="@{/...}" method="get">
-        <label class="choose_city" for="city">Оберіть ваше місто:</label>
-        <div class="sel">
-            <div class="select">
-                <select id="city" name="city">
-                    <option th:value="${filteredCity.getName()}" th:text="${filteredCity.getName()}"></option>
-                    <option th:each="city : ${cities}" th:value="${city.getName()}" th:text="${city.getName()}"></option>
-                </select>
+    <div class="section_one">
+        <form id="searchForm" th:action="@{/owner/restaurants}" method="get">
+            <label class="choose_city" for="city">Оберіть ваше місто:</label>
+            <div class="form_align">
+                <div class="sel">
+                    <div class="select">
+                        <select id="city" name="city">
+                            <option th:value="${filteredCity.getName()}" th:text="${filteredCity.getName()}"></option>
+                            <option th:each="city : ${cities}" th:value="${city.getName()}" th:text="${city.getName()}"></option>
+                        </select>
+                    </div>
+                    <input type="hidden" id="cityLatitude" th:value="${filteredCity.getLatitude()}">
+                    <input type="hidden" id="cityLongitude" th:value="${filteredCity.getLongitude()}">
+                    <input type="hidden" id="cityName" th:value="${filteredCity.getName()}">
+                    <input type="hidden" id="filter" th:value="${filter}">
+                    <button class="filter_button" type="submit">Пошук</button>
+                </div>
+                <a class="restaurant_add_button" href="/owner/restaurants/add">Додати ресторан</a>
             </div>
-            <button class="filter_button" type="submit">Пошук</button>
+        </form>
+
+        <div th:if="${restaurants.isEmpty()}">
+            <h1 class="restaurants_info">Список ресторанів порожній</h1>
         </div>
-    </form>
+        <div class="restaurant_list" th:unless="${restaurants.isEmpty()}">
+            <div th:each="r : ${restaurants}">
+                <div class="rest_section">
+                    <div class="rest_address">
+                        <p class="restaurant_number" th:text="'Ресторан №' + ${r.getId()}"> Ресторан №4</p>
+                        <p class="restaurant_address" th:text="${r.getAddress()}">вул.Шарогородська 4</p>
+                    </div>
 
-    <button class="restaurant_add_button" type="button" href="...">Додати ресторан</button>
-
-    <div th:if="${restaurants.isEmpty()}">
-        <h1>Список ресторанів порожній</h1>
+                    <div class="rest_buttons">
+                        <a class="restaurant_info" href="..." type="button">Переглянути інформацію</a>
+                        <form th:method="post" th:action="@{/owner/restaurants/delete{id}(id = ${r.getId()})}">
+                            <input class="button" type="submit" value="Видалити"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="restaurant_list" th:unless="${restaurants.isEmpty()}">
-        <div th:each="restaurant: ${restaurants}">
-            <p th:text="Ресторан'№' ${restaurant.getId()}"></p>
-            <p th:text="${restaurant.getAddress()}"></p>
-            <button class="restaurant_info" href="..." type="button">Переглянути інформацію</button>
-            <form th:method="post" th:action="@{/...}">
-                <input class="button" type="submit" value="Видалити ресторан" />
-            </form>
-        </div>
+
+    <div class="map-container">
+        <div id="map" class="map_class"></div>
     </div>
 </div>
+
+<script>
+    const filter = document.getElementById("filter").value;
+    if (filter) {
+        function initMainMap() {
+            const cityLongitude = parseFloat(document.getElementById("cityLongitude").value);
+            const cityLatitude = parseFloat(document.getElementById("cityLatitude").value);
+            const cityName = document.getElementById("cityName").value;
+
+            const map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: cityLongitude, lng: cityLatitude },
+                zoom: 10,
+            });
+            const infowindow = new google.maps.InfoWindow();
+
+            const serviceUrlFilter = `http://localhost:8080/maps/filter?city=${cityName}`;
+
+            fetch(serviceUrlFilter)
+                .then(response => response.json())
+                .then(markers => {
+                    markers.forEach(marker => {
+                        const { id, address, latitude, longitude } = marker;
+                        const markerPosition = { lat: longitude, lng: latitude };
+
+                        const newMarker = new google.maps.Marker({
+                            map: map,
+                            position: markerPosition
+                        });
+
+                        google.maps.event.addListener(newMarker, "click", () => {
+                            const content = document.createElement("div");
+                            const nameElement = document.createElement("h2")
+
+                            nameElement.textContent = id;
+                            content.appendChild(nameElement);
+
+                            const placeIdElement = document.createElement("p");
+
+                            placeIdElement.textContent = id;
+                            content.appendChild(placeIdElement);
+
+                            const placeAddressElement = document.createElement("p");
+
+                            placeAddressElement.textContent = address;
+                            content.appendChild(placeAddressElement);
+
+                            infowindow.setContent(content);
+                            infowindow.open(map, newMarker);
+                        });
+                    });
+                })
+                .catch(error => console.error("Error fetching markers:", error));
+        }
+    } else {
+        function initMainMap() {
+            const map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: 48.935852, lng: 31.468681 },
+                zoom: 6,
+            });
+
+            const infowindow = new google.maps.InfoWindow();
+
+            const serviceUrl = "http://localhost:8080/maps";
+
+            fetch(serviceUrl)
+                .then(response => response.json())
+                .then(markers => {
+                    markers.forEach(marker => {
+                        const { id, address, latitude, longitude } = marker;
+
+                        const markerPosition = { lat: longitude, lng: latitude };
+
+                        const newMarker = new google.maps.Marker({
+                            map: map,
+                            position: markerPosition
+                        });
+
+                        google.maps.event.addListener(newMarker, "click", () => {
+                            const content = document.createElement("div");
+                            const nameElement = document.createElement("h2");
+
+                            nameElement.textContent = id;
+                            content.appendChild(nameElement);
+
+                            const placeIdElement = document.createElement("p");
+
+                            placeIdElement.textContent = id;
+                            content.appendChild(placeIdElement);
+
+                            const placeAddressElement = document.createElement("p");
+
+                            placeAddressElement.textContent = address;
+                            content.appendChild(placeAddressElement);
+
+                            infowindow.setContent(content);
+                            infowindow.open(map, newMarker);
+                        });
+                    });
+                })
+                .catch(error => console.error("Error fetching markers:", error));
+        }
+    }
+
+
+
+    window.initMainMap = initMainMap;
+</script>
+
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHjH0Z1pCYmXr5y7AuHZgS-2rmU8VbOiQ&callback=initMainMap"
+        async defer
+></script>
 </body>
 </html>

@@ -170,7 +170,7 @@ public class OwnerController {
         return "owner/addRestaurant";
     }
 
-    @PostMapping("restaurants/add")
+    @PostMapping("restaurants/addRest")
     public String createRestaurant(@ModelAttribute("restaurant") Restaurant restaurant) {
         restaurantRepository.save(restaurant);
         return "redirect:/owner/restaurants";
