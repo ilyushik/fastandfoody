@@ -1,18 +1,25 @@
 package org.example.fastandfoodyapp.Controllers;
 
+import org.example.fastandfoodyapp.Mails.MailService;
+import org.example.fastandfoodyapp.Mails.MailStructure;
+import org.example.fastandfoodyapp.Model.City;
+import org.example.fastandfoodyapp.Model.DTO.RestaurantDTO;
 import org.example.fastandfoodyapp.Model.Enumerables.User_Role;
 import org.example.fastandfoodyapp.Model.Item;
 import org.example.fastandfoodyapp.Model.Person;
 import org.example.fastandfoodyapp.Model.Restaurant;
+import org.example.fastandfoodyapp.Repositories.CityRepository;
 import org.example.fastandfoodyapp.Repositories.ItemRepository;
 import org.example.fastandfoodyapp.Repositories.PersonRepository;
 import org.example.fastandfoodyapp.Repositories.RestaurantRepository;
+import org.example.fastandfoodyapp.Security.PersonDetails;
 import org.example.fastandfoodyapp.Services.PersonService;
 import org.example.fastandfoodyapp.Services.RestaurantService;
 import org.example.fastandfoodyapp.Services.Service.ItemService;
 import org.example.fastandfoodyapp.Services.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -39,10 +46,25 @@ public class OwnerController {
     private RestaurantRepository restaurantRepository;
     @Autowired
     private ItemRepository itemRepository;
+    @Autowired
+    private MailService mailService;
+    @Autowired
+    private CityRepository cityRepository;
 
     @GetMapping("")
-    public String mainOwner() {
+    public String mainOwner(Model model, @AuthenticationPrincipal PersonDetails personDetails) {
+        Person owner = personService.findById(personDetails.getPerson().getId());
+        model.addAttribute("owner", owner);
         return "owner/main";
+    }
+
+    @PostMapping("/editOwner")
+    public String editOwner(@ModelAttribute("owner") Person owner, @AuthenticationPrincipal PersonDetails personDetails) {
+        int id = personDetails.getPerson().getId();
+        personService.editInfo(owner, id);
+        MailStructure mail = new MailStructure("Зміна даних", "Ваші дані змінено успішно");
+        mailService.sendMail(owner.getEmail(), mail);
+        return "redirect:/owner";
     }
 
     //Workflow with admins
@@ -124,9 +146,22 @@ public class OwnerController {
     }
 
     @GetMapping("/restaurants")
-    public String getAllRestaurants(Model model) {
-        List<Restaurant> restaurants = restaurantRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+    public String getAllRestaurants(@RequestParam(name = "city", defaultValue = "Київ") String city, Model model) {
+        City defaultCity = cityRepository.findCityByName("Київ");
+        List<RestaurantDTO> restaurants;
+        boolean filter = false;
+        if (city != null && !city.isEmpty()) {
+            restaurants = restaurantService.findRestaurantByCity(city);
+            filter = true;
+        } else {
+            restaurants = restaurantService.restaurantsDTO();
+            filter = false;
+        }
+        model.addAttribute("filteredCity", cityRepository.findCityByName(city));
+        model.addAttribute("filter", filter);
         model.addAttribute("restaurants", restaurants);
+        model.addAttribute("cities", cityRepository.findAll());
+        model.addAttribute("defaultCity", defaultCity);
         return "owner/restaurants";
     }
 

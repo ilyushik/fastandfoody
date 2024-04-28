@@ -1,18 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Головна</title>
+    <link rel="stylesheet" type="text/css" href="/css/adminHeader.css">
+    <link rel="stylesheet" type="text/css" href="/css/owner.css">
 </head>
 <body>
-Привіт, Власник
-<br>
-<a href="/owner/clients">Клієнти</a>
-<br>
-<a href="/owner/admins">Адміністратори</a>
-<br>
-<a href="/owner/menu">Меню</a>
-<br>
-<a href="/owner/restaurants">Ресторани</a>
+<div th:insert="owner/ownerHeader :: header"></div>
+<div class="whole_screen_justify">
+    <div class="whole_screen">
+        <div class="links">
+            <button class="find_button"><a class="link" href="/owner/admins">Редагувати список адміністраторів</a></button>
+            <button class="find_button"><a class="link" href="/owner/restaurants">Редагувати список ресторанів</a></button>
+            <button class="find_button"><a class="link" href="/owner/menu">Редагувати меню</a></button>
+            <form th:action="@{/logout}" th:method="POST">
+                <input class="find_button" type="submit" value="Вийти з аккаунту">
+            </form>
+        </div>
+
+
+        <div class="ownerInfoEdit">
+            <div class="title_justify">
+                <p class="title">Інформація про власника</p>
+            </div>
+            <div class="form_justify">
+                <form th:method="POST" th:action="@{/owner/editOwner}" th:object="${owner}">
+                    <div class="field_block">
+                        <label for="name"></label>
+                        <input class="field" type="text" th:field="*{name}" id="name" placeholder="Введіть ім'я">
+                        <br>
+                    </div>
+
+                    <div class="field_block">
+                        <label for="surname"></label>
+                        <input class="field" type="text" th:field="*{surname}" id="surname" placeholder="Введіть прізвище">
+                        <br>
+                    </div>
+
+                    <div class="field_block">
+                        <label for="username"></label>
+                        <input class="field" type="text" th:field="*{username}" id="username" placeholder="Введіть ім'я користувача">
+                        <br>
+                    </div>
+
+                    <div class="field_block">
+                        <label for="adminPhone"></label>
+                        <input class="field" type="text" th:field="*{phone}" id="adminPhone" placeholder="Введіть номер телефону">
+                        <br>
+                    </div>
+
+                    <div class="field_block">
+                        <label for="adminEmail"></label>
+                        <input class="field" type="text" th:field="*{email}" id="adminEmail" placeholder="Введіть пошту">
+                        <br>
+                    </div>
+
+                    <div class="field_block">
+                        <label for="person_password"></label>
+                        <input class="field" type="text" th:field="*{person_password}" id="person_password" placeholder="Введіть пароль">
+                        <br>
+                    </div>
+                    <input class="find_button" type="submit" value="Підтвердити">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
