@@ -3,13 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Замовлення</title>
+    <link rel="stylesheet" type="text/css" href="/css/adminHeader.css">
+    <link rel="stylesheet" type="text/css" href="/css/personOrder.css">
 </head>
 <body>
-    <div th:each="p : ${purchases}">
-        <a th:href="'/admin/person/' + ${p.getPerson_id().getId()} + '/orders/' + ${p.getId()}">
-            <p th:text="'Замовлення №' + ${p.getId()}"></p>
-        </a>
-        <br>
+    <div th:insert="admin/adminHeader :: header"></div>
+    <div class = whole_body>
+        <div th:if="${purchases.isEmpty()}">
+        <h1>Список замовлень порожній</h1>
+        </div>
+        <div class="purchases_list" th:unless="${purchases.isEmpty()}">
+            <div class="item">
+                <div class="list" th:each="p : ${purchases}">
+                    <div class="item_inner_wrapper">
+                        <div class="order_num">
+                            <p class = "upper_text">Замовлення</p>
+                            <p class = "main_text" th:text="'№' + ${p.getId()}"></p>
+                        </div>
+                        <div class="order_date">
+                            <p class = "upper_text">Дата замовлення</p>
+                            <p class = "main_text" th:text="${p.getDate().toLocaleString()}"></p>
+                        </div>
+
+                        <a class="arrow_button" th:href="'/admin/person/' + ${p.getPerson_id().getId()} + '/orders/' + ${p.getId()}">
+                            <img src="/images/arrow-right-short.png" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
