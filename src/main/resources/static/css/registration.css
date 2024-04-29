@@ -24,7 +24,7 @@ body {
     grid-template-columns: 60% 40%;
 }
 
-.resetPass {
+.registration {
     display: flex;
     justify-content: center;
     background-color: #eeeeee;
@@ -33,11 +33,9 @@ body {
     padding-top: 50px;
 }
 
-.reset_block {
-    display: block;
+.reg_block {
     position: absolute;
     align-items: center;
-    margin-top: 20vh;
 }
 
 .image_block {
@@ -49,25 +47,20 @@ body {
     width: 100px;
 }
 
-.title_block {
-    display: flex;
-    justify-content: center;
-}
-
 .title {
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
     font-size: 60px;
 }
 
-.reset_form {
+.registration_form {
     display: flex;
     justify-content: center;
 }
 
 .field_block {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     width: 20vw;
 }
 
@@ -79,11 +72,11 @@ body {
     outline: none;
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
-    font-size: 20px;
+    font-size: 25px;
     height: 50px;
 }
 
-.reset_form .field_block label {
+.registration_form .field_block label {
     position: absolute;
     left: 0;
     font-size: 12px;
@@ -93,13 +86,18 @@ body {
     font-weight: 500;
 }
 
+.error {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+}
+
 input::placeholder {
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
-    font-size: 17px;
+    font-size: 25px;
 }
 
-.reset_button {
+.registration_button {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-size: 17px;
@@ -115,18 +113,18 @@ input::placeholder {
     justify-content: center;
 }
 
-.reset_button:hover {
+.registration_button:hover {
     transform: scale(1.1);
 }
 
-.error_block {
-    display: flex;
-    justify-content: center;
-    padding: 15px;
+@media screen and (min-width: 1800px) {
+    .button_block {
+        margin-top: 30px;
+    }
 }
 
 @media screen and (max-width: 1800px) {
-    .login {
+    .registration {
         padding-top: 20px;
     }
 
@@ -141,12 +139,11 @@ input::placeholder {
 
     .field {
         height: 20px;
-        font-size: 15px;
     }
 
     input::placeholder {
         font-family: 'Montserrat', sans-serif;
-        font-size: 12px;
+        font-size: 17px;
     }
 }
 

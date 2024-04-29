@@ -2,9 +2,47 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Admin details</title>
+    <title>Інформація про адміна</title>
+    <link rel="stylesheet" type="text/css" href="/css/adminHeader.css">
+    <link rel="stylesheet" type="text/css" href="/css/adminDetailsOwner.css">
 </head>
 <body>
+<div th:insert="owner/ownerHeader :: header"></div>
 
+<div class="screen_just">
+    <div class="whole_screen">
+        <div class="section_one">
+            <img class="admin_image" th:src="@{'data:image/png;base64,' + ${admin.getView_image()}}" alt="">
+        </div>
+
+        <div class="section_two">
+            <div class="field_block">
+                <p class="field" th:text="${admin.getName()}">Ілля</p>
+            </div>
+
+            <div class="field_block">
+                <p class="field" th:text="${admin.getSurname()}">Камаралі</p>
+            </div>
+
+            <div class="field_block">
+                <p class="field" th:text="${admin.getEmail()}">kamaraliilya@gmail.com</p>
+            </div>
+
+            <div class="field_block">
+                <p class="field" th:text="${admin.getPhone()}">+380685529200</p>
+            </div>
+
+            <div class="field_block">
+                <p class="field" th:text="${admin.getUsername()}">IlliaKamarali</p>
+            </div>
+
+            <div class="field_block">
+                <p class="field" th:text="${admin.getRestaurant_id().getId()}"> </p>
+            </div>
+
+            <button class="button_rest"><a class="link_rest" th:href="'/owner/restaurants/' + ${admin.getRestaurant_id().getId()}">До ресторану</a></button>
+        </div>
+    </div>
+</div>
 </body>
 </html>

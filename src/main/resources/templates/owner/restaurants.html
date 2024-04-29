@@ -43,7 +43,7 @@
                     </div>
 
                     <div class="rest_buttons">
-                        <a class="restaurant_info" href="..." type="button">Переглянути інформацію</a>
+                        <a class="restaurant_info" th:href="'/owner/restaurants/' + ${r.getId()}" type="button">Переглянути інформацію</a>
                         <form th:method="post" th:action="@{/owner/restaurants/delete{id}(id = ${r.getId()})}">
                             <input class="button" type="submit" value="Видалити"/>
                         </form>

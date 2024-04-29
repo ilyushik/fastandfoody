@@ -14,6 +14,7 @@ import org.example.fastandfoodyapp.Repositories.PersonRepository;
 import org.example.fastandfoodyapp.Repositories.RestaurantRepository;
 import org.example.fastandfoodyapp.Security.PersonDetails;
 import org.example.fastandfoodyapp.Services.PersonService;
+import org.example.fastandfoodyapp.Services.RegistrationService;
 import org.example.fastandfoodyapp.Services.RestaurantService;
 import org.example.fastandfoodyapp.Services.Service.ItemService;
 import org.example.fastandfoodyapp.Services.StorageService;
@@ -28,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/owner")
@@ -50,6 +52,8 @@ public class OwnerController {
     private MailService mailService;
     @Autowired
     private CityRepository cityRepository;
+    @Autowired
+    private RegistrationService registrationService;
 
     @GetMapping("")
     public String mainOwner(Model model, @AuthenticationPrincipal PersonDetails personDetails) {
@@ -91,7 +95,10 @@ public class OwnerController {
 
     @PostMapping("/admins/delete/{id}")
     public String deleteAdmin(@PathVariable("id") int id) {
+        String email = personService.findById(id).getEmail();
         personService.deletePerson(id);
+        MailStructure mail = new MailStructure("Ваш аккаунт видалено", "");
+        mailService.sendMail(email, mail);
         return "redirect:/owner/admins";
     }
 
@@ -103,15 +110,17 @@ public class OwnerController {
         return "owner/adminDetails";
     }
 
-    @GetMapping("/admins/addAdmin")
-    public String addAdminPage(Model model) {
-        List<Person> adminsList = personService.findByRole(User_Role.ROLE_CLIENT);
-        for (Person p: adminsList) {
-            p.setView_image(Base64.getEncoder().encodeToString(storageService.downloadImage(p.getImage().getName())));
-        }
-        model.addAttribute("admins", adminsList);
-        return "owner/addAdmin";
-    }
+
+    // delete this method
+//    @GetMapping("/admins/addAdmin")
+//    public String addAdminPage(Model model) {
+//        List<Person> adminsList = personService.findByRole(User_Role.ROLE_CLIENT);
+//        for (Person p: adminsList) {
+//            p.setView_image(Base64.getEncoder().encodeToString(storageService.downloadImage(p.getImage().getName())));
+//        }
+//        model.addAttribute("admins", adminsList);
+//        return "owner/addAdmin";
+//    }
 
     @PostMapping("/admins/addAdmin/filter")
     public String findNewAdminByPhone(@RequestParam("phone") String phone, Model model) {
@@ -158,6 +167,28 @@ public class OwnerController {
         model.addAttribute("cities", cityRepository.findAll());
         model.addAttribute("defaultCity", defaultCity);
         return "owner/restaurants";
+    }
+
+    @GetMapping("/restaurants/{id}")
+    public String restaurantDetails(Model model, @PathVariable("id") int id, @ModelAttribute("person") Person person) {
+        Restaurant restaurant = restaurantRepository.findById(id).orElseThrow();
+
+        model.addAttribute("restaurant", restaurant);
+        return "owner/restaurantDetails";
+    }
+
+    @PostMapping("/confirm/{id}")
+    public String confirmAddingAdmin(@PathVariable("id") int id, @ModelAttribute("person") Person person) {
+        registrationService.registration(person);
+        Restaurant restaurant = restaurantRepository.findById(id).orElseThrow();
+        Person person1 = personRepository.findPersonByUsername(person.getUsername());
+        person1.setPersonRole(User_Role.ROLE_ADMIN);
+        restaurant.setAdminId(person1);
+        personRepository.save(person1);
+        restaurantRepository.save(restaurant);
+        MailStructure mail = new MailStructure("Повідомлення про зміни", "Ви стали адміном ресторану №" + restaurant.getId());
+        mailService.sendMail(person1.getEmail(), mail);
+        return "redirect:/owner/restaurants/{id}";
     }
 
     @GetMapping("restaurants/add")

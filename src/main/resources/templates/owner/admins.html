@@ -21,9 +21,9 @@
                 </div>
             </form>
 
-            <div>
-                <a class="add_admin_button" href="/owner/admins/addAdmin" >Додати адміністраторa</a>
-            </div>
+<!--            <div>-->
+<!--                <a class="add_admin_button" href="/owner/admins/addAdmin" >Додати адміністраторa</a>-->
+<!--            </div>-->
         </div>
 
         <div th:if="${admins.isEmpty()}">
@@ -35,7 +35,7 @@
                     <img class="person_image" th:src="@{'data:image/png;base64,' + ${admin.getView_image()}}" alt="">
                     <p class="per_name" th:text="${admin.getName()} + ' ' + ${admin.getSurname()}">Мирослава Потоцька</p>
                     <button class="restaurant_info" type="button"><a class="link_info" th:href="'/owner/admins/' + ${admin.getId()}">Переглянути інформацію</a></button>
-                    <form th:method="post" th:action="@{/owner/admins/delete{id}(id=${admin.getId()})}">
+                    <form th:method="post" th:action="@{/owner/admins/delete/{id}(id=${admin.getId()})}">
                         <button class="button" type="submit">Видалити</button>
                     </form>
                 </div>

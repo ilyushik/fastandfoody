@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Інформація про ресторан</title>
+    <link rel="stylesheet" type="text/css" href="/css/adminHeader.css">
+    <link rel="stylesheet" type="text/css" href="/css/restaurantDetails.css">
+</head>
+<body>
+<div th:insert="owner/ownerHeader :: header"></div>
+
+<div class="whole_screen">
+    <div class="block_left">
+        <p class="title_rest" th:text="'Ресторан №' + ${restaurant.getId()}">Ресторан №1</p>
+        <div class="contact-info">
+            <div class="address">
+                <img class="img_address" src="/images/marker_black.png" alt="">
+                <p th:text="${restaurant.getAddress()}">  Вул. Шаргородська 4</p>
+            </div>
+            <br>
+            <div class="phone">
+                <img class="img_phone" src="/images/phone_black.png" alt="">
+                <p th:text="${restaurant.getPhone()}">+380(98)-453-67-21</p>
+            </div>
+            <br>
+            <div class="mail">
+                <img class="img_mail" src="/images/mail_black.png" alt="">
+                <a th:href="'mailto:' + ${restaurant.getEmail()}" th:text="${restaurant.getEmail()}">fastandfoodycorp@gmail.com</a>
+            </div>
+            <br>
+
+            <button class="button_rest"><a class="link_rest" th:href="'/owner/admins/' + ${restaurant.getAdminId().getId()}">Переглянути адміна</a></button>
+            <br><br>
+            <button class="button_rest" onclick="toggle()">Змінити адміністратора</button>
+
+            <div class="popup" id="popup-1">
+                <div class="overlay"></div>
+                <div class="content">
+                    <div class="close-btn" onclick="toggle()">&times;</div>
+                    <form class="form_add" th:action="@{/owner/confirm/{id}(id = ${restaurant.getId()})}" th:object="${person}" th:method="POST">
+                        <div class="field_block">
+                            <label for="name"></label>
+                            <input type="text" th:field="*{name}" id="name" class="field" placeholder="Введіть ім'я">
+                            <div class="error" style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Проблема з ім'ям</div>
+                        </div>
+                        <br>
+
+                        <div class="field_block">
+                            <label for="surname"></label>
+                            <input type="text" th:field="*{surname}" id="surname" class="field" placeholder="Введіть прізвище">
+                            <div class="error" style="color: red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Проблема з прізвищем</div>
+                        </div>
+                        <br>
+
+                        <div class="field_block">
+                            <label for="username"></label>
+                            <input type="text" th:field="*{username}" id="username" class="field" placeholder="Введіть ім'я користувача">
+                            <div class="error" style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Проблема з ім'ям користувача</div>
+                        </div>
+                        <br>
+
+                        <div class="field_block">
+                            <label for="phone"></label>
+                            <input type="text" th:field="*{phone}" id="phone" class="field" placeholder="Введіть номер телефону">
+                            <div class="error" style="color: red" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Проблема з номером телефону</div>
+                        </div>
+                        <br>
+
+                        <div class="field_block">
+                            <label for="email"></label>
+                            <input type="text" th:field="*{email}" id="email" class="field" placeholder="Введіть пошту">
+                            <div class="error" style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Проблема з поштою</div>
+                        </div>
+                        <br>
+
+                        <div class="field_block">
+                            <label for="person_password"></label>
+                            <input type="password" th:field="*{person_password}" id="person_password" class="field" placeholder="Введіть пароль">
+                            <div class="error" style="color: red" th:if="${#fields.hasErrors('person_password')}" th:errors="*{person_password}">Проблема з паролем</div>
+                        </div>
+                        <br>
+                        <div class="button_block">
+                            <input onclick="toggle()" class="button_rest" type="submit" value="Додати адміністратора">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <input type="hidden" id="restContactId" th:value="${restaurant.getId()}" />
+            <input type="hidden" id="restLat" th:value="${restaurant.getCityId().getLatitude()}" />
+            <input type="hidden" id="restLon" th:value="${restaurant.getCityId().getLongitude()}" />
+        </div>
+    </div>
+
+    <div class="map-container">
+        <div id="map" class="map_class"></div>
+    </div>
+</div>
+
+<script>
+    function toggle() {
+        document.getElementById('popup-1').classList.toggle('active');
+    }
+</script>
+
+<!--<div class="whole_screen">-->
+<!--    <div class="block_left">-->
+<!--        <p class="title" th:text="'Ресторан №' + ${restaurant.getId()}">Ресторан №1</p>-->
+<!--        <div class="contact-info">-->
+<!--            <div class="address">-->
+<!--                <img class="img_address" src="/images/marker.png" alt="">-->
+<!--                <p th:text="${restaurant.getAddress()}">  Вул. Шаргородська 4</p>-->
+<!--            </div>-->
+<!--            <br>-->
+<!--            <div class="phone">-->
+<!--                <img class="img_phone" src="/images/phone.png" alt="">-->
+<!--                <p th:text="${restaurant.getPhone()}">+380(98)-453-67-21</p>-->
+<!--            </div>-->
+<!--            <br>-->
+<!--            <div class="mail">-->
+<!--                <img class="img_mail" src="/images/mail.png" alt="">-->
+<!--                <a th:href="'mailto:' + ${restaurant.getEmail()}" th:text="${restaurant.getEmail()}">fastandfoodycorp@gmail.com</a>-->
+<!--            </div>-->
+<!--            <br>-->
+
+<!--            <button><a th:href="'/owner/admins/' + ${restaurant.getAdminId().getId()}">Переглянути адміна</a></button><br><br>-->
+
+<!--            <form th:action="@{/owner/confirm/{id}(id = ${restaurant.getId()})}" th:object="${person}" th:method="POST">-->
+<!--                <div class="field_block">-->
+<!--                    <label for="name"></label>-->
+<!--                    <input type="text" th:field="*{name}" id="name" class="field" placeholder="Введіть ім'я">-->
+<!--                    <div class="error" style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Проблема з ім'ям</div>-->
+<!--                </div>-->
+<!--                <br>-->
+
+<!--                <div class="field_block">-->
+<!--                    <label for="surname"></label>-->
+<!--                    <input type="text" th:field="*{surname}" id="surname" class="field" placeholder="Введіть прізвище">-->
+<!--                    <div class="error" style="color: red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Проблема з прізвищем</div>-->
+<!--                </div>-->
+<!--                <br>-->
+
+<!--                <div class="field_block">-->
+<!--                    <label for="username"></label>-->
+<!--                    <input type="text" th:field="*{username}" id="username" class="field" placeholder="Введіть ім'я користувача">-->
+<!--                    <div class="error" style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Проблема з ім'ям користувача</div>-->
+<!--                </div>-->
+<!--                <br>-->
+
+<!--                <div class="field_block">-->
+<!--                    <label for="phone"></label>-->
+<!--                    <input type="text" th:field="*{phone}" id="phone" class="field" placeholder="Введіть номер телефону">-->
+<!--                    <div class="error" style="color: red" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Проблема з номером телефону</div>-->
+<!--                </div>-->
+<!--                <br>-->
+
+<!--                <div class="field_block">-->
+<!--                    <label for="email"></label>-->
+<!--                    <input type="text" th:field="*{email}" id="email" class="field" placeholder="Введіть пошту">-->
+<!--                    <div class="error" style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Проблема з поштою</div>-->
+<!--                </div>-->
+<!--                <br>-->
+
+<!--                <div class="field_block">-->
+<!--                    <label for="person_password"></label>-->
+<!--                    <input type="password" th:field="*{person_password}" id="person_password" class="field" placeholder="Введіть пароль">-->
+<!--                    <div class="error" style="color: red" th:if="${#fields.hasErrors('person_password')}" th:errors="*{person_password}">Проблема з паролем</div>-->
+<!--                </div>-->
+<!--                <br>-->
+<!--                <div class="button_block">-->
+<!--                    <input type="submit" value="Додати адміністратора" class="registration_button">-->
+<!--                </div>-->
+<!--            </form>-->
+
+<!--            <input type="hidden" id="restContactId" th:value="${restaurant.getId()}" />-->
+<!--            <input type="hidden" id="restLat" th:value="${restaurant.getCityId().getLatitude()}" />-->
+<!--            <input type="hidden" id="restLon" th:value="${restaurant.getCityId().getLongitude()}" />-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="map-container">-->
+<!--        <div id="map" class="map_class"></div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+<script>
+    function fetchData(url) {
+        // Возвращаем результат вызова fetch
+        return fetch(url)
+            .then(response => {
+                // Проверяем успешность ответа
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                // Возвращаем парсинг JSON
+                return response.json();
+            })
+            .catch(error => {
+                // Обрабатываем ошибки fetch
+                console.error('Fetch error:', error);
+                // Возвращаем пустой массив или другое значение по умолчанию при ошибке
+                return [];
+            });
+    }
+
+    const restContactId = document.getElementById("restContactId").value;
+    const link = `http://localhost:8080/maps/${restContactId}`
+
+    const marker = fetchData(link);
+    fetchData(link)
+        .then(marker => {
+            console.log(marker); // Здесь можно обрабатывать данные marker
+        });
+
+    const { id, address, latitude, longitude } = marker;
+
+    function initMap() {
+        const cityLon = parseFloat(document.getElementById("restLon").value);
+        const cityLat = parseFloat(document.getElementById("restLat").value);
+
+        const map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: cityLon, lng: cityLat },
+            zoom: 12,
+        });
+        const infowindow = new google.maps.InfoWindow();
+
+        fetch(link)
+            .then(response => response.json())
+            .then(marker => {
+                const { id, address, latitude, longitude } = marker;
+
+                const markerPosition = { lat: longitude, lng: latitude };
+
+                const newMarker = new google.maps.Marker({
+                    map,
+                    position: markerPosition
+                });
+            })
+            .catch(error => console.error("Error fetching marker:", error));
+
+    }
+
+    window.initMap = initMap;
+</script>
+
+
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHjH0Z1pCYmXr5y7AuHZgS-2rmU8VbOiQ&callback=initMap"
+        async defer
+></script>
+</body>
+</html>

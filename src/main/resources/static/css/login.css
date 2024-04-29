@@ -24,7 +24,7 @@ body {
     grid-template-columns: 60% 40%;
 }
 
-.registration {
+.login {
     display: flex;
     justify-content: center;
     background-color: #eeeeee;
@@ -33,9 +33,11 @@ body {
     padding-top: 50px;
 }
 
-.reg_block {
+.login_block {
+    display: block;
     position: absolute;
     align-items: center;
+    margin-top: 15vh;
 }
 
 .image_block {
@@ -47,15 +49,26 @@ body {
     width: 100px;
 }
 
+.title_block {
+    display: flex;
+    justify-content: center;
+}
+
 .title {
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
     font-size: 60px;
 }
 
-.registration_form {
+.login_form {
     display: flex;
     justify-content: center;
+}
+
+.justify_field {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
 }
 
 .field_block {
@@ -72,11 +85,11 @@ body {
     outline: none;
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
-    font-size: 20px;
+    font-size: 25px;
     height: 50px;
 }
 
-.registration_form .field_block label {
+.login_form .field_block label {
     position: absolute;
     left: 0;
     font-size: 12px;
@@ -94,10 +107,10 @@ body {
 input::placeholder {
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
-    font-size: 17px;
+    font-size: 25px;
 }
 
-.registration_button {
+.login_button {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-size: 17px;
@@ -113,18 +126,44 @@ input::placeholder {
     justify-content: center;
 }
 
-.registration_button:hover {
+.login_button:hover {
     transform: scale(1.1);
 }
 
-@media screen and (min-width: 1800px) {
-    .button_block {
-        margin-top: 30px;
-    }
+.error_block {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+}
+
+.justify_block {
+    display: flex;
+    justify-content: center;
+}
+
+.align_block {
+    display: grid;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.align_block a {
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    color: #858585;
+    transition: ease-in 0.2s;
+}
+
+.align_block a:hover {
+    transform: scale(1.1);
+    color: black;
+    font-weight: 500;
 }
 
 @media screen and (max-width: 1800px) {
-    .registration {
+    .login {
         padding-top: 20px;
     }
 
@@ -139,11 +178,12 @@ input::placeholder {
 
     .field {
         height: 20px;
+        font-size: 20px;
     }
 
     input::placeholder {
         font-family: 'Montserrat', sans-serif;
-        font-size: 12px;
+        font-size: 17px;
     }
 }
 
