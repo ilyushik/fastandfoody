@@ -75,6 +75,14 @@ public class Person {
         this.person_password = person_password;
     }
 
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", restaurant=" + (restaurant_id != null ? restaurant_id.getId() : null) + // Пример
+                '}';
+    }
+
 
     // make @PreAuthorize("hasRole('ROLE_OWNER')")
 //    public Restaurant getRestaurant_id() {

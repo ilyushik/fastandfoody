@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS Person(
   name VARCHAR(32) NOT NULL ,
   surname VARCHAR(32) NOT NULL,
   phone VARCHAR(16) NOT NULL UNIQUE ,
-  email VARCHAR(64) NOT NULL ,
+  email VARCHAR(64) NOT NULL UNIQUE ,
   username VARCHAR(32) UNIQUE NOT NULL,
   person_password VARCHAR(32) CHECK (length(person_password) > 7),
   person_role VARCHAR(32) NOT NULL REFERENCES User_Role(user_role),

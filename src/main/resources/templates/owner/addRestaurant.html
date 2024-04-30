@@ -1,10 +1,62 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Додати ресторан</title>
 </head>
 <body>
+<form class="form_add" th:action="@{/owner/restaurants/addRest/{username}(username = ${username})}" th:object="${restaurant}" th:method="POST">
+    <div class="field_block">
+        <label for="address"></label>
+        <input type="text" th:field="*{address}" id="address" class="field" placeholder="Введіть адресу">
+        <div class="error" style="color: red" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Проблема з адресою</div>
+    </div>
+    <br>
 
+    <div class="field_block">
+        <label for="longitude"></label>
+        <input type="text" th:field="*{longitude}" id="longitude" class="field" placeholder="Введіть довготу">
+        <div class="error" style="color: red" th:if="${#fields.hasErrors('longitude')}" th:errors="*{longitude}">Проблема з довготою</div>
+    </div>
+    <br>
+
+    <div class="field_block">
+        <label for="latitude"></label>
+        <input type="text" th:field="*{latitude}" id="latitude" class="field" placeholder="Введіть широту">
+        <div class="error" style="color: red" th:if="${#fields.hasErrors('latitude')}" th:errors="*{latitude}">Проблема з широтою</div>
+    </div>
+    <br>
+
+    <div class="field_block">
+        <label for="phone"></label>
+        <input type="text" th:field="*{phone}" id="phone" class="field" placeholder="Введіть номер телефону">
+        <div class="error" style="color: red" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Проблема з номером телефону</div>
+    </div>
+    <br>
+
+    <div class="field_block">
+        <label for="email"></label>
+        <input type="text" th:field="*{email}" id="email" class="field" placeholder="Введіть пошту">
+        <div class="error" style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Проблема з поштою</div>
+    </div>
+    <br>
+
+    <label for="cityId">Змінити статус:</label>
+    <div class="sel">
+        <div class="select">
+            <select id="cityId" name="cityId" th:field="*{cityId}">
+                <option th:value="${defaultCity}" th:text="${defaultCity.getName()}"></option>
+                <option th:each="city : ${cities}"
+                        th:value="${city.getId()}"
+                        th:text="${city.getName()}">
+                </option>
+            </select>
+        </div>
+    </div>
+    <br>
+    <div class="button_block">
+        <input onclick="toggle()" class="button_rest" type="submit" value="Додати адміністратора">
+    </div>
+</form>
 </body>
 </html>

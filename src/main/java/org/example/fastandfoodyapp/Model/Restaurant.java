@@ -59,4 +59,11 @@ public class Restaurant {
         this.email = email;
         this.cityId = cityId;
     }
+
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                ", city=" + (cityId != null ? cityId.getName() : null) + // Избегаем бесконечной рекурсии
+                '}';
+    }
 }

@@ -18,13 +18,16 @@ import org.example.fastandfoodyapp.Services.RegistrationService;
 import org.example.fastandfoodyapp.Services.RestaurantService;
 import org.example.fastandfoodyapp.Services.Service.ItemService;
 import org.example.fastandfoodyapp.Services.StorageService;
+import org.example.fastandfoodyapp.util.PersonValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -54,6 +57,9 @@ public class OwnerController {
     private CityRepository cityRepository;
     @Autowired
     private RegistrationService registrationService;
+
+    @Autowired
+    private PersonValidation personValidation;
 
     @GetMapping("")
     public String mainOwner(Model model, @AuthenticationPrincipal PersonDetails personDetails) {
@@ -178,7 +184,11 @@ public class OwnerController {
     }
 
     @PostMapping("/confirm/{id}")
-    public String confirmAddingAdmin(@PathVariable("id") int id, @ModelAttribute("person") Person person) {
+    public String confirmAddingAdmin(@PathVariable("id") int id, @ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
+        personValidation.validate(person, bindingResult);
+        if(bindingResult.hasErrors()) {
+            return "redirect:/owner/restaurant/" + id;
+        }
         registrationService.registration(person);
         Restaurant restaurant = restaurantRepository.findById(id).orElseThrow();
         Person person1 = personRepository.findPersonByUsername(person.getUsername());
@@ -191,14 +201,47 @@ public class OwnerController {
         return "redirect:/owner/restaurants/{id}";
     }
 
-    @GetMapping("restaurants/add")
-    public String createRestaurant() {
+    @GetMapping("/restaurants/addAdmin")
+    public String createRestaurantAdmin(@ModelAttribute("person") Person person) {
+        return "owner/addAdminRest";
+    }
+
+    @PostMapping("/admin/Add")
+    public String confirmAdmin(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
+        personValidation.validate(person, bindingResult);
+        if(bindingResult.hasErrors()) {
+            return "redirect:/owner/restaurants/addAdmin";
+        }
+        registrationService.registration(person);
+        Person admin = personRepository.findPersonByUsername(person.getUsername());
+        admin.setPersonRole(User_Role.ROLE_ADMIN);
+        personRepository.save(admin);
+        return "redirect:/owner/addRestaurant/" + admin.getUsername();
+    }
+
+    @GetMapping("/addRestaurant/{username}")
+    public String addRestaurant(@ModelAttribute("restaurant") Restaurant restaurant, @PathVariable("username") String username, Model model) {
+        City defaultCity = cityRepository.findCityByName("Київ");
+        model.addAttribute("defaultCity", defaultCity);
+        model.addAttribute("username", username);
+        model.addAttribute("cities", cityRepository.findAll());
         return "owner/addRestaurant";
     }
 
-    @PostMapping("restaurants/addRest")
-    public String createRestaurant(@ModelAttribute("restaurant") Restaurant restaurant) {
-        restaurantRepository.save(restaurant);
+    @PostMapping("restaurants/addRest/{username}")
+    public String createRestaurant(@ModelAttribute("restaurant") Restaurant restaurant, @PathVariable("username") String username) {
+        Person admin = personRepository.findPersonByUsername(username);
+        Restaurant restaurantNew = new Restaurant();
+        restaurantNew.setEmail(restaurant.getEmail());
+        restaurantNew.setAdminId(admin);
+        restaurantNew.setAddress(restaurant.getAddress());
+        restaurantNew.setLongitude(restaurant.getLongitude());
+        restaurantNew.setLatitude(restaurant.getLatitude());
+        restaurantNew.setPhone(restaurant.getPhone());
+        restaurantNew.setCityId(restaurant.getCityId());
+        restaurantRepository.save(restaurantNew);
+        admin.setRestaurant_id(restaurantRepository.findByAdminId(admin));
+        personRepository.save(admin);
         return "redirect:/owner/restaurants";
     }
 
