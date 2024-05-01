@@ -38,6 +38,38 @@ VALUES ('Ілля', 'Камаралі', '+380972224444', 'kamaraliilya@gmail.com
        ('Андрій', 'Мацієвский', '+380972435678', 'matsiev2006@gmail.com', 'SushiMaster', '11111111', 'ROLE_ADMIN', 1),
        ('Денис', 'Кухарик', '+380978765432', 'kykharykden11223@gmail.com', 'Kukhar_ua', '11112222', 'ROLE_ADMIN', 1);
 
+INSERT INTO person(name, surname, phone, email, username, person_password, person_role, image) VALUES
+    ('Іван', 'Петров', '+380123456789', 'ivan.petrov@example.com', 'ivan_petrov', '12345678', 'ROLE_ADMIN', 1),
+    ('Марія', 'Іванова', '+380987754321', 'maria.ivanova@example.com', 'maria_ivanova', '23456754', 'ROLE_ADMIN', 1),
+    ('Олександр', 'Сидоров', '+380111233445', 'oleksandr.sidorov@example.com', 'oleksandr_sidorov', '34567854', 'ROLE_ADMIN', 1),
+    ('Наталія', 'Васильєва', '+380556677889', 'natalia.vasylieva@example.com', 'natalia_vasylieva', '45678945', 'ROLE_ADMIN', 1),
+    ('Петро', 'Коваленко', '+380998877665', 'petro.kovalenko@example.com', 'petro_kovalenko', '56789045', 'ROLE_ADMIN', 1),
+    ('Олена', 'Павлова', '+380443322110', 'olena.pavlova@example.com', 'olena_pavlova', '67890143', 'ROLE_ADMIN', 1),
+    ('Ігор', 'Білов', '+380667788990', 'igor.bilov@example.com', 'igor_bilov', '78901243', 'ROLE_ADMIN', 1),
+    ('Тетяна', 'Лисенко', '+380112233445', 'tetiana.lisenko@example.com', 'tetiana_lisenko', '89012365', 'ROLE_ADMIN', 1),
+    ('Сергій', 'Григоренко', '+380334455667', 'serhii.hryhorenko@example.com', 'serhii_hryhorenko', '90123487', 'ROLE_ADMIN', 1),
+    ('Анна', 'Михайлова', '+380556677998', 'anna.mikhaylova@example.com', 'anna_mikhaylova', '012345546', 'ROLE_ADMIN', 1),
+    ('Віктор', 'Зайцев', '+380111111111', 'viktor.zaitsev@example.com', 'viktor_zaitsev', '12312345', 'ROLE_ADMIN', 1),
+    ('Євгенія', 'Романова', '+380222222222', 'yevgeniya.romanova@example.com', 'yevgeniya_romanova', '23423487', 'ROLE_ADMIN', 1),
+    ('Олег', 'Ковалев', '+380333333333', 'oleg.kovalev@example.com', 'oleg_kovalev', '34534598', 'ROLE_ADMIN', 1),
+    ('Катерина', 'Ковальчук', '+380444444444', 'katerina.kovalchuk@example.com', 'katerina_kovalchuk', '45645656', 'ROLE_ADMIN', 1),
+    ('Максим', 'Волков', '+380555555555', 'maxim.volkov@example.com', 'maxim_volkov', '56756723', 'ROLE_ADMIN', 1),
+    ('Ольга', 'Морозова', '+380666666666', 'olga.morozova@example.com', 'olga_morozova', '67867800', 'ROLE_ADMIN', 1),
+    ('Артем', 'Козлов', '+380777777777', 'artem.kozlov@example.com', 'artem_kozlov', '78978987', 'ROLE_ADMIN', 1),
+    ('Діана', 'Павлів', '+380888888888', 'diana.pavliv@example.com', 'diana_pavliv', '89089074', 'ROLE_ADMIN', 1),
+    ('Олександра', 'Кравченко', '+380999999999', 'oleksandra.kravchenko@example.com', 'oleksandra_kravchenko', '90190114', 'ROLE_ADMIN', 1),
+    ('Володимир', 'Лисенко', '+380000000000', 'volodymyr.lisenko@example.com', 'volodymyr_lisenko', '01010185', 'ROLE_ADMIN', 1),
+#     ('Вікторія', 'Гончаренко', '+380123123123', 'viktoria.honcharenko@example.com', 'viktoria_honcharenko', '12121225', 'ROLE_ADMIN', 1),
+#     ('Артур', 'Мельник', '+380234234234', 'artur.melnyk@example.com', 'artur_melnyk', '23232369', 'ROLE_ADMIN', 1),
+#     ('Аліна', 'Коваленко', '+380345345345', 'alina.kovalenko@example.com', 'alina_kovalenko', '34343436', 'ROLE_ADMIN', 1),
+#     ('Віра', 'Панасенко', '+380456456456', 'vira.panasenko@example.com', 'vira_panasenko', '45454510', 'ROLE_ADMIN', 1),
+#     ('Михайло', 'Гриценко', '+380567567567', 'mikhailo.hrytsenko@example.com', 'mikhailo_hrytsenko', '56565620', 'ROLE_ADMIN', 1),
+    ('Олексій', 'Семененко', '+380987654321', 'oleksiy.semenenko@example.com', 'oleksiy_semenenko', '11111130', 'ROLE_CLIENT', 1),
+    ('Юлія', 'Полякова', '+380876543210', 'yuliya.polyakova@example.com', 'yuliya_polyakova', '22222257', 'ROLE_CLIENT', 1),
+    ('Максим', 'Коваленко', '+380765432109', 'maxim.kovalenko@example.com', 'maxim_kovalenko', '33333368', 'ROLE_CLIENT', 1),
+    ('Оксана', 'Біліч', '+380654321098', 'oksana.bilich@example.com', 'oksana_bilich', '44444424', 'ROLE_CLIENT', 1),
+    ('Андрій', 'Петров', '+380543210987', 'andriy.petrov@example.com', 'andriy_petrov', '55555535', 'ROLE_CLIENT', 1);
+
 INSERT INTO city(name, longitude, latitude) VALUES
     ('Маріуполь', 47.104500, 37.543761),
     ('Чернігів', 51.503600, 31.286362),
@@ -45,12 +77,47 @@ INSERT INTO city(name, longitude, latitude) VALUES
     ('Київ', 50.442673, 30.490800),
     ('Дніпро', 48.473107, 35.002404);
 
+INSERT INTO city(name, longitude, latitude) VALUES
+    ('Львів', 49.839683, 24.029717),
+    ('Одеса', 46.482526, 30.723309),
+    ('Харків', 49.9935, 36.2304),
+    ('Тернопіль', 49.5535, 25.5948),
+    ('Івано-Франківськ', 48.9226, 24.7111),
+    ('Черкаси', 49.4444, 32.0595),
+    ('Житомир', 50.2633, 28.6587),
+    ('Ужгород', 48.6208, 22.2879),
+    ('Рівне', 50.6199, 26.2516),
+    ('Суми', 50.9077, 34.7981);
+
 INSERT INTO restaurant(admin_id, address, longitude, latitude, city_id, phone, email)
 VALUES (5, 'вул. Вишгородська 3', 48.459832, 35.031861, 5, '+380685573589', 'fastandfoodycorp@gmail.com'),
        (4, 'вул. Портова 6', 50.432090, 30.519048, 4, '+380984575567', 'fastandfoodycorp@gmail.com'),
        (3, 'бул. Шевченка 12', 47.862232, 35.080849, 3, '+380977842869', 'fastandfoodycorp@gmail.com'),
        (2, 'просп. Миру 154', 51.505058, 31.272312, 2, '+380687412589', 'fastandfoodycorp@gmail.com'),
        (1, 'просп. Соборний 198', 47.097155, 37.544608, 1, '+380671234675', 'fastandfoodycorp@gmail.com');
+
+INSERT INTO restaurant(admin_id, address, longitude, latitude, city_id, phone, email)
+VALUES
+    (6, 'вул. Вірменська, 10', 49.839683, 24.029717, 6, '+380123456789', 'fastandfoodycorp@gmail.com'),
+    (7, 'вул. Шевченка, 20', 49.849683, 24.039717, 6, '+380987654321', 'fastandfoodycorp@gmail.com'),
+    (8, 'вул. Дерибасівська, 15', 46.462526, 30.733309, 7, '+380123456789', 'fastandfoodycorp@gmail.com'),
+    (9, 'вул. Приморська, 25', 46.482526, 30.723309, 7, '+380987654321', 'fastandfoodycorp@gmail.com'),
+    (10, 'вул. Сумська, 5', 49.9035, 36.2504, 8, '+380123456789', 'fastandfoodycorp@gmail.com'),
+    (11, 'вул. Пушкінська, 12', 49.9435, 36.2304, 8, '+380987654321', 'fastandfoodycorp@gmail.com'),
+    (12, 'вул. Степана Бандери, 30', 49.5735, 25.6048, 9, '+380123456789', 'fastandfoodycorp@gmail.com'),
+    (13, 'вул. Руська, 8', 49.5535, 25.5948, 9, '+380987654321', 'fastandfoodycorp@gmail.com'),
+    (14, 'вул. Грушевського, 40', 48.9426, 24.7311, 10, '+380123456789', 'fastandfoodycorp@gmail.com'),
+    (15, 'вул. Вічева, 5', 48.9226, 24.7111, 10, '+380987654321', 'fastandfoodycorp@gmail.com'),
+    (16, 'вул. Шевченка, 7', 49.4744, 32.0795, 11, '+380123456789', 'fastandfoodycorp@gmail.com'),
+    (17, 'вул. Гоголя, 18', 49.4444, 32.0595, 11, '+380987654321', 'fastandfoodycorp@gmail.com'),
+    (18, 'вул. Шевченка, 55', 50.2833, 28.6387, 12, '+380123456789', 'fastandfoodycorp@gmail.com'),
+    (19, 'вул. Київська, 12', 50.2633, 28.6587, 12, '+380987654321', 'fastandfoodycorp@gmail.com'),
+    (20, 'вул. Корятовича, 3', 48.6008, 22.3079, 13, '+380123456789', 'fastandfoodycorp@gmail.com'),
+    (21, 'вул. Кошицька, 15', 48.6208, 22.2879, 13, '+380987654321', 'fastandfoodycorp@gmail.com'),
+    (22, 'вул. Соборна, 20', 50.6599, 26.2816, 14, '+380123456789', 'fastandfoodycorp@gmail.com'),
+    (23, 'вул. Мазепи, 5', 50.6199, 26.2516, 14, '+380987654321', 'fastandfoodycorp@gmail.com'),
+    (24, 'вул. Шевченка, 35', 50.9477, 34.8081, 15, '+380123456789', 'fastandfoodycorp@gmail.com'),
+    (25, 'вул. Коцюбинського, 14', 50.9077, 34.7981, 15, '+380987654321', 'fastandfoodycorp@gmail.com');
 
 INSERT INTO purchase(prep_time, wish, restaurant_id, payment_way, promo_code, status, delivery_way, order_item_id, person_id, address, date)
 VALUES
@@ -70,3 +137,24 @@ UPDATE person set restaurant_id = 4 WHERE id = 2;
 UPDATE person set restaurant_id = 3 WHERE id = 3;
 UPDATE person set restaurant_id = 2 WHERE id = 4;
 UPDATE person set restaurant_id = 1 WHERE id = 5;
+UPDATE person set restaurant_id = 6 WHERE id = 6;
+UPDATE person set restaurant_id = 7 WHERE id = 7;
+UPDATE person SET restaurant_id = 7 WHERE id = 7;
+UPDATE person SET restaurant_id = 8 WHERE id = 8;
+UPDATE person SET restaurant_id = 9 WHERE id = 9;
+UPDATE person SET restaurant_id = 10 WHERE id = 10;
+UPDATE person SET restaurant_id = 11 WHERE id = 11;
+UPDATE person SET restaurant_id = 12 WHERE id = 12;
+UPDATE person SET restaurant_id = 13 WHERE id = 13;
+UPDATE person SET restaurant_id = 14 WHERE id = 14;
+UPDATE person SET restaurant_id = 15 WHERE id = 15;
+UPDATE person SET restaurant_id = 16 WHERE id = 16;
+UPDATE person SET restaurant_id = 17 WHERE id = 17;
+UPDATE person SET restaurant_id = 18 WHERE id = 18;
+UPDATE person SET restaurant_id = 19 WHERE id = 19;
+UPDATE person SET restaurant_id = 20 WHERE id = 20;
+UPDATE person SET restaurant_id = 21 WHERE id = 21;
+UPDATE person SET restaurant_id = 22 WHERE id = 22;
+UPDATE person SET restaurant_id = 23 WHERE id = 23;
+UPDATE person SET restaurant_id = 24 WHERE id = 24;
+UPDATE person SET restaurant_id = 25 WHERE id = 25;
