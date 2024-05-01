@@ -3,53 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <title>Додати адміна</title>
+    <link rel="stylesheet" type="text/css" href="/css/ownerHeader.css">
+    <link rel="stylesheet" type="text/css" href="/css/addAdminRest.css">
 </head>
 <body>
-<form class="form_add" th:action="@{/owner/admin/Add}" th:object="${person}" th:method="POST">
-    <div class="field_block">
-        <label for="name"></label>
-        <input type="text" th:field="*{name}" id="name" class="field" placeholder="Введіть ім'я">
-        <div class="error" style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Проблема з ім'ям</div>
-    </div>
-    <br>
+<div th:insert="owner/ownerHeader :: header"></div>
+<div class="main_screen">
+    <div class="screen_just">
+        <div class="screen">
+            <div class="title">
+                <p>Додати адміністратора</p>
+            </div>
+            <div class="form">
+                <form class="form_add" th:action="@{/owner/admin/Add}" th:object="${person}" th:method="POST">
+                    <div class="field_block">
+                        <label for="name"></label>
+                        <input type="text" th:field="*{name}" id="name" class="field" placeholder="Введіть ім'я">
+                        <div class="error" style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Проблема з ім'ям</div>
+                    </div>
+                    <br>
 
-    <div class="field_block">
-        <label for="surname"></label>
-        <input type="text" th:field="*{surname}" id="surname" class="field" placeholder="Введіть прізвище">
-        <div class="error" style="color: red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Проблема з прізвищем</div>
-    </div>
-    <br>
+                    <div class="field_block">
+                        <label for="surname"></label>
+                        <input type="text" th:field="*{surname}" id="surname" class="field" placeholder="Введіть прізвище">
+                        <div class="error" style="color: red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Проблема з прізвищем</div>
+                    </div>
+                    <br>
 
-    <div class="field_block">
-        <label for="username"></label>
-        <input type="text" th:field="*{username}" id="username" class="field" placeholder="Введіть ім'я користувача">
-        <div class="error" style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Проблема з ім'ям користувача</div>
-    </div>
-    <br>
+                    <div class="field_block">
+                        <label for="username"></label>
+                        <input type="text" th:field="*{username}" id="username" class="field" placeholder="Введіть ім'я користувача">
+                        <div class="error" style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Проблема з ім'ям користувача</div>
+                    </div>
+                    <br>
 
-    <div class="field_block">
-        <label for="phone"></label>
-        <input type="text" th:field="*{phone}" id="phone" class="field" placeholder="Введіть номер телефону">
-        <div class="error" style="color: red" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Проблема з номером телефону</div>
-    </div>
-    <br>
+                    <div class="field_block">
+                        <label for="phone"></label>
+                        <input type="text" th:field="*{phone}" id="phone" class="field" placeholder="Введіть номер телефону">
+                        <div class="error" style="color: red" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Проблема з номером телефону</div>
+                    </div>
+                    <br>
 
-    <div class="field_block">
-        <label for="email"></label>
-        <input type="text" th:field="*{email}" id="email" class="field" placeholder="Введіть пошту">
-        <div class="error" style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Проблема з поштою</div>
-    </div>
-    <br>
+                    <div class="field_block">
+                        <label for="email"></label>
+                        <input type="text" th:field="*{email}" id="email" class="field" placeholder="Введіть пошту">
+                        <div class="error" style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Проблема з поштою</div>
+                    </div>
+                    <br>
 
-    <div class="field_block">
-        <label for="person_password"></label>
-        <input type="password" th:field="*{person_password}" id="person_password" class="field" placeholder="Введіть пароль">
-        <div class="error" style="color: red" th:if="${#fields.hasErrors('person_password')}" th:errors="*{person_password}">Проблема з паролем</div>
+                    <div class="field_block">
+                        <label for="person_password"></label>
+                        <input type="password" th:field="*{person_password}" id="person_password" class="field" placeholder="Введіть пароль">
+                        <div class="error" style="color: red" th:if="${#fields.hasErrors('person_password')}" th:errors="*{person_password}">Проблема з паролем</div>
+                    </div>
+                    <br>
+                    <div class="button_block">
+                        <input class="find_button" type="submit" value="Додати адміністратора">
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-    <br>
-    <div class="button_block">
-        <input onclick="toggle()" class="button_rest" type="submit" value="Додати адміністратора">
-    </div>
-</form>
+</div>
 </body>
 </html>
