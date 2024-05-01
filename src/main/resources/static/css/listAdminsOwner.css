@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.screen_just {
+    display: flex;
+    justify-content: center;
+}
+
+.whole_screen {
+    width: 80%;
+}
+
+.field {
+    border: none;
+    width: 100%;
+    background: transparent;
+    outline: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    height: 50px;
+    background-color: #d9d9d9;
+    border-radius: 10px;
+    color: #707070;
+    padding-left: 10px;
+    margin: 20px 0;
+}
+
+.field::placeholder {
+    position: absolute;
+    left: 0;
+    font-size: 19px;
+    color: #707070;
+    pointer-events: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 350;
+    margin-left: 10px;
+}
+
+.field_image {
+    display: flex;
+}
+
+.button_link {
+    border: none;
+    background-color: transparent;
+}
+
+.link_info {
+    text-decoration: none;
+    color: #EEEEEE;
+}
+
+.buttonImage {
+    height: 50px;
+    border-radius: 10px;
+    transition: ease-in 0.2s;
+}
+
+.form_button {
+    display: grid;
+    grid-template-columns: 30% 15%;
+    gap: 2vw;
+    align-items: center;
+}
+
+.add_admin_button {
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: #eeeeee;
+    padding: 10px 15px;
+    background-color: #e39600;
+    border-radius: 10px;
+    white-space: nowrap;
+}
+
+.img_name {
+    display: flex;
+    align-items: center;
+}
+
+.buttons {
+    display: flex;
+    margin-right: 50px;
+}
+
+.title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+}
+
+.person_image {
+    width: 150px;
+    height: 150px;
+}
+
+.person {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #d9d9d9;
+    border-radius: 15px;
+    padding: 0 15px 0 0;
+    margin-top: 2vh;
+    width: 100%;
+}
+
+.per_name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+    margin-left: 2vw;
+}
+
+.restaurant_info {
+    border: none;
+    padding: 10px 15px;
+    background-color: #e39600;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: #eeeeee;
+    white-space: nowrap;
+    transition: ease-in 0.2s;
+}
+
+.button {
+    border: none;
+    padding: 10px 15px;
+    background-color: #ff7a00;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: #eeeeee;
+    margin-left: 5vw;
+    transition: ease-in 0.2s;
+}
+
+.restaurant_info:hover {
+    transform: scale(1.1);
+}
+
+.button {
+    transform: scale(1.1);
+}
+
+@media screen and (max-width: 2200px) {
+    .restaurant_info {
+        margin-left: 15vw;
+    }
+}

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Адміністратори</title>
     <link rel="stylesheet" type="text/css" href="/css/ownerHeader.css">
-    <link rel="stylesheet" type="text/css" href="/css/adminsForOwner.css">
+    <link rel="stylesheet" type="text/css" href="/css/listAdminsOwner.css">
 </head>
 <body>
 <div th:insert="owner/ownerHeader :: header"></div>
@@ -20,10 +20,6 @@
                     <button class="button_link" type="submit"><img class="buttonImage" src="/images/arrow-right-short.png" alt=""></button>
                 </div>
             </form>
-
-<!--            <div>-->
-<!--                <a class="add_admin_button" href="/owner/admins/addAdmin" >Додати адміністраторa</a>-->
-<!--            </div>-->
         </div>
 
         <div th:if="${admins.isEmpty()}">
@@ -32,41 +28,21 @@
         <div class="admins_list" th:unless="${admins.isEmpty()}">
             <div th:each="admin : ${admins}">
                 <div class="person">
-                    <img class="person_image" th:src="@{'data:image/png;base64,' + ${admin.getView_image()}}" alt="">
-                    <p class="per_name" th:text="${admin.getName()} + ' ' + ${admin.getSurname()}">Мирослава Потоцька</p>
-                    <button class="restaurant_info" type="button"><a class="link_info" th:href="'/owner/admins/' + ${admin.getId()}">Переглянути інформацію</a></button>
-                    <form th:method="post" th:action="@{/owner/admins/delete/{id}(id=${admin.getId()})}">
-                        <button class="button" type="submit">Видалити</button>
-                    </form>
+                    <div class="img_name">
+                        <img class="person_image" th:src="@{'data:image/png;base64,' + ${admin.getView_image()}}" alt="">
+                        <p class="per_name" th:text="${admin.getName()} + ' ' + ${admin.getSurname()}">Мирослава Потоцька</p>
+                    </div>
+
+                    <div class="buttons">
+                        <button class="restaurant_info" type="button"><a class="link_info" th:href="'/owner/admins/' + ${admin.getId()}">Переглянути інформацію</a></button>
+                        <form th:method="post" th:action="@{/owner/admins/delete/{id}(id=${admin.getId()})}">
+                            <button class="button" type="submit">Видалити</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!--<div class="whole_screen">-->
-<!--    <form id="clientSearch" th:action="@{/owner/admins/filter}" th:method="POST">-->
-<!--        <label for="phone"></label>-->
-<!--        <div class="field_image">-->
-<!--            <input class="field" type="text" name="phone" id="phone" placeholder="Знайти людину:">-->
-<!--            <button class="button" type="submit"><img class="buttonImage" src="/images/arrow-right-short.png" alt=""></button>-->
-<!--        </div>-->
-<!--    </form>-->
-
-<!--    <a class="add_admin_button" th:href="..." >Додати адміністраторa</a>-->
-
-<!--    <div th:if="${admins.isEmpty()}">-->
-<!--        <h1>Список адміністраторів порожній</h1>-->
-<!--    </div>-->
-<!--    <div class="admins_list" th:unless="${admins.isEmpty()}">-->
-<!--      <div th:each="admin : ${admins}">-->
-<!--          <img class="person_image" th:src="@{'data:image/png;base64,' + ${admin.getView_image()}}" alt="">-->
-<!--          <p th:text="${admin.getName()}"></p>-->
-<!--          <button class="restaurant_info" th:href="'/owner/admins/' + ${admin.getId()}" type="button">Переглянути інформацію</button>-->
-<!--          <form th:method="post" th:action="@{/...}">-->
-<!--              <input class="button" type="submit" value="Видалити"/>-->
-<!--          </form>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--</div>-->
 </body>
 </html>
