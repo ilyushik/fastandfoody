@@ -107,7 +107,7 @@
     width: 100%;
 }
 
-.per_name {
+.per_name, .per_id {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-size: 30px;
@@ -147,9 +147,108 @@
 .button {
     transform: scale(1.1);
 }
+.popup .close-btn {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 30px;
+    height: 30px;
+    background-color: #e39600;
+    color: #eeeeee;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 50%;
+}
+
+.popup .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+    display: none;
+}
+
+.popup .content {
+    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background-color: #fff;
+    border-radius: 15px;
+    width: 30vw;
+    height: 40vh;
+    z-index: 2;
+    justify-content: center;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    scrollbar-color: #e39600 #d9d9d9;
+    align-items: center;
+}
+
+.popup.active .overlay {
+    display: block;
+}
+
+.popup.active .content {
+    transition: all 300ms ease-in;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.hole_info {
+    display: block;
+    align-items: center;
+}
+
+.img_name_popup {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.id_text, .name_text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: #9a9a9a;
+    margin-left: 2vw;
+}
+
+.person_image_popup {
+    width: 250px;
+    height: 250px;
+}
+
+.confirm {
+    border: none;
+    width: 100%;
+    height: 50px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: #eeeeee;
+    background-color: #e39600;
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
 
 @media screen and (max-width: 2200px) {
     .restaurant_info {
         margin-left: 15vw;
+    }
+
+    .buttons {
+        margin-right: 25px;
+    }
+
+    .popup .content {
+        width: 60vw;
+        height: 70vh;
     }
 }

@@ -35,14 +35,45 @@
 
                     <div class="buttons">
                         <button class="restaurant_info" type="button"><a class="link_info" th:href="'/owner/admins/' + ${admin.getId()}">Переглянути інформацію</a></button>
-                        <form th:method="post" th:action="@{/owner/admins/delete/{id}(id=${admin.getId()})}">
-                            <button class="button" type="submit">Видалити</button>
-                        </form>
+                        <button class="button" th:attr="data-popup-id='popup-' + ${admin.getId()}"
+                                onclick="toggle(this.getAttribute('data-popup-id'))">Видалити</button>
+                        <div class="popup" th:id="'popup-' + ${admin.getId()}">
+                            <div class="overlay"></div>
+                            <div class="content">
+                                <div class="close-btn" th:attr="data-popup-id='popup-' + ${admin.getId()}"
+                                     onclick="toggle(this.getAttribute('data-popup-id'))">&times;</div>
+                                <div class="hole_info">
+                                    <div class="img_name_popup">
+                                        <img class="person_image_popup" th:src="@{'data:image/png;base64,' + ${admin.getView_image()}}" alt="">
+                                        <div class="id_name">
+                                            <div class="id_block">
+                                                <p class="id_text">Id</p>
+                                                <p class="per_id" th:text="${admin.getId()}">123456</p>
+                                            </div>
+                                            <div class="name_block">
+                                                <p class="name_text">Імʼя</p>
+                                                <p class="per_name" th:text="${admin.getName()} + ' ' + ${admin.getSurname()}">Мирослава Потоцька</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <form th:method="post" th:action="@{/owner/admins/delete/{id}(id=${admin.getId()})}">
+                                        <input class="confirm" th:attr="data-popup-id='popup-' + ${admin.getId()}"
+                                               onclick="toggle(this.getAttribute('data-popup-id'))" type="submit" value="Підтвердити"/>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    function toggle(popupId) {
+        document.getElementById(popupId).classList.toggle('active');
+    }
+</script>
 </body>
 </html>
