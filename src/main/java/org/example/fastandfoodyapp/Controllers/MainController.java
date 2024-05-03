@@ -138,15 +138,6 @@ public class MainController {
         return "client/menu";
     }
 
-    @GetMapping("/menu/{id}")
-    public String itemDetails(@PathVariable("id") int id, Model model) {
-        Item item = itemServiceImpl.findItemById(id);
-        String image = Base64.getEncoder().encodeToString(storageService.downloadImage(item.getImage().getName()));
-        model.addAttribute("item", item);
-        model.addAttribute("image", image);
-        return "client/itemDetails";
-    }
-
     // find contacts of restaurants
     @GetMapping("/contacts")
     public String contacts(@RequestParam(name = "city", defaultValue = "Київ") String city, Model model) {

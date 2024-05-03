@@ -11,6 +11,7 @@
     gap: 10vw;
     width: 80%;
     margin-top: 5vh;
+    align-items: center;
 }
 
 .admin_image {
@@ -18,13 +19,9 @@
     height: 700px;
 }
 
-.section_two {
-    margin-top: 5vh;
-}
-
 .field_block {
     position: relative;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
     width: 20vw;
 }
 
@@ -63,18 +60,20 @@
 }
 
 @media screen and (max-width: 1900px) {
-    .section_two {
-        margin-top: 0;
+    .whole_screen {
+        gap: 2vw;
     }
 
     .field_block {
         width: 30vw;
+        margin-bottom: 10px;
     }
 
     .field {
         color: black;
         padding-left: 10px;
         margin: 20px 0;
+        width: 35vw;
     }
 
     .admin_image {

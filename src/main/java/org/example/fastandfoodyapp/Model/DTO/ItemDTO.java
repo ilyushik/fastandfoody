@@ -17,11 +17,13 @@ public class ItemDTO {
     private String category;
     private String image;
     private int price;
+    private String description;
 
-    public ItemDTO(String name, String category, String image, int price) {
+    public ItemDTO(String name, String category, String image, int price, String description) {
         this.name = name;
         this.category = category;
         this.image = image;
         this.price = price;
+        this.description = description;
     }
 }

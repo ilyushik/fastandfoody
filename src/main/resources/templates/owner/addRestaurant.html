@@ -12,7 +12,7 @@
     <div class="screen_just">
         <div class="screen">
             <div class="title">
-                <p>Додати адміністратора</p>
+                <p>Додати ресторан</p>
             </div>
             <div class="form">
                 <form class="form_add" th:action="@{/owner/restaurants/addRest/{username}(username = ${username})}" th:object="${restaurant}" th:method="POST">
@@ -51,7 +51,7 @@
                     </div>
                     <br>
 
-                    <label class="change_status" for="cityId">Змінити статус:</label>
+                    <label class="change_status" for="cityId">Обрати місто:</label>
                     <div class="sel">
                         <div class="select">
                             <select id="cityId" name="cityId" th:field="*{cityId}">
