@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.back {
+    position: fixed;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: url(../img/background.png);
+    background-repeat: repeat;
+    filter: blur(5px);
+    z-index: -5;
+    background-color: black;
+    opacity: 0.8;
+}
+
+.list_menu {
+    display: block;
+    width: 80%;
+}
+
+.hole_screen {
+    display: block;
+    padding: 20px;
+}
+
+.title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 40px;
+    color: black;
+}
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    border-top: 1px solid #eeeeee;
+    padding-top: 1vh;
+}
+
+.item {
+    height: 600px;
+    width: 418px;
+    background-color: #eeeeee;
+    border-radius: 20px;
+    margin: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.35);
+}
+
+.main_buttons {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit {
+    border: none;
+    background-color: #1e9d01;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    color: #eeeeee;
+}
+
+.delete {
+    border: none;
+    background-color: #d10101;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    color: #eeeeee;
+}
+
+.img_name_popup {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.confirm {
+    border: none;
+    width: 100%;
+    height: 50px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: #eeeeee;
+    background-color: #e39600;
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+.hole_info_pop {
+    display: block;
+    align-items: center;
+    margin: 20px;
+}
+
+.item_pop_name, .item_pop_id {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+    margin-left: 2vw;
+}
+
+.id_text, .name_text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: #9a9a9a;
+    margin-left: 2vw;
+}
+
+.item_img {
+    height: 412px;
+    width: 418px;
+    border-radius: 20px 20px 0 0;
+}
+.item_image_popup {
+    height: 412px;
+    width: 418px;
+}
+
+
+.item_text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    padding: 10px;
+    height: 90px;
+}
+
+.item_price {
+    color: #e39600;
+}
+
+
+.popup .close-btn {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 30px;
+    height: 30px;
+    background-color: #e39600;
+    color: #eeeeee;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 50%;
+}
+
+.popup .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+    display: none;
+}
+
+.popup .content {
+    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background-color: #fff;
+    border-radius: 15px;
+    width: 35vw;
+    height: 45vh;
+    z-index: 2;
+    justify-content: center;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    scrollbar-color: #e39600 #d9d9d9;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.popup.active .overlay {
+    display: block;
+}
+
+.popup.active .content {
+    transition: all 300ms ease-in;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+@media screen and (max-width: 1900px) {
+    .popup .content {
+        width: 50vw;
+        height: 60vh;
+    }
+
+    .item {
+        height: 400px;
+        width: 250px;
+    }
+
+    .item_img, .item_image_popup {
+        height: 270px;
+        width: 250px;
+    }
+
+    .item_text {
+        font-size: 15px;
+        height: 60px;
+    }
+
+    .hole_screen {
+        width: 90%;
+    }
+
+    .edit {
+        padding: 7px;
+        font-size: 12px;
+    }
+
+    .delete {
+        padding: 7px;
+        font-size: 12px;
+    }
+
+    .list_menu {
+        width: 90%;
+    }
+}

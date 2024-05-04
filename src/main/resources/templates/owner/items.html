@@ -2,9 +2,407 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Меню</title>
+    <link rel="stylesheet" type="text/css" href="/css/ownerHeader.css">
+    <link rel="stylesheet" type="text/css" href="/css/ownerMenu.css">
 </head>
 <body>
+<div th:insert="owner/ownerHeader :: header"></div>
+<div class="hole_screen">
+
+    <div class="list_menu">
+        <div class="cold_drinks" th:if="${!coldDrinks.isEmpty()}">
+            <p class="title">Холодні напої</p>
+            <div class="grid" th:each="cd : ${coldDrinks}">
+                <div class="item">
+                    <div>
+                        <img class="item_img" th:src="@{'data:image/png;base64,' + ${cd.getImage()}}" alt="">
+                        <div class="item_text">
+                            <p class="item_name" th:text="${cd.getName()}">Гамбургер</p>
+                            <p class="item_price" th:text="${cd.getPrice()} + 'грн.'">19.99$</p>
+                        </div>
+                        <div class="main_buttons">
+                            <button class="edit"><a>Редагувати дані</a></button>
+                            <button class="delete" th:attr="data-popup-id='popup-' + ${cd.getId()}"
+                                    onclick="toggle(this.getAttribute('data-popup-id'))">Видалити</button>
+                        </div>
+                    </div>
+
+                    <div class="popup" th:id="'popup-' + ${cd.getId()}">
+                        <div class="overlay"></div>
+                        <div class="content">
+                            <div th:attr="data-popup-id='popup-' + ${cd.getId()}"
+                                 onclick="toggle(this.getAttribute('data-popup-id'))" class="close-btn">&times;</div>
+                            <div class="hole_info_pop">
+                                <div class="img_name_popup">
+                                    <img class="item_image_popup" th:src="@{'data:image/png;base64,' + ${cd.getImage()}}" alt="">
+                                    <div class="id_name">
+                                        <div class="id_block">
+                                            <p class="id_text">Id</p>
+                                            <p class="item_pop_id" th:text="${cd.getId()}"></p>
+                                        </div>
+                                        <div class="name_block">
+                                            <p class="name_text">Імʼя</p>
+                                            <p class="item_pop_name" th:text="${cd.getName()}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <form th:method="post" th:action="@{/owner/item/delete/{id}(id = ${cd.getId()})}">
+                                    <input class="confirm" onclick="toggle()" type="submit" value="Підтвердити"/>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hot_drinks" th:if="${!hotDrinks.isEmpty()}">
+            <p class="title">Гарячі напої</p>
+            <div class="grid" th:each="hd : ${hotDrinks}">
+                <div class="item">
+                    <div>
+                        <img class="item_img" th:src="@{'data:image/png;base64,' + ${hd.getImage()}}" alt="">
+                        <div class="item_text">
+                            <p class="item_name" th:text="${hd.getName()}">Гамбургер</p>
+                            <p class="item_price" th:text="${hd.getPrice()} + 'грн.'">19.99$</p>
+                        </div>
+                        <div class="main_buttons">
+                            <button class="edit"><a>Редагувати дані</a></button>
+                            <button class="delete" th:attr="data-popup-id='popup-' + ${hd.getId()}"
+                                    onclick="toggle(this.getAttribute('data-popup-id'))">Видалити</button>
+                        </div>
+                    </div>
+
+                    <div class="popup" th:id="'popup-' + ${hd.getId()}">
+                        <div class="overlay"></div>
+                        <div class="content">
+                            <div th:attr="data-popup-id='popup-' + ${hd.getId()}"
+                                 onclick="toggle(this.getAttribute('data-popup-id'))" class="close-btn">&times;</div>
+                            <div class="hole_info_pop">
+                                <div class="img_name_popup">
+                                    <img class="item_image_popup" th:src="@{'data:image/png;base64,' + ${hd.getImage()}}" alt="">
+                                    <div class="id_name">
+                                        <div class="id_block">
+                                            <p class="id_text">Id</p>
+                                            <p class="item_pop_id" th:text="${hd.getId()}"></p>
+                                        </div>
+                                        <div class="name_block">
+                                            <p class="name_text">Імʼя</p>
+                                            <p class="item_pop_name" th:text="${hd.getName()}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <form th:method="post" th:action="@{/owner/item/delete/{id}(id = ${hd.getId()})}">
+                                    <input class="confirm" onclick="toggle()" type="submit" value="Підтвердити"/>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="beef" th:if="${!beef.isEmpty()}">
+            <p class="title">Телятина</p>
+            <div class="grid" th:each="b : ${beef}">
+                <div class="item">
+                    <div>
+                        <img class="item_img" th:src="@{'data:image/png;base64,' + ${b.getImage()}}" alt="">
+                        <div class="item_text">
+                            <p class="item_name" th:text="${b.getName()}">Гамбургер</p>
+                            <p class="item_price" th:text="${b.getPrice()} + 'грн.'">19.99$</p>
+                        </div>
+                        <div class="main_buttons">
+                            <button class="edit"><a>Редагувати дані</a></button>
+                            <button class="delete" th:attr="data-popup-id='popup-' + ${b.getId()}"
+                                    onclick="toggle(this.getAttribute('data-popup-id'))">Видалити</button>
+                        </div>
+                    </div>
+
+                    <div class="popup" th:id="'popup-' + ${b.getId()}">
+                        <div class="overlay"></div>
+                        <div class="content">
+                            <div th:attr="data-popup-id='popup-' + ${b.getId()}"
+                                 onclick="toggle(this.getAttribute('data-popup-id'))" class="close-btn">&times;</div>
+                            <div class="hole_info_pop">
+                                <div class="img_name_popup">
+                                    <img class="item_image_popup" th:src="@{'data:image/png;base64,' + ${b.getImage()}}" alt="">
+                                    <div class="id_name">
+                                        <div class="id_block">
+                                            <p class="id_text">Id</p>
+                                            <p class="item_pop_id" th:text="${b.getId()}"></p>
+                                        </div>
+                                        <div class="name_block">
+                                            <p class="name_text">Імʼя</p>
+                                            <p class="item_pop_name" th:text="${b.getName()}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <form th:method="post" th:action="@{/owner/item/delete/{id}(id = ${b.getId()})}">
+                                    <input class="confirm" onclick="toggle()" type="submit" value="Підтвердити"/>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pork" th:if="${!pork.isEmpty()}">
+            <p class="title">Свинина</p>
+            <div class="grid" th:each="p : ${pork}">
+                <div class="item">
+                    <div>
+                        <img class="item_img" th:src="@{'data:image/png;base64,' + ${p.getImage()}}" alt="">
+                        <div class="item_text">
+                            <p class="item_name" th:text="${p.getName()}">Гамбургер</p>
+                            <p class="item_price" th:text="${p.getPrice()} + 'грн.'">19.99$</p>
+                        </div>
+                        <div class="main_buttons">
+                            <button class="edit"><a>Редагувати дані</a></button>
+                            <button class="delete" th:attr="data-popup-id='popup-' + ${p.getId()}"
+                                    onclick="toggle(this.getAttribute('data-popup-id'))">Видалити</button>
+                        </div>
+                    </div>
+
+                    <div class="popup" th:id="'popup-' + ${p.getId()}">
+                        <div class="overlay"></div>
+                        <div class="content">
+                            <div th:attr="data-popup-id='popup-' + ${p.getId()}"
+                                 onclick="toggle(this.getAttribute('data-popup-id'))" class="close-btn">&times;</div>
+                            <div class="hole_info_pop">
+                                <div class="img_name_popup">
+                                    <img class="item_image_popup" th:src="@{'data:image/png;base64,' + ${p.getImage()}}" alt="">
+                                    <div class="id_name">
+                                        <div class="id_block">
+                                            <p class="id_text">Id</p>
+                                            <p class="item_pop_id" th:text="${p.getId()}"></p>
+                                        </div>
+                                        <div class="name_block">
+                                            <p class="name_text">Імʼя</p>
+                                            <p class="item_pop_name" th:text="${p.getName()}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <form th:method="post" th:action="@{/owner/item/delete/{id}(id = ${p.getId()})}">
+                                    <input class="confirm" onclick="toggle()" type="submit" value="Підтвердити"/>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="fishAndChicken" th:if="${!fishAndChicken.isEmpty()}">
+            <p class="title">Риба та курка</p>
+            <div class="grid" th:each="fch : ${fishAndChicken}">
+                <div class="item">
+                    <div>
+                        <img class="item_img" th:src="@{'data:image/png;base64,' + ${fch.getImage()}}" alt="">
+                        <div class="item_text">
+                            <p class="item_name" th:text="${fch.getName()}">Гамбургер</p>
+                            <p class="item_price" th:text="${fch.getPrice()} + 'грн.'">19.99$</p>
+                        </div>
+                        <div class="main_buttons">
+                            <button class="edit"><a>Редагувати дані</a></button>
+                            <button class="delete" th:attr="data-popup-id='popup-' + ${fch.getId()}"
+                                    onclick="toggle(this.getAttribute('data-popup-id'))">Видалити</button>
+                        </div>
+                    </div>
+
+                    <div class="popup" th:id="'popup-' + ${fch.getId()}">
+                        <div class="overlay"></div>
+                        <div class="content">
+                            <div th:attr="data-popup-id='popup-' + ${fch.getId()}"
+                                 onclick="toggle(this.getAttribute('data-popup-id'))" class="close-btn">&times;</div>
+                            <div class="hole_info_pop">
+                                <div class="img_name_popup">
+                                    <img class="item_image_popup" th:src="@{'data:image/png;base64,' + ${fch.getImage()}}" alt="">
+                                    <div class="id_name">
+                                        <div class="id_block">
+                                            <p class="id_text">Id</p>
+                                            <p class="item_pop_id" th:text="${fch.getId()}"></p>
+                                        </div>
+                                        <div class="name_block">
+                                            <p class="name_text">Імʼя</p>
+                                            <p class="item_pop_name" th:text="${fch.getName()}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <form th:method="post" th:action="@{/owner/item/delete/{id}(id = ${fch.getId()})}">
+                                    <input class="confirm" onclick="toggle()" type="submit" value="Підтвердити"/>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="desserts" th:if="${!desserts.isEmpty()}">
+            <p class="title">Десерти</p>
+            <div class="grid" th:each="d : ${desserts}">
+                <div class="item">
+                    <div>
+                        <img class="item_img" th:src="@{'data:image/png;base64,' + ${d.getImage()}}" alt="">
+                        <div class="item_text">
+                            <p class="item_name" th:text="${d.getName()}">Гамбургер</p>
+                            <p class="item_price" th:text="${d.getPrice()} + 'грн.'">19.99$</p>
+                        </div>
+                        <div class="main_buttons">
+                            <button class="edit"><a>Редагувати дані</a></button>
+                            <button class="delete" th:attr="data-popup-id='popup-' + ${d.getId()}"
+                                    onclick="toggle(this.getAttribute('data-popup-id'))">Видалити</button>
+                        </div>
+                    </div>
+
+                    <div class="popup" th:id="'popup-' + ${d.getId()}">
+                        <div class="overlay"></div>
+                        <div class="content">
+                            <div th:attr="data-popup-id='popup-' + ${d.getId()}"
+                                 onclick="toggle(this.getAttribute('data-popup-id'))" class="close-btn">&times;</div>
+                            <div class="hole_info_pop">
+                                <div class="img_name_popup">
+                                    <img class="item_image_popup" th:src="@{'data:image/png;base64,' + ${d.getImage()}}" alt="">
+                                    <div class="id_name">
+                                        <div class="id_block">
+                                            <p class="id_text">Id</p>
+                                            <p class="item_pop_id" th:text="${d.getId()}"></p>
+                                        </div>
+                                        <div class="name_block">
+                                            <p class="name_text">Імʼя</p>
+                                            <p class="item_pop_name" th:text="${d.getName()}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <form th:method="post" th:action="@{/owner/item/delete/{id}(id = ${d.getId()})}">
+                                    <input class="confirm" onclick="toggle()" type="submit" value="Підтвердити"/>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="breakfast" th:if="${!breakfast.isEmpty()}">
+            <p class="title">Телятина</p>
+            <div class="grid" th:each="br : ${breakfast}">
+                <div class="item">
+                    <div>
+                        <img class="item_img" th:src="@{'data:image/png;base64,' + ${br.getImage()}}" alt="">
+                        <div class="item_text">
+                            <p class="item_name" th:text="${br.getName()}">Гамбургер</p>
+                            <p class="item_price" th:text="${br.getPrice()} + 'грн.'">19.99$</p>
+                        </div>
+                        <div class="main_buttons">
+                            <button class="edit"><a>Редагувати дані</a></button>
+                            <button class="delete" th:attr="data-popup-id='popup-' + ${br.getId()}"
+                                    onclick="toggle(this.getAttribute('data-popup-id'))">Видалити</button>
+                        </div>
+                    </div>
+
+                    <div class="popup" th:id="'popup-' + ${br.getId()}">
+                        <div class="overlay"></div>
+                        <div class="content">
+                            <div th:attr="data-popup-id='popup-' + ${br.getId()}"
+                                 onclick="toggle(this.getAttribute('data-popup-id'))" class="close-btn">&times;</div>
+                            <div class="hole_info_pop">
+                                <div class="img_name_popup">
+                                    <img class="item_image_popup" th:src="@{'data:image/png;base64,' + ${br.getImage()}}" alt="">
+                                    <div class="id_name">
+                                        <div class="id_block">
+                                            <p class="id_text">Id</p>
+                                            <p class="item_pop_id" th:text="${br.getId()}"></p>
+                                        </div>
+                                        <div class="name_block">
+                                            <p class="name_text">Імʼя</p>
+                                            <p class="item_pop_name" th:text="${br.getName()}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <form th:method="post" th:action="@{/owner/item/delete/{id}(id = ${br.getId()})}">
+                                    <input class="confirm" onclick="toggle()" type="submit" value="Підтвердити"/>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="friesAndSauces" th:if="${!friesAndSauces.isEmpty()}">
+            <p class="title">Картопля-фрі та соуси</p>
+            <div class="grid" th:each="fasa : ${friesAndSauces}">
+                <div class="item">
+                    <div>
+                        <img class="item_img" th:src="@{'data:image/png;base64,' + ${fasa.getImage()}}" alt="">
+                        <div class="item_text">
+                            <p class="item_name" th:text="${fasa.getName()}">Гамбургер</p>
+                            <p class="item_price" th:text="${fasa.getPrice()} + 'грн.'">19.99$</p>
+                        </div>
+                        <div class="main_buttons">
+                            <button class="edit"><a>Редагувати дані</a></button>
+                            <button class="delete" th:attr="data-popup-id='popup-' + ${fasa.getId()}"
+                                    onclick="toggle(this.getAttribute('data-popup-id'))">Видалити</button>
+                        </div>
+                    </div>
+
+                    <div class="popup" th:id="'popup-' + ${fasa.getId()}">
+                        <div class="overlay"></div>
+                        <div class="content">
+                            <div th:attr="data-popup-id='popup-' + ${fasa.getId()}"
+                                 onclick="toggle(this.getAttribute('data-popup-id'))" class="close-btn">&times;</div>
+                            <div class="hole_info_pop">
+                                <div class="img_name_popup">
+                                    <img class="item_image_popup" th:src="@{'data:image/png;base64,' + ${fasa.getImage()}}" alt="">
+                                    <div class="id_name">
+                                        <div class="id_block">
+                                            <p class="id_text">Id</p>
+                                            <p class="item_pop_id" th:text="${fasa.getId()}"></p>
+                                        </div>
+                                        <div class="name_block">
+                                            <p class="name_text">Імʼя</p>
+                                            <p class="item_pop_name" th:text="${fasa.getName()}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <form th:method="post" th:action="@{/owner/item/delete/{id}(id = ${fasa.getId()})}">
+                                    <input class="confirm" onclick="toggle()" type="submit" value="Підтвердити"/>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    function toggle(popupId) {
+        document.getElementById(popupId).classList.toggle('active');
+    }
+</script>
+
+<script>
+    document.querySelector('.burger').addEventListener('click', function() {
+        this.classList.toggle('active');
+        document.querySelector('.nav').classList.toggle('open');
+    })
+</script>
 
 </body>
 </html>
