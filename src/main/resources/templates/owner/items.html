@@ -23,9 +23,44 @@
                                 <p class="item_price" th:text="${cd.getPrice()} + 'грн.'">19.99$</p>
                             </div>
                             <div class="main_buttons">
-                                <button class="edit"><a>Редагувати дані</a></button>
+                                <button class="edit" th:attr="data-popup-id='edit-popup-' + ${cd.getId()}"
+                                        onclick="toggleEdit(this.getAttribute('data-popup-id'))">Редагувати дані</button>
+
                                 <button class="delete" th:attr="data-popup-id='popup-' + ${cd.getId()}"
                                         onclick="toggle(this.getAttribute('data-popup-id'))">Видалити</button>
+                            </div>
+                        </div>
+
+                        <div class="edit-popup" th:id="'edit-popup-' + ${cd.getId()}">
+                            <div class="overlay"></div>
+                            <div class="content">
+                                <div th:attr="data-popup-id='edit-popup-' + ${cd.getId()}"
+                                     onclick="toggleEdit(this.getAttribute('data-popup-id'))" class="close-btn">&times;</div>
+                                <div class="hole_info_pop">
+                                    <div class="img_name_popup">
+                                        <img class="item_image_popup" th:src="@{'data:image/png;base64,' + ${cd.getImage()}}" alt="">
+                                        <div class="id_name">
+                                            <form th:method="post" th:action="@{/owner/item/edit/{id}(id = ${cd.getId()})}">
+                                                <div class="field_block">
+                                                    <label for="name"></label>
+                                                    <input class="field" type="text" th:field="*{hd.getName()}" id="name" placeholder="Введіть назву товару">
+                                                    <br>
+                                                </div>
+                                                <div class="field_block">
+                                                    <label for="price"></label>
+                                                    <input class="field" type="text" th:field="*{hd.getPrice()}" id="price" placeholder="Введіть ціну">
+                                                    <br>
+                                                </div>
+                                                <div class="field_block">
+                                                    <label for="description"></label>
+                                                    <input class="field" type="text" th:field="*{hd.getDescription()}" id="description" placeholder="Введіть опис">
+                                                    <br>
+                                                </div>
+                                                <input class="confirm" onclick="toggleEdit(this.getAttribute('data-popup-id'))" type="submit" value="Підтвердити"/>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -87,14 +122,6 @@
                                     <div class="img_name_popup">
                                         <img class="item_image_popup" th:src="@{'data:image/png;base64,' + ${hd.getImage()}}" alt="">
                                         <div class="id_name">
-                                            <div class="id_block">
-                                                <p class="id_text">Id</p>
-                                                <p class="item_pop_id" th:text="${hd.getId()}"></p>
-                                            </div>
-                                            <div class="name_block">
-                                                <p class="name_text">Імʼя</p>
-                                                <p class="item_pop_name" th:text="${hd.getName()}"></p>
-                                            </div>
                                         </div>
                                     </div>
 
@@ -409,6 +436,12 @@
 
 <script>
     function toggle(popupId) {
+        document.getElementById(popupId).classList.toggle('active');
+    }
+</script>
+
+<script>
+    function toggleEdit(popupId) {
         document.getElementById(popupId).classList.toggle('active');
     }
 </script>
