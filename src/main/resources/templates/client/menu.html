@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Меню</title>
     <link rel="stylesheet" type="text/css" href="/css/headS.css">
-    <link rel="stylesheet" type="text/css" href="/css/menuS.css">
+    <link rel="stylesheet" type="text/css" href="/css/menu.css">
     <link rel="stylesheet" type="text/css" href="/css/footer.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -16,31 +16,33 @@
     <div class="list_menu">
         <div class="cold_drinks" th:if="${!coldDrinks.isEmpty()}">
             <p class="title">Холодні напої</p>
-            <div class="grid" th:each="cd : ${coldDrinks}">
-                <div class="item">
-                    <div th:attr="data-popup-id='popup-' + ${cd.getId()}"
-                         onclick="toggle(this.getAttribute('data-popup-id'))">
-                        <img class="item_img" th:src="@{'data:image/png;base64,' + ${cd.getImage()}}" alt="">
-                        <div class="item_text">
-                            <p class="item_name" th:text="${cd.getName()}">Гамбургер</p>
-                            <p class="item_price" th:text="${cd.getPrice()} + 'грн.'">19.99$</p>
+            <div class="grid">
+                <div th:each="cd : ${coldDrinks}">
+                    <div class="item">
+                        <div th:attr="data-popup-id='popup-' + ${cd.getId()}"
+                             onclick="toggle(this.getAttribute('data-popup-id'))">
+                            <img class="item_img" th:src="@{'data:image/png;base64,' + ${cd.getImage()}}" alt="">
+                            <div class="item_text">
+                                <p class="item_name" th:text="${cd.getName()}">Гамбургер</p>
+                                <p class="item_price" th:text="${cd.getPrice()} + 'грн.'">19.99$</p>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="popup" th:id="'popup-' + ${cd.getId()}">
-                        <div class="overlay"></div>
-                        <div class="content">
-                            <div th:attr="data-popup-id='popup-' + ${cd.getId()}"
-                                 onclick="toggle(this.getAttribute('data-popup-id'))" class="close-btn">&times;</div>
-                            <div class="hole_info">
-                                <img class="popup_img" th:src="@{'data:image/png;base64,' + ${cd.getImage()}}" alt="">
-                                <div class="item_text">
-                                    <p class="item_price" th:text="${cd.getPrice()} + 'грн.'">Ціна: 400$</p><br><br>
-                                    <p class="item_category" th:text="'Категорія: ' + ${cd.getCategory()}">Категорія: бургери</p><br><br>
-                                    <p class="item_description" th:text="${cd.getDescription()}">Бургер зі свининою це - саме те, що треба тобі після
-                                        тяжкого робочого дня. Хрустка булочка, соковите м’ясо
-                                        та свіжі овочі роблять цей бургер фаворитом серед наших
-                                        гостей. Спробуй і ти, гарантуємо - тобі сподобається!</p>
+                        <div class="popup" th:id="'popup-' + ${cd.getId()}">
+                            <div class="overlay"></div>
+                            <div class="content">
+                                <div th:attr="data-popup-id='popup-' + ${cd.getId()}"
+                                     onclick="toggle(this.getAttribute('data-popup-id'))" class="close-btn">&times;</div>
+                                <div class="hole_info">
+                                    <img class="popup_img" th:src="@{'data:image/png;base64,' + ${cd.getImage()}}" alt="">
+                                    <div class="item_text">
+                                        <p class="item_price" th:text="${cd.getPrice()} + 'грн.'">Ціна: 400$</p><br><br>
+                                        <p class="item_category" th:text="'Категорія: ' + ${cd.getCategory()}">Категорія: бургери</p><br><br>
+                                        <p class="item_description" th:text="${cd.getDescription()}">Бургер зі свининою це - саме те, що треба тобі після
+                                            тяжкого робочого дня. Хрустка булочка, соковите м’ясо
+                                            та свіжі овочі роблять цей бургер фаворитом серед наших
+                                            гостей. Спробуй і ти, гарантуємо - тобі сподобається!</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -51,31 +53,33 @@
 
         <div class="hot_drinks" th:if="${!hotDrinks.isEmpty()}">
             <p class="title">Гарячі напої</p>
-            <div class="grid" th:each="hd : ${hotDrinks}">
-                <div class="item">
-                    <div th:attr="data-popup-id='popup-' + ${hd.getId()}"
-                         onclick="toggle(this.getAttribute('data-popup-id'))">
-                        <img class="item_img" th:src="@{'data:image/png;base64,' + ${hd.getImage()}}" alt="">
-                        <div class="item_text">
-                            <p class="item_name" th:text="${hd.getName()}">Гамбургер</p>
-                            <p class="item_price" th:text="${hd.getPrice()} + 'грн.'">19.99$</p>
+            <div class="grid">
+                <div th:each="hd : ${hotDrinks}">
+                    <div class="item">
+                        <div th:attr="data-popup-id='popup-' + ${hd.getId()}"
+                             onclick="toggle(this.getAttribute('data-popup-id'))">
+                            <img class="item_img" th:src="@{'data:image/png;base64,' + ${hd.getImage()}}" alt="">
+                            <div class="item_text">
+                                <p class="item_name" th:text="${hd.getName()}">Гамбургер</p>
+                                <p class="item_price" th:text="${hd.getPrice()} + 'грн.'">19.99$</p>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="popup" th:id="'popup-' + ${hd.getId()}">
-                        <div class="overlay"></div>
-                        <div class="content">
-                            <div th:attr="data-popup-id='popup-' + ${hd.getId()}"
-                                 onclick="toggle(this.getAttribute('data-popup-id'))" class="close-btn">&times;</div>
-                            <div class="hole_info">
-                                <img class="popup_img" th:src="@{'data:image/png;base64,' + ${hd.getImage()}}" alt="">
-                                <div class="item_text">
-                                    <p class="item_price" th:text="${hd.getPrice()} + 'грн.'">Ціна: 400$</p><br><br>
-                                    <p class="item_category" th:text="'Категорія: ' + ${hd.getCategory()}">Категорія: бургери</p><br><br>
-                                    <p class="item_description" th:text="${hd.getDescription()}">Бургер зі свининою це - саме те, що треба тобі після
-                                        тяжкого робочого дня. Хрустка булочка, соковите м’ясо
-                                        та свіжі овочі роблять цей бургер фаворитом серед наших
-                                        гостей. Спробуй і ти, гарантуємо - тобі сподобається!</p>
+                        <div class="popup" th:id="'popup-' + ${hd.getId()}">
+                            <div class="overlay"></div>
+                            <div class="content">
+                                <div th:attr="data-popup-id='popup-' + ${hd.getId()}"
+                                     onclick="toggle(this.getAttribute('data-popup-id'))" class="close-btn">&times;</div>
+                                <div class="hole_info">
+                                    <img class="popup_img" th:src="@{'data:image/png;base64,' + ${hd.getImage()}}" alt="">
+                                    <div class="item_text">
+                                        <p class="item_price" th:text="${hd.getPrice()} + 'грн.'">Ціна: 400$</p><br><br>
+                                        <p class="item_category" th:text="'Категорія: ' + ${hd.getCategory()}">Категорія: бургери</p><br><br>
+                                        <p class="item_description" th:text="${hd.getDescription()}">Бургер зі свининою це - саме те, що треба тобі після
+                                            тяжкого робочого дня. Хрустка булочка, соковите м’ясо
+                                            та свіжі овочі роблять цей бургер фаворитом серед наших
+                                            гостей. Спробуй і ти, гарантуємо - тобі сподобається!</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -86,31 +90,33 @@
 
         <div class="beef" th:if="${!beef.isEmpty()}">
             <p class="title">Телятина</p>
-            <div class="grid" th:each="b : ${beef}">
-                <div class="item">
-                    <div th:attr="data-popup-id='popup-' + ${b.getId()}"
-                         onclick="toggle(this.getAttribute('data-popup-id'))">
-                        <img class="item_img" th:src="@{'data:image/png;base64,' + ${b.getImage()}}" alt="">
-                        <div class="item_text">
-                            <p class="item_name" th:text="${b.getName()}">Гамбургер</p>
-                            <p class="item_price" th:text="${b.getPrice()} + 'грн.'">19.99$</p>
+            <div class="grid">
+                <div th:each="b : ${beef}">
+                    <div class="item">
+                        <div th:attr="data-popup-id='popup-' + ${b.getId()}"
+                             onclick="toggle(this.getAttribute('data-popup-id'))">
+                            <img class="item_img" th:src="@{'data:image/png;base64,' + ${b.getImage()}}" alt="">
+                            <div class="item_text">
+                                <p class="item_name" th:text="${b.getName()}">Гамбургер</p>
+                                <p class="item_price" th:text="${b.getPrice()} + 'грн.'">19.99$</p>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="popup" th:id="'popup-' + ${b.getId()}">
-                        <div class="overlay"></div>
-                        <div class="content">
-                            <div th:attr="data-popup-id='popup-' + ${b.getId()}"
-                                 onclick="toggle(this.getAttribute('data-popup-id'))" class="close-btn">&times;</div>
-                            <div class="hole_info">
-                                <img class="popup_img" th:src="@{'data:image/png;base64,' + ${b.getImage()}}" alt="">
-                                <div class="item_text">
-                                    <p class="item_price" th:text="${b.getPrice()} + 'грн.'">Ціна: 400$</p><br><br>
-                                    <p class="item_category" th:text="'Категорія: ' + ${b.getCategory()}">Категорія: бургери</p><br><br>
-                                    <p class="item_description" th:text="${b.getDescription()}">Бургер зі свининою це - саме те, що треба тобі після
-                                        тяжкого робочого дня. Хрустка булочка, соковите м’ясо
-                                        та свіжі овочі роблять цей бургер фаворитом серед наших
-                                        гостей. Спробуй і ти, гарантуємо - тобі сподобається!</p>
+                        <div class="popup" th:id="'popup-' + ${b.getId()}">
+                            <div class="overlay"></div>
+                            <div class="content">
+                                <div th:attr="data-popup-id='popup-' + ${b.getId()}"
+                                     onclick="toggle(this.getAttribute('data-popup-id'))" class="close-btn">&times;</div>
+                                <div class="hole_info">
+                                    <img class="popup_img" th:src="@{'data:image/png;base64,' + ${b.getImage()}}" alt="">
+                                    <div class="item_text">
+                                        <p class="item_price" th:text="${b.getPrice()} + 'грн.'">Ціна: 400$</p><br><br>
+                                        <p class="item_category" th:text="'Категорія: ' + ${b.getCategory()}">Категорія: бургери</p><br><br>
+                                        <p class="item_description" th:text="${b.getDescription()}">Бургер зі свининою це - саме те, що треба тобі після
+                                            тяжкого робочого дня. Хрустка булочка, соковите м’ясо
+                                            та свіжі овочі роблять цей бургер фаворитом серед наших
+                                            гостей. Спробуй і ти, гарантуємо - тобі сподобається!</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -121,31 +127,33 @@
 
         <div class="pork" th:if="${!pork.isEmpty()}">
             <p class="title">Свинина</p>
-            <div class="grid" th:each="p : ${pork}">
-                <div class="item">
-                    <div th:attr="data-popup-id='popup-' + ${p.getId()}"
-                         onclick="toggle(this.getAttribute('data-popup-id'))">
-                        <img class="item_img" th:src="@{'data:image/png;base64,' + ${p.getImage()}}" alt="">
-                        <div class="item_text">
-                            <p class="item_name" th:text="${p.getName()}">Гамбургер</p>
-                            <p class="item_price" th:text="${p.getPrice()} + 'грн.'">19.99$</p>
+            <div class="grid">
+                <div th:each="p : ${pork}">
+                    <div class="item">
+                        <div th:attr="data-popup-id='popup-' + ${p.getId()}"
+                             onclick="toggle(this.getAttribute('data-popup-id'))">
+                            <img class="item_img" th:src="@{'data:image/png;base64,' + ${p.getImage()}}" alt="">
+                            <div class="item_text">
+                                <p class="item_name" th:text="${p.getName()}">Гамбургер</p>
+                                <p class="item_price" th:text="${p.getPrice()} + 'грн.'">19.99$</p>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="popup" th:id="'popup-' + ${p.getId()}">
-                        <div class="overlay"></div>
-                        <div class="content">
-                            <div th:attr="data-popup-id='popup-' + ${p.getId()}"
-                                 onclick="toggle(this.getAttribute('data-popup-id'))" class="close-btn">&times;</div>
-                            <div class="hole_info">
-                                <img class="popup_img" th:src="@{'data:image/png;base64,' + ${p.getImage()}}" alt="">
-                                <div class="item_text">
-                                    <p class="item_price" th:text="${p.getPrice()} + 'грн.'">Ціна: 400$</p><br><br>
-                                    <p class="item_category" th:text="'Категорія: ' + ${p.getCategory()}">Категорія: бургери</p><br><br>
-                                    <p class="item_description" th:text="${p.getDescription()}">Бургер зі свининою це - саме те, що треба тобі після
-                                        тяжкого робочого дня. Хрустка булочка, соковите м’ясо
-                                        та свіжі овочі роблять цей бургер фаворитом серед наших
-                                        гостей. Спробуй і ти, гарантуємо - тобі сподобається!</p>
+                        <div class="popup" th:id="'popup-' + ${p.getId()}">
+                            <div class="overlay"></div>
+                            <div class="content">
+                                <div th:attr="data-popup-id='popup-' + ${p.getId()}"
+                                     onclick="toggle(this.getAttribute('data-popup-id'))" class="close-btn">&times;</div>
+                                <div class="hole_info">
+                                    <img class="popup_img" th:src="@{'data:image/png;base64,' + ${p.getImage()}}" alt="">
+                                    <div class="item_text">
+                                        <p class="item_price" th:text="${p.getPrice()} + 'грн.'">Ціна: 400$</p><br><br>
+                                        <p class="item_category" th:text="'Категорія: ' + ${p.getCategory()}">Категорія: бургери</p><br><br>
+                                        <p class="item_description" th:text="${p.getDescription()}">Бургер зі свининою це - саме те, що треба тобі після
+                                            тяжкого робочого дня. Хрустка булочка, соковите м’ясо
+                                            та свіжі овочі роблять цей бургер фаворитом серед наших
+                                            гостей. Спробуй і ти, гарантуємо - тобі сподобається!</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -156,31 +164,33 @@
 
         <div class="fishAndChicken" th:if="${!fishAndChicken.isEmpty()}">
             <p class="title">Риба та курка</p>
-            <div class="grid" th:each="fch : ${fishAndChicken}">
-                <div class="item">
-                    <div th:attr="data-popup-id='popup-' + ${fch.getId()}"
-                         onclick="toggle(this.getAttribute('data-popup-id'))">
-                        <img class="item_img" th:src="@{'data:image/png;base64,' + ${fch.getImage()}}" alt="">
-                        <div class="item_text">
-                            <p class="item_name" th:text="${fch.getName()}">Гамбургер</p>
-                            <p class="item_price" th:text="${fch.getPrice()} + 'грн.'">19.99$</p>
+            <div class="grid">
+                <div th:each="fch : ${fishAndChicken}">
+                    <div class="item">
+                        <div th:attr="data-popup-id='popup-' + ${fch.getId()}"
+                             onclick="toggle(this.getAttribute('data-popup-id'))">
+                            <img class="item_img" th:src="@{'data:image/png;base64,' + ${fch.getImage()}}" alt="">
+                            <div class="item_text">
+                                <p class="item_name" th:text="${fch.getName()}">Гамбургер</p>
+                                <p class="item_price" th:text="${fch.getPrice()} + 'грн.'">19.99$</p>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="popup" th:id="'popup-' + ${fch.getId()}">
-                        <div class="overlay"></div>
-                        <div class="content">
-                            <div th:attr="data-popup-id='popup-' + ${fch.getId()}"
-                                 onclick="toggle(this.getAttribute('data-popup-id'))" class="close-btn">&times;</div>
-                            <div class="hole_info">
-                                <img class="popup_img" th:src="@{'data:image/png;base64,' + ${fch.getImage()}}" alt="">
-                                <div class="item_text">
-                                    <p class="item_price" th:text="${fch.getPrice()} + 'грн.'">Ціна: 400$</p><br><br>
-                                    <p class="item_category" th:text="'Категорія: ' + ${fch.getCategory()}">Категорія: бургери</p><br><br>
-                                    <p class="item_description" th:text="${fch.getDescription()}">Бургер зі свининою це - саме те, що треба тобі після
-                                        тяжкого робочого дня. Хрустка булочка, соковите м’ясо
-                                        та свіжі овочі роблять цей бургер фаворитом серед наших
-                                        гостей. Спробуй і ти, гарантуємо - тобі сподобається!</p>
+                        <div class="popup" th:id="'popup-' + ${fch.getId()}">
+                            <div class="overlay"></div>
+                            <div class="content">
+                                <div th:attr="data-popup-id='popup-' + ${fch.getId()}"
+                                     onclick="toggle(this.getAttribute('data-popup-id'))" class="close-btn">&times;</div>
+                                <div class="hole_info">
+                                    <img class="popup_img" th:src="@{'data:image/png;base64,' + ${fch.getImage()}}" alt="">
+                                    <div class="item_text">
+                                        <p class="item_price" th:text="${fch.getPrice()} + 'грн.'">Ціна: 400$</p><br><br>
+                                        <p class="item_category" th:text="'Категорія: ' + ${fch.getCategory()}">Категорія: бургери</p><br><br>
+                                        <p class="item_description" th:text="${fch.getDescription()}">Бургер зі свининою це - саме те, що треба тобі після
+                                            тяжкого робочого дня. Хрустка булочка, соковите м’ясо
+                                            та свіжі овочі роблять цей бургер фаворитом серед наших
+                                            гостей. Спробуй і ти, гарантуємо - тобі сподобається!</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -191,31 +201,33 @@
 
         <div class="desserts" th:if="${!desserts.isEmpty()}">
             <p class="title">Десерти</p>
-            <div class="grid" th:each="d : ${desserts}">
-                <div class="item">
-                    <div th:attr="data-popup-id='popup-' + ${d.getId()}"
-                         onclick="toggle(this.getAttribute('data-popup-id'))">
-                        <img class="item_img" th:src="@{'data:image/png;base64,' + ${d.getImage()}}" alt="">
-                        <div class="item_text">
-                            <p class="item_name" th:text="${d.getName()}">Гамбургер</p>
-                            <p class="item_price" th:text="${d.getPrice()} + 'грн.'">19.99$</p>
+            <div class="grid">
+                <div th:each="d : ${desserts}">
+                    <div class="item">
+                        <div th:attr="data-popup-id='popup-' + ${d.getId()}"
+                             onclick="toggle(this.getAttribute('data-popup-id'))">
+                            <img class="item_img" th:src="@{'data:image/png;base64,' + ${d.getImage()}}" alt="">
+                            <div class="item_text">
+                                <p class="item_name" th:text="${d.getName()}">Гамбургер</p>
+                                <p class="item_price" th:text="${d.getPrice()} + 'грн.'">19.99$</p>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="popup" th:id="'popup-' + ${d.getId()}">
-                        <div class="overlay"></div>
-                        <div class="content">
-                            <div th:attr="data-popup-id='popup-' + ${d.getId()}"
-                                 onclick="toggle(this.getAttribute('data-popup-id'))" class="close-btn">&times;</div>
-                            <div class="hole_info">
-                                <img class="popup_img" th:src="@{'data:image/png;base64,' + ${d.getImage()}}" alt="">
-                                <div class="item_text">
-                                    <p class="item_price" th:text="${d.getPrice()} + 'грн.'">Ціна: 400$</p><br><br>
-                                    <p class="item_category" th:text="'Категорія: ' + ${d.getCategory()}">Категорія: бургери</p><br><br>
-                                    <p class="item_description" th:text="${d.getDescription()}">Бургер зі свининою це - саме те, що треба тобі після
-                                        тяжкого робочого дня. Хрустка булочка, соковите м’ясо
-                                        та свіжі овочі роблять цей бургер фаворитом серед наших
-                                        гостей. Спробуй і ти, гарантуємо - тобі сподобається!</p>
+                        <div class="popup" th:id="'popup-' + ${d.getId()}">
+                            <div class="overlay"></div>
+                            <div class="content">
+                                <div th:attr="data-popup-id='popup-' + ${d.getId()}"
+                                     onclick="toggle(this.getAttribute('data-popup-id'))" class="close-btn">&times;</div>
+                                <div class="hole_info">
+                                    <img class="popup_img" th:src="@{'data:image/png;base64,' + ${d.getImage()}}" alt="">
+                                    <div class="item_text">
+                                        <p class="item_price" th:text="${d.getPrice()} + 'грн.'">Ціна: 400$</p><br><br>
+                                        <p class="item_category" th:text="'Категорія: ' + ${d.getCategory()}">Категорія: бургери</p><br><br>
+                                        <p class="item_description" th:text="${d.getDescription()}">Бургер зі свининою це - саме те, що треба тобі після
+                                            тяжкого робочого дня. Хрустка булочка, соковите м’ясо
+                                            та свіжі овочі роблять цей бургер фаворитом серед наших
+                                            гостей. Спробуй і ти, гарантуємо - тобі сподобається!</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -225,32 +237,34 @@
         </div>
 
         <div class="breakfast" th:if="${!breakfast.isEmpty()}">
-            <p class="title">Телятина</p>
-            <div class="grid" th:each="br : ${breakfast}">
-                <div class="item">
-                    <div th:attr="data-popup-id='popup-' + ${br.getId()}"
-                         onclick="toggle(this.getAttribute('data-popup-id'))">
-                        <img class="item_img" th:src="@{'data:image/png;base64,' + ${br.getImage()}}" alt="">
-                        <div class="item_text">
-                            <p class="item_name" th:text="${br.getName()}">Гамбургер</p>
-                            <p class="item_price" th:text="${br.getPrice()} + 'грн.'">19.99$</p>
+            <p class="title">Сніданки</p>
+            <div class="grid">
+                <div th:each="br : ${breakfast}">
+                    <div class="item">
+                        <div th:attr="data-popup-id='popup-' + ${br.getId()}"
+                             onclick="toggle(this.getAttribute('data-popup-id'))">
+                            <img class="item_img" th:src="@{'data:image/png;base64,' + ${br.getImage()}}" alt="">
+                            <div class="item_text">
+                                <p class="item_name" th:text="${br.getName()}">Гамбургер</p>
+                                <p class="item_price" th:text="${br.getPrice()} + 'грн.'">19.99$</p>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="popup" th:id="'popup-' + ${br.getId()}">
-                        <div class="overlay"></div>
-                        <div class="content">
-                            <div th:attr="data-popup-id='popup-' + ${br.getId()}"
-                                 onclick="toggle(this.getAttribute('data-popup-id'))" class="close-btn">&times;</div>
-                            <div class="hole_info">
-                                <img class="popup_img" th:src="@{'data:image/png;base64,' + ${br.getImage()}}" alt="">
-                                <div class="item_text">
-                                    <p class="item_price" th:text="${br.getPrice()} + 'грн.'">Ціна: 400$</p><br><br>
-                                    <p class="item_category" th:text="'Категорія: ' + ${br.getCategory()}">Категорія: бургери</p><br><br>
-                                    <p class="item_description" th:text="${br.getDescription()}">Бургер зі свининою це - саме те, що треба тобі після
-                                        тяжкого робочого дня. Хрустка булочка, соковите м’ясо
-                                        та свіжі овочі роблять цей бургер фаворитом серед наших
-                                        гостей. Спробуй і ти, гарантуємо - тобі сподобається!</p>
+                        <div class="popup" th:id="'popup-' + ${br.getId()}">
+                            <div class="overlay"></div>
+                            <div class="content">
+                                <div th:attr="data-popup-id='popup-' + ${br.getId()}"
+                                     onclick="toggle(this.getAttribute('data-popup-id'))" class="close-btn">&times;</div>
+                                <div class="hole_info">
+                                    <img class="popup_img" th:src="@{'data:image/png;base64,' + ${br.getImage()}}" alt="">
+                                    <div class="item_text">
+                                        <p class="item_price" th:text="${br.getPrice()} + 'грн.'">Ціна: 400$</p><br><br>
+                                        <p class="item_category" th:text="'Категорія: ' + ${br.getCategory()}">Категорія: бургери</p><br><br>
+                                        <p class="item_description" th:text="${br.getDescription()}">Бургер зі свининою це - саме те, що треба тобі після
+                                            тяжкого робочого дня. Хрустка булочка, соковите м’ясо
+                                            та свіжі овочі роблять цей бургер фаворитом серед наших
+                                            гостей. Спробуй і ти, гарантуємо - тобі сподобається!</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -261,31 +275,33 @@
 
         <div class="friesAndSauces" th:if="${!friesAndSauces.isEmpty()}">
             <p class="title">Картопля-фрі та соуси</p>
-            <div class="grid" th:each="fasa : ${friesAndSauces}">
-                <div class="item">
-                    <div th:attr="data-popup-id='popup-' + ${fasa.getId()}"
-                         onclick="toggle(this.getAttribute('data-popup-id'))">
-                        <img class="item_img" th:src="@{'data:image/png;base64,' + ${fasa.getImage()}}" alt="">
-                        <div class="item_text">
-                            <p class="item_name" th:text="${fasa.getName()}">Гамбургер</p>
-                            <p class="item_price" th:text="${fasa.getPrice()} + 'грн.'">19.99$</p>
+            <div class="grid">
+                <div  th:each="fasa : ${friesAndSauces}">
+                    <div class="item">
+                        <div th:attr="data-popup-id='popup-' + ${fasa.getId()}"
+                             onclick="toggle(this.getAttribute('data-popup-id'))">
+                            <img class="item_img" th:src="@{'data:image/png;base64,' + ${fasa.getImage()}}" alt="">
+                            <div class="item_text">
+                                <p class="item_name" th:text="${fasa.getName()}">Гамбургер</p>
+                                <p class="item_price" th:text="${fasa.getPrice()} + 'грн.'">19.99$</p>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="popup" th:id="'popup-' + ${fasa.getId()}">
-                        <div class="overlay"></div>
-                        <div class="content">
-                            <div th:attr="data-popup-id='popup-' + ${fasa.getId()}"
-                                 onclick="toggle(this.getAttribute('data-popup-id'))" class="close-btn">&times;</div>
-                            <div class="hole_info">
-                                <img class="popup_img" th:src="@{'data:image/png;base64,' + ${fasa.getImage()}}" alt="">
-                                <div class="item_text">
-                                    <p class="item_price" th:text="${fasa.getPrice()} + 'грн.'">Ціна: 400$</p><br><br>
-                                    <p class="item_category" th:text="'Категорія: ' + ${fasa.getCategory()}">Категорія: бургери</p><br><br>
-                                    <p class="item_description" th:text="${fasa.getDescription()}">Бургер зі свининою це - саме те, що треба тобі після
-                                        тяжкого робочого дня. Хрустка булочка, соковите м’ясо
-                                        та свіжі овочі роблять цей бургер фаворитом серед наших
-                                        гостей. Спробуй і ти, гарантуємо - тобі сподобається!</p>
+                        <div class="popup" th:id="'popup-' + ${fasa.getId()}">
+                            <div class="overlay"></div>
+                            <div class="content">
+                                <div th:attr="data-popup-id='popup-' + ${fasa.getId()}"
+                                     onclick="toggle(this.getAttribute('data-popup-id'))" class="close-btn">&times;</div>
+                                <div class="hole_info">
+                                    <img class="popup_img" th:src="@{'data:image/png;base64,' + ${fasa.getImage()}}" alt="">
+                                    <div class="item_text">
+                                        <p class="item_price" th:text="${fasa.getPrice()} + 'грн.'">Ціна: 400$</p><br><br>
+                                        <p class="item_category" th:text="'Категорія: ' + ${fasa.getCategory()}">Категорія: бургери</p><br><br>
+                                        <p class="item_description" th:text="${fasa.getDescription()}">Бургер зі свининою це - саме те, що треба тобі після
+                                            тяжкого робочого дня. Хрустка булочка, соковите м’ясо
+                                            та свіжі овочі роблять цей бургер фаворитом серед наших
+                                            гостей. Спробуй і ти, гарантуємо - тобі сподобається!</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

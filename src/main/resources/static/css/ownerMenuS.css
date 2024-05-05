@@ -201,7 +201,7 @@
     }
 
     .item {
-        height: 400px;
+        height: 430px;
         width: 250px;
     }
 
@@ -212,11 +212,11 @@
 
     .item_text {
         font-size: 15px;
-        height: 60px;
+        height: 80px;
     }
 
     .hole_screen {
-        width: 90%;
+        width: 95%;
     }
 
     .edit {
