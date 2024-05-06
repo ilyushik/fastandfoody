@@ -2,18 +2,12 @@ package org.example.fastandfoodyapp.Controllers;
 
 import org.example.fastandfoodyapp.Mails.MailService;
 import org.example.fastandfoodyapp.Mails.MailStructure;
-import org.example.fastandfoodyapp.Model.City;
+import org.example.fastandfoodyapp.Model.*;
 import org.example.fastandfoodyapp.Model.DTO.ItemDTO;
 import org.example.fastandfoodyapp.Model.DTO.RestaurantDTO;
 import org.example.fastandfoodyapp.Model.Enumerables.Category;
 import org.example.fastandfoodyapp.Model.Enumerables.User_Role;
-import org.example.fastandfoodyapp.Model.Item;
-import org.example.fastandfoodyapp.Model.Person;
-import org.example.fastandfoodyapp.Model.Restaurant;
-import org.example.fastandfoodyapp.Repositories.CityRepository;
-import org.example.fastandfoodyapp.Repositories.ItemRepository;
-import org.example.fastandfoodyapp.Repositories.PersonRepository;
-import org.example.fastandfoodyapp.Repositories.RestaurantRepository;
+import org.example.fastandfoodyapp.Repositories.*;
 import org.example.fastandfoodyapp.Security.PersonDetails;
 import org.example.fastandfoodyapp.Services.PersonService;
 import org.example.fastandfoodyapp.Services.RegistrationService;
@@ -28,8 +22,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -62,6 +58,8 @@ public class OwnerController {
 
     @Autowired
     private PersonValidation personValidation;
+    @Autowired
+    private StorageRepository storageRepository;
 
     @GetMapping("")
     public String mainOwner(Model model, @AuthenticationPrincipal PersonDetails personDetails) {
@@ -248,7 +246,8 @@ public class OwnerController {
     }
 
     @GetMapping("/items")
-    public String items(Model model) {
+    public String items(@ModelAttribute("item") Item item, Model model) {
+        List<Category> categories = new ArrayList<>();
         List<ItemDTO> itemDTOS = itemService.getAllItemDTO();
         for (ItemDTO i : itemDTOS) {
             String image = Base64.getEncoder().encodeToString(storageService.
@@ -290,24 +289,29 @@ public class OwnerController {
         model.addAttribute("desserts", desserts);
         model.addAttribute("breakfast", breakfasts);
         model.addAttribute("friesAndSauces", friesAndSauces);
+
+        categories.add(Category.Beef);
+        categories.add(Category.Pork);
+        categories.add(Category.Desserts);
+        categories.add(Category.Cold_drinks);
+        categories.add(Category.Breakfasts);
+        categories.add(Category.Fish_and_chicken);
+        categories.add(Category.Fries_and_sauces);
+        categories.add(Category.Hot_drinks);
+
+        model.addAttribute("categories", categories);
+        model.addAttribute("defaultCategory", Category.Beef);
         return "owner/items";
     }
 
-    @GetMapping("item/add")
-    public String addItem() {
-        return "owner/addItem";
-    }
-
     @PostMapping("item/add")
-    public String addItem(@ModelAttribute("item") Item item) {
-        Item i = new Item();
-        i.setItem_name(item.getItem_name());
-        i.setPrice(item.getPrice());
-        i.setDescription(item.getDescription());
-        i.setPrep_time(item.getPrep_time());
-        i.setImage(item.getImage());
-        i.setCategory(item.getCategory());
-        itemRepository.save(i);
+    public String addItem(@ModelAttribute("item") Item item, @RequestParam("file") MultipartFile file) throws IOException {
+        String imageName = storageService.uploadImage(file);
+        Image image = storageRepository.findByName(imageName).orElseThrow();
+        item.setImage(image);
+
+        itemRepository.save(item);
+
         return "redirect:/owner/items";
     }
 

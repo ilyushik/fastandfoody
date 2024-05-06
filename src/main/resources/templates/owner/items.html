@@ -10,6 +10,70 @@
 <div th:insert="owner/ownerHeader :: header"></div>
 <div class="hole_screen">
 
+    <button onclick="toggleAdd()" class="add_new_item">Додати новий товар</button>
+    <div class="popupAdd" id="popup-add">
+        <div class="overlay"></div>
+        <div class="content">
+            <div onclick="toggleAdd()" class="close-btn">&times;</div>
+            <div class="hole_info_pop_add">
+                <div class="form">
+                    <form class="form_add" th:method="POST" th:action="@{/owner/item/add}" th:object="${item}" enctype="multipart/form-data">
+                        <div class="field_block">
+                            <label for="item_name"></label>
+                            <input type="text" th:field="*{item_name}" id="item_name" class="field" placeholder="Введіть назву">
+                            <div class="error" style="color: red" th:if="${#fields.hasErrors('item_name')}" th:errors="*{item_name}">Проблема з ім'ям</div>
+                        </div>
+                        <br>
+
+                        <div class="field_block">
+                            <label for="price"></label>
+                            <input type="text" th:field="*{price}" id="price" class="field" placeholder="Введіть ціну">
+                            <div class="error" style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Проблема з прізвищем</div>
+                        </div>
+                        <br>
+
+                        <div class="field_block">
+                            <label for="description"></label>
+                            <input type="text" th:field="*{description}" id="description" class="field" placeholder="Введіть опис">
+                            <div class="error" style="color: red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Проблема з ім'ям користувача</div>
+                        </div>
+                        <br>
+
+                        <div class="field_block">
+                            <label for="prep_time"></label>
+                            <input type="text" th:field="*{prep_time}" id="prep_time" class="field" placeholder="Введіть час приготування">
+                            <div class="error" style="color: red" th:if="${#fields.hasErrors('prep_time')}" th:errors="*{prep_time}">Проблема з номером телефону</div>
+                        </div>
+                        <br>
+
+                        <label class="change_status" for="category">Оберіть категорію:</label>
+                        <div class="sel">
+                            <div class="select">
+                                <select id="category" name="category" th:field="*{category}">
+                                    <option th:value="${defaultCategory}" th:text="${defaultCategory.getDisplayName()}"></option>
+                                    <option th:each="category : ${categories}"
+                                            th:value="${category}"
+                                            th:text="${category.getDisplayName()}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="field_block">
+                            <label for="file"></label>
+                            <input type="file" id="file" name="file" class="field" placeholder="Оберіть картинку" accept="image/*">
+<!--                            <div class="error" style="color: red" th:if="${#fields.hasErrors('image')}" th:errors="*{image}">Проблема з картинкою</div>-->
+                        </div>
+                        <br>
+
+                        <button onclick="toggleAdd()" class="find_button" type="submit">Додати</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="list_menu">
         <div class="cold_drinks" th:if="${!coldDrinks.isEmpty()}">
             <p class="title">Холодні напої</p>
@@ -433,6 +497,12 @@
 
 </div>
 
+
+<script>
+    function toggleAdd() {
+        document.getElementById('popup-add').classList.toggle('active');
+    }
+</script>
 
 <script>
     function toggle(popupId) {

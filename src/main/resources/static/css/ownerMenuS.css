@@ -7,7 +7,7 @@
     left: 0;
     width: 100%;
     height: 100vh;
-    background-image: url(../img/background.png);
+    /*background-image: url(../images/background.png);*/
     background-repeat: repeat;
     filter: blur(5px);
     z-index: -5;
@@ -194,7 +194,277 @@
     transform: translate(-50%, -50%) scale(1);
 }
 
+
+
+
+
+
+
+.hole_info_pop_add {
+    display: block;
+    align-items: center;
+    /*margin: 100px 20px 20px 20px;*/
+}
+
+.popupAdd .close-btn {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 30px;
+    height: 30px;
+    background-color: #e39600;
+    color: #eeeeee;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 50%;
+}
+
+.popupAdd .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+    display: none;
+}
+
+.popupAdd .content {
+    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background-color: #fff;
+    border-radius: 15px;
+    width: 35vw;
+    height: 85vh;
+    z-index: 2;
+    justify-content: center;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    scrollbar-color: #e39600 #d9d9d9;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.popupAdd.active .overlay {
+    display: block;
+}
+
+.popupAdd.active .content {
+    transition: all 300ms ease-in;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.add_new_item {
+    border: none;
+    padding: 10px 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: #eeeeee;
+    background-color: #e39600;
+    border-radius: 10px;
+
+}
+
+.field_block {
+    position: relative;
+    margin-bottom: 10px;
+    width: 20vw;
+}
+
+.field {
+    border: none;
+    width: 100%;
+    background: transparent;
+    outline: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    height: 50px;
+    background-color: #d9d9d9;
+    border-radius: 10px;
+    color: black;
+    padding-left: 10px;
+    margin: 20px 0;
+}
+
+.field::placeholder {
+    position: absolute;
+    left: 0;
+    font-size: 19px;
+    color: #707070;
+    pointer-events: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 350;
+    margin-left: 10px;
+}
+
+.find_button {
+    width: 20vw;
+    height: 50px;
+    background-color: #e39600;
+    border: none;
+    border-radius: 10px;
+    color: #eeeeee;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 19px;
+    margin-top: 20px;
+    transition: ease-in 0.2s;
+}
+
+.find_button:hover {
+    transform: scale(1.1);
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    padding: 50px;
+}
+
+
+select {
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    -ms-appearance:none;
+    appearance:none;
+    outline:0;
+    box-shadow:none;
+    border:0!important;
+    background: #d9d9d9;
+    background-image: none;
+    flex: 1;
+    padding: 0 .5em;
+    color: black;
+    cursor:pointer;
+    font-size: 25px;
+}
+select::-ms-expand {
+    display: none;
+}
+.select {
+    position: relative;
+    display: flex;
+    width: 350px;
+    height: 50px;
+    line-height: 3;
+    background: #d9d9d9;
+    overflow: hidden;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+}
+.select::after {
+    content: '\25BE';
+    transform: scale(1.5);
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 1em;
+    background: #d9d9d9;
+    cursor:pointer;
+    pointer-events:none;
+    transition:.25s all ease;
+}
+
+.change_status {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.filter_button {
+    border: none;
+    height: 50px;
+    width: 50px;
+    border-radius: 10px;
+    background-color: #E39600;
+    color: #eeeeee;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    padding: 5px;
+}
+
+.sel {
+    display: flex;
+}
+
+.error {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 17px;
+}
+
 @media screen and (max-width: 1900px) {
+    .field_block {
+        width: 30vw;
+    }
+
+    .field {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 500;
+        font-size: 20px;
+        height: 40px;
+        background-color: #d9d9d9;
+        border-radius: 10px;
+        color: black;
+        padding-left: 10px;
+        margin: 20px 0;
+    }
+
+    .field::placeholder {
+        position: absolute;
+        left: 0;
+        font-size: 19px;
+        color: #707070;
+        pointer-events: none;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 350;
+        margin-left: 10px;
+    }
+
+    .find_button {
+        width: 100%;
+        height: 40px;
+        background-color: #e39600;
+        border: none;
+        border-radius: 10px;
+        color: #eeeeee;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 500;
+        font-size: 19px;
+        margin-top: 20px;
+        transition: ease-in 0.2s;
+    }
+
+    .form {
+        padding: 0 50px 50px 50px;
+    }
+
+    .popupAdd .content {
+        width: 60vw;
+        height: 70vh;
+    }
+
+    .hole_info_pop_add {
+        margin: 100px 20px 20px 20px;
+        height: 70vh;
+    }
+
+
+
+
+
+
+
     .popup .content {
         width: 50vw;
         height: 60vh;
