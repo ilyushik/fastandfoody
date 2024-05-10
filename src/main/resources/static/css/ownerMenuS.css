@@ -203,7 +203,6 @@
 .hole_info_pop_add {
     display: block;
     align-items: center;
-    /*margin: 100px 20px 20px 20px;*/
 }
 
 .popupAdd .close-btn {
@@ -403,6 +402,76 @@ select::-ms-expand {
     font-size: 17px;
 }
 
+
+
+
+
+.hole_info_pop_edit {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    margin: 50px 20px 20px 20px;
+}
+
+.popupEdit .close-btn {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 30px;
+    height: 30px;
+    background-color: #e39600;
+    color: #eeeeee;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 50%;
+}
+
+.popupEdit .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+    display: none;
+}
+
+.popupEdit .content {
+    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background-color: #fff;
+    border-radius: 15px;
+    width: 55vw;
+    height: 60vh;
+    z-index: 2;
+    justify-content: center;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    scrollbar-color: #e39600 #d9d9d9;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.popupEdit.active .overlay {
+    display: block;
+}
+
+.popupEdit.active .content {
+    transition: all 300ms ease-in;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.e_image {
+    width: 500px;
+    height: 500px;
+}
+
 @media screen and (max-width: 1900px) {
     .field_block {
         width: 30vw;
@@ -501,5 +570,17 @@ select::-ms-expand {
 
     .list_menu {
         width: 90%;
+    }
+
+
+
+    .e_image {
+        width: 300px;
+        height: 300px;
+    }
+
+    .popupEdit .content {
+        height: 80vh;
+        width: 70vw;
     }
 }

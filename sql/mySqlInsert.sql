@@ -37,6 +37,9 @@ VALUES
     ('Хот-дог', 110.00, 'Хрусткий хлібець зі смаженою сосискою', 7, 'Fries_and_sauces', 16),
     ('Салат Цезар з куркою', 150.00, 'Салат з куркою, сухариками і соусом Цезар', 10, 'Breakfasts', 17);
 
+INSERT INTO Item(item_name, price, description, prep_time, category, image)
+VALUES ('Чай з лимоном', 40.00, 'Ароматний чай з додаванням лимону', 3, 'Hot_drinks', 20);
+
 INSERT INTO Order_Item(count, prep_time, item_id)
 VALUES (1, 45, 3),
        (2, 45, 5),
