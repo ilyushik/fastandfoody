@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Деталі товару</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/ownerHeader.css">
+    <link rel="stylesheet" type="text/css" href="/css/infoItemsOwner.css">
+</head>
+<body>
+<div th:insert="owner/ownerHeader :: header"></div>
+<div class="whole_info">
+    <div class="edit_image">
+        <img class="e_image" th:src="@{'data:image/png;base64,' + ${image}}" alt="">
+        <form th:method="POST" th:action="@{/owner/item/editImage/{id}(id = ${item.getId()})}" enctype="multipart/form-data">
+            <input class="upload_file" type="file" name="image" id="image" accept="image/*">
+            <div class="label_justify">
+                <label class="label_file" for="image">Виберіть фото</label>
+            </div>
+            <br>
+            <div class="border_justify">
+                <input class="confirm" type="submit" value="Замінити">
+            </div>
+        </form>
+    </div>
+    <div class="form">
+        <form th:method="POST" th:action="@{/owner/item/edit/{id}(id = ${item.getId()})}" th:object="${item}">
+            <div class="field_block">
+                <label for="name"></label>
+                <input class="field" type="text" th:field="*{item_name}" id="name" placeholder="Введіть назву">
+                <br>
+            </div>
+
+            <div class="field_block">
+                <label for="price_i"></label>
+                <input class="field" type="text" th:field="*{price}" id="price_i" placeholder="Введіть ціну">
+                <br>
+            </div>
+
+            <div class="field_block">
+                <label for="description_i"></label>
+                <textarea class="field_area" type="text" th:field="*{description}" id="description_i" placeholder="Введіть опис"></textarea>
+                <br>
+            </div>
+
+            <div class="field_block">
+                <label for="time"></label>
+                <input class="field" type="text" th:field="*{prep_time}" id="time" placeholder="Введіть час приготування">
+                <br>
+            </div>
+
+            <button class="confirm" type="submit">Підтвердити</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -5,6 +5,7 @@
     <title>Меню</title>
     <link rel="stylesheet" type="text/css" href="/css/ownerHeader.css">
     <link rel="stylesheet" type="text/css" href="/css/ownerMenuS.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div th:insert="owner/ownerHeader :: header"></div>
@@ -86,8 +87,7 @@
                                 <p class="item_price" th:text="${cd.getPrice()} + 'грн.'">19.99$</p>
                             </div>
                             <div class="main_buttons">
-                                <button class="edit" th:attr="data-popup-id='edit-popup-' + ${cd.getId()}"
-                                        onclick="toggleEdit(this.getAttribute('data-popup-id'))">Редагувати дані</button>
+                                <a class="edit" th:href="'/owner/items/' + ${cd.getId()}">Редагувати дані</a>
 
                                 <button class="delete" th:attr="data-popup-id='popup-' + ${cd.getId()}"
                                         onclick="toggle(this.getAttribute('data-popup-id'))">Видалити</button>
@@ -139,58 +139,11 @@
                                 <p class="item_price" th:text="${hd.getPrice()} + 'грн.'">19.99$</p>
                             </div>
                             <div class="main_buttons">
-                                <button class="edit" th:attr="data-popup-id='edit-popup-' + ${hd.getId()}"
-                                        onclick="toggleEdit(this.getAttribute('data-popup-id'))"><a>Редагувати дані</a></button>
+                                <a class="edit" th:href="'/owner/items/' + ${hd.getId()}">Редагувати дані</a>
                                 <button class="delete" th:attr="data-popup-id='popup-' + ${hd.getId()}"
                                         onclick="toggle(this.getAttribute('data-popup-id'))">Видалити</button>
                             </div>
                         </div>
-
-
-
-                        <div class="popupEdit" th:id="'edit-popup-' + ${hd.getId()}">
-                            <div class="overlay"></div>
-                            <div class="content">
-                                <div th:attr="data-popup-id='edit-popup-' + ${hd.getId()}"
-                                     onclick="toggleEdit(this.getAttribute('data-popup-id'))" class="close-btn">&times;</div>
-                                <div class="hole_info_pop_edit">
-                                    <div class="edit_image">
-                                        <img class="e_image" th:src="@{'data:image/png;base64,' + ${hd.getImage()}}" alt="">
-                                        <form>
-                                            <form th:method="POST" th:action="@{/owner/item/editImage/{id}(id = ${hd.getId()})}" enctype="multipart/form-data">
-                                                <input class="field" type="file" name="image" id="image" accept="image/*">
-<!--                                                <button class="confirm" onclick="toggleEdit()" type="submit">Підтвердити</button>-->
-                                                <input type="submit" class="confirm" onclick="toggleEdit(this.getAttribute('data-popup-id'))" value="Підтвердити">
-                                            </form>
-                                        </form>
-                                    </div>
-                                    <div class="form">
-                                        <form th:method="POST" th:action="@{/owner/item/edit/{id}(id = ${hd.getId()})}" th:object="${item}">
-                                            <div class="field_block">
-                                                <label for="name"></label>
-                                                <input class="field" type="text" th:field="*{item_name}" id="name" placeholder="Введіть назву" th:value="${hd.getName()}">
-                                                <br>
-                                            </div>
-
-                                            <div class="field_block">
-                                                <label for="price_i"></label>
-                                                <input class="field" type="text" th:field="*{price}" id="price_i" placeholder="Введіть ціну" th:value="${hd.getPrice()}">
-                                                <br>
-                                            </div>
-
-                                            <div class="field_block">
-                                                <label for="description_i"></label>
-                                                <input class="field" type="text" th:field="*{description}" id="description_i" placeholder="Введіть опис" th:value="${hd.getDescription()}">
-                                                <br>
-                                            </div>
-
-                                            <button class="confirm" onclick="toggleEdit()" type="submit">Підтвердити</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
 
 
                         <div class="popup" th:id="'popup-' + ${hd.getId()}">
@@ -228,7 +181,7 @@
                                 <p class="item_price" th:text="${b.getPrice()} + 'грн.'">19.99$</p>
                             </div>
                             <div class="main_buttons">
-                                <button class="edit"><a>Редагувати дані</a></button>
+                                <a class="edit" th:href="'/owner/items/' + ${b.getId()}">Редагувати дані</a>
                                 <button class="delete" th:attr="data-popup-id='popup-' + ${b.getId()}"
                                         onclick="toggle(this.getAttribute('data-popup-id'))">Видалити</button>
                             </div>
@@ -277,7 +230,7 @@
                                 <p class="item_price" th:text="${p.getPrice()} + 'грн.'">19.99$</p>
                             </div>
                             <div class="main_buttons">
-                                <button class="edit"><a>Редагувати дані</a></button>
+                                <a class="edit" th:href="'/owner/items/' + ${p.getId()}">Редагувати дані</a>
                                 <button class="delete" th:attr="data-popup-id='popup-' + ${p.getId()}"
                                         onclick="toggle(this.getAttribute('data-popup-id'))">Видалити</button>
                             </div>
@@ -326,7 +279,7 @@
                                 <p class="item_price" th:text="${fch.getPrice()} + 'грн.'">19.99$</p>
                             </div>
                             <div class="main_buttons">
-                                <button class="edit"><a>Редагувати дані</a></button>
+                                <a class="edit" th:href="'/owner/items/' + ${fch.getId()}">Редагувати дані</a>
                                 <button class="delete" th:attr="data-popup-id='popup-' + ${fch.getId()}"
                                         onclick="toggle(this.getAttribute('data-popup-id'))">Видалити</button>
                             </div>
@@ -375,7 +328,7 @@
                                 <p class="item_price" th:text="${d.getPrice()} + 'грн.'">19.99$</p>
                             </div>
                             <div class="main_buttons">
-                                <button class="edit"><a>Редагувати дані</a></button>
+                                <a class="edit" th:href="'/owner/items/' + ${d.getId()}">Редагувати дані</a>
                                 <button class="delete" th:attr="data-popup-id='popup-' + ${d.getId()}"
                                         onclick="toggle(this.getAttribute('data-popup-id'))">Видалити</button>
                             </div>
@@ -424,7 +377,7 @@
                                 <p class="item_price" th:text="${br.getPrice()} + 'грн.'">19.99$</p>
                             </div>
                             <div class="main_buttons">
-                                <button class="edit"><a>Редагувати дані</a></button>
+                                <a class="edit" th:href="'/owner/items/' + ${br.getId()}">Редагувати дані</a>
                                 <button class="delete" th:attr="data-popup-id='popup-' + ${br.getId()}"
                                         onclick="toggle(this.getAttribute('data-popup-id'))">Видалити</button>
                             </div>
@@ -473,7 +426,7 @@
                                 <p class="item_price" th:text="${fasa.getPrice()} + 'грн.'">19.99$</p>
                             </div>
                             <div class="main_buttons">
-                                <button class="edit"><a>Редагувати дані</a></button>
+                                <a class="edit" th:href="'/owner/items/' + ${fasa.getId()}">Редагувати дані</a>
                                 <button class="delete" th:attr="data-popup-id='popup-' + ${fasa.getId()}"
                                         onclick="toggle(this.getAttribute('data-popup-id'))">Видалити</button>
                             </div>
@@ -526,11 +479,11 @@
     }
 </script>
 
-<script>
-    function toggleEdit(popupId) {
-        document.getElementById(popupId).classList.toggle('active');
-    }
-</script>
+<!--<script>-->
+<!--    function toggleEdit(popupId) {-->
+<!--        document.getElementById(popupId).classList.toggle('active');-->
+<!--    }-->
+<!--</script>-->
 
 <script>
     document.querySelector('.burger').addEventListener('click', function() {

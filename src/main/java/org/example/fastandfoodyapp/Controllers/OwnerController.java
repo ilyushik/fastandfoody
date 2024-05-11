@@ -292,6 +292,15 @@ public class OwnerController {
         return "owner/items";
     }
 
+    @GetMapping("/items/{id}")
+    public String itemInfo(@PathVariable("id") int id, Model model) {
+        Item item = itemService.findItemById(id);
+        String image = Base64.getEncoder().encodeToString(storageService.downloadImage(item.getImage().getName()));
+        model.addAttribute("item", item);
+        model.addAttribute("image", image);
+        return "owner/itemDetails";
+    }
+
     @PostMapping("item/add")
     public String addItem(@ModelAttribute("item") Item item, @RequestParam("file") MultipartFile file) throws IOException {
         String imageName = storageService.uploadImage(file);
@@ -309,13 +318,6 @@ public class OwnerController {
         return "redirect:/owner/items";
     }
 
-//    @PostMapping("/item/filter")
-//    public String findItem(@RequestParam("name") String name, Model model) {
-//        List<Item> items = itemService.findByName(name);
-//        model.addAttribute("items", items);
-//        return "owner/items";
-//    }
-
     @PostMapping("/item/edit/{id}")
     public String editItem(@PathVariable("id") int id, @ModelAttribute("item") Item item) {
         Item newItem = itemService.findItemById(id);
@@ -328,16 +330,17 @@ public class OwnerController {
     }
 
     @PostMapping("/item/editImage/{id}")
-    public String editImage(@RequestParam("image") MultipartFile file, @PathVariable("id") int id) throws IOException {
-        storageService.uploadImage(file);
+    public String editImage(@RequestParam("image") MultipartFile image, @PathVariable("id") int id) throws IOException {
+        String imageName = storageService.uploadImage(image);
 
-        Item item = itemRepository.findById(id).orElseThrow();
-
-        Image image1 = storageRepository.findByName(file.getOriginalFilename()).orElseThrow();
+        Item item = itemService.findItemById(id);
+        Image oldImage = item.getImage();
+        Image image1 = storageRepository.findByName(imageName).orElseThrow();
 
         item.setImage(image1);
 
         itemRepository.save(item);
+        storageRepository.delete(oldImage);
         return "redirect:/owner/items";
     }
 }
