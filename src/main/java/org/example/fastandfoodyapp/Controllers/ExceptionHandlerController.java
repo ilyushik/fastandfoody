@@ -11,42 +11,35 @@ import org.springframework.web.client.HttpServerErrorException;
 
 @ControllerAdvice
 public class ExceptionHandlerController {
+    //400 error
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpClientErrorException.BadRequest.class)
     public String handleBadRequestError(Model model) {
-        model.addAttribute("error_code", "400");
-        model.addAttribute("error_text", "Opps... We can't handle this");
-        model.addAttribute("error_image", "400.png");
-        return "errorPage";
+        return "errorTemplates/badRequest";
     }
 
+    //401 error
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(HttpClientErrorException.Unauthorized.class)
     public String handleUnauthorizedError(Model model) {
-        model.addAttribute("error_code", "401");
-        model.addAttribute("error_text", "Seems like you are unauthorized!");
-        model.addAttribute("error_image", "401.png");
-        return "errorPage";
+        return "errorTemplates/unauthorized";
     }
 
+    //403 error
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler(HttpClientErrorException.Forbidden.class)
     public String handleForbiddenError(Model model) {
-        model.addAttribute("error_code", "403");
-        model.addAttribute("error_text", "Hey! You don't have permission to do this!");
-        model.addAttribute("error_image", "403.png");
-        return "errorPage";
+        return "errorTemplates/forbidden";
     }
 
+    //404 error
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(HttpClientErrorException.NotFound.class)
     public String handleNotFoundError(Model model) {
-        model.addAttribute("error_code", "404");
-        model.addAttribute("error_text", "Sorry... We can't find this page!");
-        model.addAttribute("error_image", "404.png");
-        return "errorPage";
+        return "errorTemplates/badRequest";
     }
 
+    //500 error
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler({NullPointerException.class,
                        HttpServerErrorException.InternalServerError.class,
@@ -54,9 +47,6 @@ public class ExceptionHandlerController {
                        RuntimeException.class
     })
     public String handleInternalServerError(Model model) {
-        model.addAttribute("error_code", "500");
-        model.addAttribute("error_text", "Something went wrong!");
-        model.addAttribute("error_image", "500.png");
-        return "errorPage";
+        return "errorTemplates/internalServer";
     }
 }
