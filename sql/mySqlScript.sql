@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS Order_Item (
     id INT PRIMARY KEY AUTO_INCREMENT,
     count INT NOT NULL,
     prep_time INT NOT NULL,
+    price DOUBLE NOT NULL ,
     item_id INT REFERENCES Item(id)
 );
 
@@ -94,7 +95,8 @@ CREATE TABLE IF NOT EXISTS Purchase(
     order_item_id int NOT NULL REFERENCES Order_Item(id) ,
     person_id int REFERENCES Person(id),
     address VARCHAR(64),
-    date timestamp NOT NULL
+    date timestamp NOT NULL,
+    sum DOUBLE NOT NULL
 );
 
 ALTER TABLE Person ADD COLUMN restaurant_id int UNIQUE REFERENCES Restaurant(id) ;

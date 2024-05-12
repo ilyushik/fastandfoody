@@ -22,6 +22,10 @@ public class Order_Item {
     @Column(name = "prep_time", nullable = false)
     private int prep_time;
 
+    // useless field
+    @Column(name = "price", nullable = false)
+    private double price;
+
     @ManyToOne
     @JoinColumn(name = "item_id", referencedColumnName = "id", nullable = false)
     private Item item_id;
