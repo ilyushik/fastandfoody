@@ -16,6 +16,7 @@ VALUES ('Card'), ('Cash');
 INSERT INTO user_role(user_role)
 VALUES ('ROLE_CLIENT'), ('ROLE_ADMIN'), ('ROLE_OWNER');
 
+
 INSERT INTO Item(item_name, price, description, prep_time, category, image)
 VALUES
     ('Бургер зі свининою', 35, 'asdfa;slkjhfljahsdlfkjhalkjshdflas', 10, 'Pork', 3),
@@ -26,23 +27,23 @@ VALUES
 
 INSERT INTO Item(item_name, price, description, prep_time, category, image)
 VALUES
-    ('Гамбургер зі смаженою куркою', 120.00, 'Смачний гамбургер зі смаженою куркою, салатом і соусом', 10, 'Fish_and_chicken', 8),
-    ('Картопля фрі', 70.00, 'Хрустка картопля фрі з сіллю', 8, 'Fries_and_sauces', 9),
-    ('Чікен нагетс', 100.00, 'Соковиті курячі нагетси з паніровкою', 12, 'Fish_and_chicken', 10),
-    ('Чізбургер', 130.00, 'Гамбургер з сиром, салатом і соусом', 10, 'Fish_and_chicken', 11),
-    ('Піца пепероні', 180.00, 'Піца з пепероні та сиром', 15, 'Fries_and_sauces', 12),
-    ('Кока-кола 0,5л', 50.00, 'Газований напій Кока-кола', 2, 'Cold_drinks', 13),
-    ('Чай з лимоном', 40.00, 'Ароматний чай з додаванням лимону', 3, 'Hot_drinks', 14),
-    ('Фреш апельсиновий 0,3л', 90.00, 'Свіжий фреш з апельсинів', 5, 'Cold_drinks', 15),
-    ('Хот-дог', 110.00, 'Хрусткий хлібець зі смаженою сосискою', 7, 'Fries_and_sauces', 16),
-    ('Салат Цезар з куркою', 150.00, 'Салат з куркою, сухариками і соусом Цезар', 10, 'Breakfasts', 17);
+    ('Гамбургер зі смаженою куркою', 120.00, 'Смачний гамбургер зі смаженою куркою, салатом і соусом', 10, 'Fish_and_chicken', 7),
+    ('Картопля фрі', 70.00, 'Хрустка картопля фрі з сіллю', 8, 'Fries_and_sauces', 8),
+    ('Чікен нагетс', 100.00, 'Соковиті курячі нагетси з паніровкою', 12, 'Fish_and_chicken', 9),
+    ('Чізбургер', 130.00, 'Гамбургер з сиром, салатом і соусом', 10, 'Fish_and_chicken', 10),
+    ('Піца пепероні', 180.00, 'Піца з пепероні та сиром', 15, 'Fries_and_sauces', 11),
+    ('Кока-кола 0,5л', 50.00, 'Газований напій Кока-кола', 2, 'Cold_drinks', 12),
+    ('Чай з лимоном', 40.00, 'Ароматний чай з додаванням лимону', 3, 'Hot_drinks', 13),
+    ('Фреш апельсиновий 0,3л', 90.00, 'Свіжий фреш з апельсинів', 5, 'Cold_drinks', 14),
+    ('Хот-дог', 110.00, 'Хрусткий хлібець зі смаженою сосискою', 7, 'Fries_and_sauces', 15),
+    ('Салат Цезар з куркою', 150.00, 'Салат з куркою, сухариками і соусом Цезар', 10, 'Breakfasts', 16);
 
-INSERT INTO Order_Item(count, prep_time, item_id)
-VALUES (1, 45, 3),
-       (2, 45, 5),
-       (3, 23, 4),
-       (4, 20, 3),
-       (5, 23, 2);
+INSERT INTO Order_Item(count, prep_time, price, item_id)
+VALUES (1, 45, 60, 3),
+       (2, 45, 40, 5),
+       (3, 23, 150, 4),
+       (4, 20, 240, 3),
+       (5, 23, 150, 2);
 
 INSERT INTO person(name, surname, phone, email, username, person_password, person_role, image)
 VALUES ('Ілля', 'Камаралі', '+380972224444', 'kamaraliilya@gmail.com', 'IlliaKamarali', '12345678', 'ROLE_OWNER', 1),
@@ -132,12 +133,12 @@ VALUES
     (24, 'вул. Шевченка, 35', 50.9477, 34.8081, 15, '+380123456789', 'fastandfoodycorp@gmail.com'),
     (25, 'вул. Коцюбинського, 14', 50.9077, 34.7981, 15, '+380987654321', 'fastandfoodycorp@gmail.com');
 
-INSERT INTO purchase(prep_time, wish, restaurant_id, payment_way, promo_code, status, delivery_way, order_item_id, person_id, address, date)
+INSERT INTO purchase(prep_time, wish, restaurant_id, payment_way, promo_code, status, delivery_way, order_item_id, person_id, address, date, sum)
 VALUES
-    (12, 'asdasdflkasdafas', 2, 'Card', 1, 'In_progress', 'PickUp', 2, 2, null, '2024-03-11 12:00:00'),
-    (42, 'asdasdflkadsfghds', 3, 'Cash', 2, 'Delivered', 'Delivery', 3, 3, 'Харківське шосе, 148', '2023-09-20 12:00:00'),
-    (45, 'asdasdflksdfgsdsfgs', 4, 'Card',3, 'On_way', 'PickUp', 4, 4, null,  '2024-02-20 12:00:00'),
-    (24, 'asdasdflkassdfgsdf', 5, 'Cash', 4, 'In_progress', 'PickUp', 5, 5, null, '2023-10-20 12:00:00');
+    (12, 'asdasdflkasdafas', 2, 'Card', 1, 'In_progress', 'PickUp', 2, 2, null, '2024-03-11 12:00:00', 210),
+    (42, 'asdasdflkadsfghds', 3, 'Cash', 2, 'Delivered', 'Delivery', 3, 3, 'Харківське шосе, 148', '2023-09-20 12:00:00', 240),
+    (45, 'asdasdflksdfgsdsfgs', 4, 'Card',3, 'On_way', 'PickUp', 4, 4, null,  '2024-02-20 12:00:00', 150),
+    (24, 'asdasdflkassdfgsdf', 5, 'Cash', 4, 'In_progress', 'PickUp', 5, 5, null, '2023-10-20 12:00:00', 40);
 
 UPDATE order_item SET purchase_id = 1 WHERE order_item.id = 1;
 UPDATE order_item SET purchase_id = 4 WHERE order_item.id = 2;

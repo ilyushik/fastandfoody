@@ -14,6 +14,8 @@
 
 .justify {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .graficlogo {
@@ -33,5 +35,24 @@
     display: block;
     align-items: center;
 }
+
+.one {
+    display: flex;
+}
+
+.button_img {
+    border: none;
+    background-color: transparent;
+}
+
+.logout_img {
+    width: 80px;
+    margin-right: 20px;
+    transition: ease-in 0.2s;
+}
+
+.logout_img:hover {
+    transform: scale(1.1);
+}f
 
 

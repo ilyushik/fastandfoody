@@ -116,18 +116,6 @@ public class OwnerController {
         return "owner/adminDetails";
     }
 
-
-    // delete this method
-//    @GetMapping("/admins/addAdmin")
-//    public String addAdminPage(Model model) {
-//        List<Person> adminsList = personService.findByRole(User_Role.ROLE_CLIENT);
-//        for (Person p: adminsList) {
-//            p.setView_image(Base64.getEncoder().encodeToString(storageService.downloadImage(p.getImage().getName())));
-//        }
-//        model.addAttribute("admins", adminsList);
-//        return "owner/addAdmin";
-//    }
-
     @PostMapping("/admins/addAdmin/filter")
     public String findNewAdminByPhone(@RequestParam("phone") String phone, Model model) {
         Optional<Person> p = personService.byPhone(phone).stream().findFirst();
@@ -304,6 +292,15 @@ public class OwnerController {
         return "owner/items";
     }
 
+    @GetMapping("/items/{id}")
+    public String itemInfo(@PathVariable("id") int id, Model model) {
+        Item item = itemService.findItemById(id);
+        String image = Base64.getEncoder().encodeToString(storageService.downloadImage(item.getImage().getName()));
+        model.addAttribute("item", item);
+        model.addAttribute("image", image);
+        return "owner/itemDetails";
+    }
+
     @PostMapping("item/add")
     public String addItem(@ModelAttribute("item") Item item, @RequestParam("file") MultipartFile file) throws IOException {
         String imageName = storageService.uploadImage(file);
@@ -321,23 +318,29 @@ public class OwnerController {
         return "redirect:/owner/items";
     }
 
-    @PostMapping("/item/filter")
-    public String findItem(@RequestParam("name") String name, Model model) {
-        List<Item> items = itemService.findByName(name);
-        model.addAttribute("items", items);
-        return "owner/items";
+    @PostMapping("/item/edit/{id}")
+    public String editItem(@PathVariable("id") int id, @ModelAttribute("item") Item item) {
+        Item newItem = itemService.findItemById(id);
+
+        newItem.setItem_name(item.getItem_name());
+        newItem.setPrice(item.getPrice());
+        newItem.setDescription(item.getDescription());
+        itemRepository.save(newItem);
+        return "redirect:/owner/items";
     }
 
-    @PostMapping("item/edit/{id}")
-    public String editItem(@PathVariable("id") int id, Item new_item) {
+    @PostMapping("/item/editImage/{id}")
+    public String editImage(@RequestParam("image") MultipartFile image, @PathVariable("id") int id) throws IOException {
+        String imageName = storageService.uploadImage(image);
+
         Item item = itemService.findItemById(id);
-        item.setItem_name(new_item.getItem_name());
-        item.setPrice(new_item.getPrice());
-        item.setDescription(new_item.getDescription());
-        item.setPrep_time(new_item.getPrep_time());
-        item.setImage(new_item.getImage());
-        item.setCategory(new_item.getCategory());
+        Image oldImage = item.getImage();
+        Image image1 = storageRepository.findByName(imageName).orElseThrow();
+
+        item.setImage(image1);
+
         itemRepository.save(item);
+        storageRepository.delete(oldImage);
         return "redirect:/owner/items";
     }
 }

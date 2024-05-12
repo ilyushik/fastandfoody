@@ -63,6 +63,7 @@
     font-weight: 600;
     font-size: 15px;
     color: #eeeeee;
+    text-decoration: none;
 }
 
 .delete {
@@ -203,7 +204,6 @@
 .hole_info_pop_add {
     display: block;
     align-items: center;
-    /*margin: 100px 20px 20px 20px;*/
 }
 
 .popupAdd .close-btn {

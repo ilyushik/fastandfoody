@@ -7,12 +7,17 @@
 <body>
 <div th:fragment="header">
   <div class="wrapper">
-    <div class="justify">
-      <a href="/admin"><img class="graficlogo" src="/logo/logo_crop.png"></a>
-      <div class="align">
-        <p class="who">Admin</p>
+      <div class="justify">
+          <div class="one">
+              <a href="/admin"><img class="graficlogo" src="/logo/logo_crop.png"></a>
+              <div class="align">
+                  <p class="who">Admin</p>
+              </div>
+          </div>
+          <form th:action="@{/logout}" th:method="POST">
+              <button class="button_img" type="submit"><img class="logout_img" src="/images/logout.svg" alt=""></button>
+          </form>
       </div>
-    </div>
   </div>
 </div>
 </body>

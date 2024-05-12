@@ -64,6 +64,10 @@ public class Purchase {
     @Column(name = "date", nullable = false)
     private Timestamp date;
 
+    // useless field
+    @Column(name = "sum", nullable = false)
+    private double sum;
+
 
     public Purchase(int prep_time, String wish, String address, Timestamp date,
                     Restaurant restaurant_id, Payment_Way payment_way, Promo_Code promo_code,

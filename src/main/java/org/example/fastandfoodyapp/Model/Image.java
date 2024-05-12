@@ -29,4 +29,11 @@ public class Image {
 
     @OneToOne(mappedBy = "image")
     private Item item;
+
+    @Override
+    public String toString() {
+        return "Image{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
