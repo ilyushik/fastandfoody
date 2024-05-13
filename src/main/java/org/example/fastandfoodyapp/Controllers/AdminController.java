@@ -53,6 +53,10 @@ public class AdminController {
     @PostMapping("/filter")
     public String orderFilter(@RequestParam("phone") String phone, Model model, @AuthenticationPrincipal PersonDetails personDetails) {
         List<Person> personOrder = personService.byPhone(phone);
+        if (personOrder.isEmpty()) {
+            model.addAttribute("error_message", "Немає людини з таким номером телефону...");
+            return "ErrorTemplate";
+        }
         Person person = personService.findById(personDetails.getPerson().getId());
         model.addAttribute("restaurant", restaurantService.byId(personDetails.getPerson().getRestaurant_id().getId()));
         model.addAttribute("admin", person);

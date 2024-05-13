@@ -292,7 +292,11 @@ public class MainController {
 
     // reset password
     @PostMapping("/reset_password")
-    public String resetPassword(@RequestParam("username") String username) {
+    public String resetPassword(@RequestParam("username") String username, Model model) {
+        if (personRepository.findPersonByUsername(username) == null) {
+            model.addAttribute("error_message", "Користувача з такими юзернеймом не знайдено...");
+            return "ErrorTemplate";
+        }
         personService.resetPassword(username);
         return "redirect:/auth/login";
     }

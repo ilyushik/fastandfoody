@@ -92,6 +92,10 @@ public class OwnerController {
     @PostMapping("/admins/filter")
     public String filterAdminByPhone(@RequestParam("phone") String phone, Model model) {
         List<Person> personOrder = personService.byPhone(phone);
+        if (personOrder.isEmpty()) {
+            model.addAttribute("error_message", "Немає людини з таким номером телефону...");
+            return "ErrorTemplate";
+        }
         for (Person p: personOrder) {
             p.setView_image(Base64.getEncoder().encodeToString(storageService.downloadImage(p.getImage().getName())));
         }
