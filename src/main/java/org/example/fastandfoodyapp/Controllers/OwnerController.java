@@ -147,6 +147,22 @@ public class OwnerController {
         return "redirect:/owner/restaurants";
     }
 
+    @GetMapping("/city/add")
+    public String addCityPage(@ModelAttribute("city") City city) {
+        return "owner/addCity";
+    }
+
+    @PostMapping("/add/city")
+    public String addCity(@ModelAttribute("city") City city, Model model) {
+        if (city.getName().isEmpty() || Double.isNaN(city.getLongitude()) || Double.isNaN(city.getLatitude())) {
+            model.addAttribute("error_message", "Введіть вірні дані...");
+            return "ErrorTemplate";
+        }
+        City newCity = new City(city.getName(), city.getLongitude(), city.getLatitude());
+        cityRepository.save(newCity);
+        return "redirect:/owner/restaurants";
+    }
+
     @GetMapping("/restaurants")
     public String getAllRestaurants(@RequestParam(name = "city", defaultValue = "Київ") String city, Model model) {
         City defaultCity = cityRepository.findCityByName("Київ");
@@ -306,7 +322,12 @@ public class OwnerController {
     }
 
     @PostMapping("item/add")
-    public String addItem(@ModelAttribute("item") Item item, @RequestParam("file") MultipartFile file) throws IOException {
+    public String addItem(@ModelAttribute("item") @Valid Item item, @RequestParam("file") MultipartFile file, Model model) throws IOException {
+        if (item.getItem_name().isEmpty() || item.getPrice() < 1 || item.getDescription().isEmpty() || file == null
+        || item.getPrep_time() < 1) {
+            model.addAttribute("error_message", "Введіть вірні дані...");
+            return "ErrorTemplate";
+        }
         String imageName = storageService.uploadImage(file);
         Image image = storageRepository.findByName(imageName).orElseThrow();
         item.setImage(image);

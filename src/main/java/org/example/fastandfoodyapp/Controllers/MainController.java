@@ -8,12 +8,14 @@ import org.example.fastandfoodyapp.Model.DTO.ItemDTO;
 import org.example.fastandfoodyapp.Model.DTO.RestaurantDTO;
 import org.example.fastandfoodyapp.Model.Enumerables.Category;
 import org.example.fastandfoodyapp.Model.Enumerables.Status;
+import org.example.fastandfoodyapp.Model.Enumerables.User_Role;
 import org.example.fastandfoodyapp.Repositories.CityRepository;
 import org.example.fastandfoodyapp.Repositories.PersonRepository;
 import org.example.fastandfoodyapp.Repositories.StorageRepository;
 import org.example.fastandfoodyapp.Security.PersonDetails;
 import org.example.fastandfoodyapp.Services.*;
 import org.example.fastandfoodyapp.Services.Service.ItemService;
+import org.example.fastandfoodyapp.util.PersonValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -22,11 +24,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.*;
 
@@ -59,11 +63,37 @@ public class MainController {
     @Autowired
     private PersonRepository personRepository;
 
+    @Autowired
+    private RegistrationService registrationService;
+    @Autowired
+    private PersonValidation personValidation;
+
     // main page
 //    @GetMapping()
 //    public String mainPage() {
 //        return "client/main";
 //    }
+
+    @GetMapping("/RazRazRazEtoHardBass")
+    public String addOwner(@ModelAttribute("person") Person person) {
+        return "client/addOwner";
+    }
+
+    @PostMapping("/add_owner")
+    public String performRegistration(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
+        personValidation.validate(person, bindingResult);
+        if(bindingResult.hasErrors()) {
+            return "redirect:/RazRazRazEtoHardBass";
+        }
+        registrationService.registration(person);
+        Person owner = personRepository.findPersonByUsername(person.getUsername());
+        owner.setPersonRole(User_Role.ROLE_OWNER);
+        personRepository.save(owner);
+        MailStructure mail = new MailStructure("Реєстрація успішна", person.getName() +
+                ", вітаємо Вас у нашому ресторані");
+        mailService.sendMail(person.getEmail(), mail);
+        return "redirect:/auth/login";
+    }
 
     @GetMapping("/form")
     public String uploadForm() {

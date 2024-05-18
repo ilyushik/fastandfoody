@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/auth/login", "/form", "/uploadImage", "/error", "/auth/registration", "/forget_password", "/reset_password", "/", "/contacts/**", "/menu/**", "/about_us", "/map", "/maps/**", "/payment/**", "https://sandbox.paypal.com/**").permitAll()
+                .antMatchers("/auth/login", "/form", "/uploadImage", "/error", "/RazRazRazEtoHardBass", "/add_owner", "/auth/registration", "/forget_password", "/reset_password", "/", "/contacts/**", "/menu/**", "/about_us", "/map", "/maps/**", "/payment/**", "https://sandbox.paypal.com/**").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/owner/**").hasRole("OWNER")
                 .anyRequest().hasAnyRole("CLIENT", "ADMIN", "OWNER")

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/ownerHeader.css">
+    <link rel="stylesheet" type="text/css" href="/css/addAdminRest.css">
+</head>
+<body>
+<div th:insert="owner/ownerHeader :: header"></div>
+<div class="main_screen">
+    <div class="screen_just">
+        <div class="screen">
+            <div class="title">
+                <p>Додати місто</p>
+            </div>
+            <div class="form">
+                <form class="form_add" th:action="@{/owner/add/city}" th:object="${city}" th:method="POST">
+                    <div class="field_block">
+                        <label for="name"></label>
+                        <input type="text" th:field="*{name}" id="name" class="field" placeholder="Введіть назву">
+                        <div class="error" style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Проблема з ім'ям</div>
+                    </div>
+                    <br>
+
+                    <div class="field_block">
+                        <label for="longitude"></label>
+                        <input type="text" th:field="*{longitude}" id="longitude" class="field" placeholder="Введіть довготу">
+                        <div class="error" style="color: red" th:if="${#fields.hasErrors('longitude')}" th:errors="*{longitude}">Проблема з довготою</div>
+                    </div>
+                    <br>
+
+                    <div class="field_block">
+                        <label for="latitude"></label>
+                        <input type="text" th:field="*{latitude}" id="latitude" class="field" placeholder="Введіть широту">
+                        <div class="error" style="color: red" th:if="${#fields.hasErrors('latitude')}" th:errors="*{latitude}">Проблема з широтою</div>
+                    </div>
+                    <br>
+                    <div class="button_block">
+                        <input class="find_button" type="submit" value="Додати місто">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

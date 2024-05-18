@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -20,7 +21,7 @@ public class City {
     private int id;
 
     @Column(name = "name", nullable = false)
-    @Max(32)
+    @Size(max = 32)
     private String name;
 
     @Column(name = "longitude", nullable = false)

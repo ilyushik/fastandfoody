@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS User_Role (
     user_role VARCHAR(32) UNIQUE NOT NULL
 );
 
-create table Image (
+create table IF NOT EXISTS Image (
     id bigint primary key auto_increment,
     image_data mediumblob,
     name varchar(255),
