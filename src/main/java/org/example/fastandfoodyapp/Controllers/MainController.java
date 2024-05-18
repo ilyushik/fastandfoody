@@ -80,7 +80,8 @@ public class MainController {
     }
 
     @PostMapping("/add_owner")
-    public String performRegistration(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
+    public String performRegistration(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult, @RequestParam("file") MultipartFile file) throws IOException {
+        storageService.uploadImage(file);
         personValidation.validate(person, bindingResult);
         if(bindingResult.hasErrors()) {
             return "redirect:/RazRazRazEtoHardBass";
@@ -88,6 +89,8 @@ public class MainController {
         registrationService.registration(person);
         Person owner = personRepository.findPersonByUsername(person.getUsername());
         owner.setPersonRole(User_Role.ROLE_OWNER);
+        Image image = storageRepository.findByName(file.getOriginalFilename()).orElseThrow();
+        owner.setImage(image);
         personRepository.save(owner);
         MailStructure mail = new MailStructure("Реєстрація успішна", person.getName() +
                 ", вітаємо Вас у нашому ресторані");

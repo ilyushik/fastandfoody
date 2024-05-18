@@ -63,6 +63,12 @@
                             <div class="error" style="color: red" th:if="${#fields.hasErrors('person_password')}" th:errors="*{person_password}">Проблема з паролем</div>
                         </div>
                         <br>
+
+                        <input class="upload_file" type="file" name="file" id="file" accept="image/*">
+                        <div class="label_justify">
+                            <label class="label_file" for="file">Виберіть фото</label>
+                        </div>
+                        <br>
                         <div class="button_block">
                             <input type="submit" value="Стати власником" class="registration_button">
                         </div>
