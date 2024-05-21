@@ -7,9 +7,11 @@ import org.example.fastandfoodyapp.Model.*;
 import org.example.fastandfoodyapp.Model.DTO.ItemDTO;
 import org.example.fastandfoodyapp.Model.DTO.RestaurantDTO;
 import org.example.fastandfoodyapp.Model.Enumerables.Category;
+import org.example.fastandfoodyapp.Model.Enumerables.OrderItemStatus;
 import org.example.fastandfoodyapp.Model.Enumerables.Status;
 import org.example.fastandfoodyapp.Model.Enumerables.User_Role;
 import org.example.fastandfoodyapp.Repositories.CityRepository;
+import org.example.fastandfoodyapp.Repositories.Order_ItemRepository;
 import org.example.fastandfoodyapp.Repositories.PersonRepository;
 import org.example.fastandfoodyapp.Repositories.StorageRepository;
 import org.example.fastandfoodyapp.Security.PersonDetails;
@@ -67,6 +69,9 @@ public class MainController {
     private RegistrationService registrationService;
     @Autowired
     private PersonValidation personValidation;
+
+    @Autowired
+    private Order_ItemRepository orderItemRepository;
 
     // main page
 //    @GetMapping()
@@ -357,7 +362,7 @@ public class MainController {
 
     //Showing menu to a client
     @GetMapping("/order/{restaurantId}")
-    public String showMenu(Model model) {
+    public String showMenu(Model model, @PathVariable("restaurantId") int restaurantId) {
         List<ItemDTO> itemDTOS = itemService.getAllItemDTO();
         for (ItemDTO i : itemDTOS) {
             String image = Base64.getEncoder().encodeToString(storageService.
@@ -399,7 +404,24 @@ public class MainController {
         model.addAttribute("desserts", desserts);
         model.addAttribute("breakfast", breakfasts);
         model.addAttribute("friesAndSauces", friesAndSauces);
+        model.addAttribute("restaurant_number", restaurantId);
         return "client/orderMenu";
+    }
+
+    @PostMapping("/add-orderItem/{id}/{restaurantId}")
+    public String addToList(@RequestParam("count") int count, @PathVariable("id") int id,
+                            @AuthenticationPrincipal PersonDetails personDetails, @PathVariable("restaurantId") int restaurantId) {
+        Item item = itemService.findItemById(id);
+        Order_Item newOrderItem = new Order_Item();
+        newOrderItem.setCount(count);
+        newOrderItem.setPrep_time(count * item.getPrep_time());
+        newOrderItem.setPrice(count * item.getPrice());
+        newOrderItem.setItem_id(item);
+        newOrderItem.setPerson_id(personDetails.getPerson());
+        newOrderItem.setOrderItemStatus(OrderItemStatus.ACTIVE);
+
+        orderItemRepository.save(newOrderItem);
+        return "redirect:/order/" + restaurantId;
     }
 
 

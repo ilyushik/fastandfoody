@@ -4,6 +4,8 @@ import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.fastandfoodyapp.Model.Enumerables.OrderItemStatus;
+import org.example.fastandfoodyapp.Model.Enumerables.User_Role;
 
 @Data
 @NoArgsConstructor
@@ -39,6 +41,14 @@ public class Order_Item {
 
     @Transient
     public double sum;
+
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id", name = "person_id")
+    private Person person_id;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "order_status", nullable = false)
+    private OrderItemStatus orderItemStatus;
 
     public Order_Item(int count, int prep_time,
                       Item item_id) {

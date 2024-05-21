@@ -28,6 +28,11 @@ CREATE TABLE IF NOT EXISTS User_Role (
     user_role VARCHAR(32) UNIQUE NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS OrderItemStatus (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    order_status VARCHAR(32) UNIQUE NOT NULL
+);
+
 create table IF NOT EXISTS Image (
     id bigint primary key auto_increment,
     image_data mediumblob,
@@ -50,7 +55,8 @@ CREATE TABLE IF NOT EXISTS Order_Item (
     count INT NOT NULL,
     prep_time INT NOT NULL,
     price DOUBLE NOT NULL ,
-    item_id INT REFERENCES Item(id)
+    item_id INT REFERENCES Item(id),
+    order_status varchar(32) NOT NULL REFERENCES OrderItemStatus(order_status)
 );
 
 CREATE TABLE IF NOT EXISTS Person(
@@ -101,3 +107,4 @@ CREATE TABLE IF NOT EXISTS Purchase(
 
 ALTER TABLE Person ADD COLUMN restaurant_id int UNIQUE REFERENCES Restaurant(id) ;
 ALTER TABLE Order_Item ADD COLUMN purchase_id int REFERENCES Purchase(id);
+ALTER TABLE Order_Item ADD COLUMN person_id int REFERENCES Person(id);

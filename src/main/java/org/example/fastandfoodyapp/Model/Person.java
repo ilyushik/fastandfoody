@@ -62,6 +62,9 @@ public class Person {
     @JoinColumn(name = "image", referencedColumnName = "id")
     private Image image;
 
+    @OneToMany(mappedBy = "person_id", cascade = CascadeType.ALL)
+    private List<Order_Item> order_items;
+
     @Transient
     private String view_image;
 

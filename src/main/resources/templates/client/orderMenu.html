@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Меню</title>
     <link rel="stylesheet" type="text/css" href="/css/headS.css">
-    <link rel="stylesheet" type="text/css" href="/css/menu.css">
+    <link rel="stylesheet" type="text/css" href="/css/orderMenu.css">
     <link rel="stylesheet" type="text/css" href="/css/footer.css">
 </head>
 <body>
@@ -18,12 +18,38 @@
             <div class="grid">
                 <div th:each="cd : ${coldDrinks}">
                     <div class="item">
-                        <div th:attr="data-popup-id='popup-' + ${cd.getId()}"
-                             onclick="toggle(this.getAttribute('data-popup-id'))">
-                            <img class="item_img" th:src="@{'data:image/png;base64,' + ${cd.getImage()}}" alt="">
-                            <div class="item_text">
-                                <p class="item_name" th:text="${cd.getName()}">Гамбургер</p>
+                        <img class="item_img" th:src="@{'data:image/png;base64,' + ${cd.getImage()}}" alt="">
+                        <div class="item_text">
+                            <div class="item_text_block">
+                                <p class="item_name" th:text="${cd.getName()}">Флет уайт</p>
                                 <p class="item_price" th:text="${cd.getPrice()} + 'грн.'">19.99$</p>
+                            </div>
+                            <button type="button" th:attr="data-popup-id='popup-' + ${cd.getId()}" onclick="toggleAdd(this.getAttribute('data-popup-id'))"
+                                    class="img_button"><img class="plus_img" src="/images/plus-square.png" alt=""></button>
+                        </div>
+
+
+                        <div class="popup" th:id="'popup-' + ${cd.getId()}">
+                            <div class="overlay"></div>
+                            <div class="content">
+                                <div class="close-btn" th:attr="data-popup-id='popup-' + ${cd.getId()}" onclick="toggleAdd(this.getAttribute('data-popup-id'))">&times;</div>
+                                <div class="pop">
+                                    <img class="img_pop" th:src="@{'data:image/png;base64,' + ${cd.getImage()}}" alt="">
+                                    <div>
+                                        <p class="item_name" th:text="${cd.getName()}">Флет уайт</p>
+                                        <div class="block_down">
+                                            <form th:method="POST" th:action="@{/add-orderItem/{item_id}/{restaurant_id}(item_id=${cd.getId()}, restaurant_id=${restaurant_number})}">
+                                                <div class="count_price">
+                                                    <label class="label_count" for="count">Количество:</label>
+                                                    <input type="number" id="count" name="count" min="1" max="20" value="1">
+                                                    <p class="item_price" th:text="${cd.getPrice()} + ' грн.'">19.99$</p>
+                                                </div>
+                                                <button th:attr="data-popup-id='popup-' + ${cd.getId()}" onclick="toggleAdd(this.getAttribute('data-popup-id'))"
+                                                        class="add_button" type="submit">Додати</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -165,6 +191,12 @@
         this.classList.toggle('active');
         document.querySelector('.nav').classList.toggle('open');
     })
+</script>
+
+<script>
+    function toggleAdd(popupID) {
+        document.getElementById(popupID).classList.toggle('active');
+    }
 </script>
 </body>
 </html>
