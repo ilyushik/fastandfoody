@@ -3,13 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <title>Меню</title>
-    <link rel="stylesheet" type="text/css" href="/css/headS.css">
+    <link rel="stylesheet" type="text/css" href="/css/orderHeader.css">
     <link rel="stylesheet" type="text/css" href="/css/orderMenu.css">
     <link rel="stylesheet" type="text/css" href="/css/footer.css">
 </head>
 <body>
 <div class="back"></div>
-<div th:insert="client/header :: header"></div>
+<!--<div th:insert="client/header :: header"></div>-->
+<div>
+    <div class="wrapper">
+        <div class="justify">
+            <div class="one">
+                <a href="/"><img class="graficlogo" src="/logo/logo_crop.png"></a>
+                <div class="align">
+                    <p class="oneTitle">Order</p>
+                </div>
+            </div>
+            <button onclick="toggle()" class="button_img" type="submit">
+                <img class="cart_img" src="/images/cart.png" alt="">
+                <span class="circle" th:text="${active_count}">1</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="popup-list" id="popup-list">
+        <div class="overlay-list"></div>
+        <div class="content-list">
+            <div class="list-btn">
+                <div class="main_price">
+                    <p class="main_price_title">Сума: </p>
+                    <p class="main_price_value" th:text="${active_sum} + 'грн'">1000грн</p>
+                </div>
+                <form class="clean_list" th:method="POST" th:action="@{/delete-items/{restaurantId}(restaurantId = ${restaurant_number})}">
+                    <button class="button_img" type="submit">
+                        <img class="clean_list_button" src="/images/delete_icon.png" alt="">
+                    </button>
+                </form>
+            </div>
+            <div class="hole_info_list">
+                <div class="list" th:each="i : ${active_items}">
+                    <div>
+                        <div class="item_pop">
+                            <img class="item_img_pop" th:src="@{'data:image/png;base64,' + ${i.getString_image()}}" alt="">
+                            <div class="item_pop_count">
+                                <p class="item_pop_count_title">Кількість</p>
+                                <p class="item_pop_count_value" th:text="${i.getCount()}">3</p>
+                            </div>
+                            <div class="item_pop_price">
+                                <p class="item_pop_price_title">Ціна</p>
+                                <p class="item_pop_price_value" th:text="${i.getPrice()} + 'грн'">100грн</p>
+                            </div>
+                            <form class="delete_order_item" th:method="POST" th:action="@{/delete-item/{item_id}/{restaurantId}(item_id=${i.getId()}, restaurantId=${restaurant_number})}">
+                                <button class="button_img" type="submit">
+                                    <img class="cart_img" src="/images/delete_icon.png" alt="">
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="hole_screen">
 
     <div class="list_menu">
@@ -62,12 +117,38 @@
             <div class="grid">
                 <div th:each="hd : ${hotDrinks}">
                     <div class="item">
-                        <div th:attr="data-popup-id='popup-' + ${hd.getId()}"
-                             onclick="toggle(this.getAttribute('data-popup-id'))">
-                            <img class="item_img" th:src="@{'data:image/png;base64,' + ${hd.getImage()}}" alt="">
-                            <div class="item_text">
-                                <p class="item_name" th:text="${hd.getName()}">Гамбургер</p>
+                        <img class="item_img" th:src="@{'data:image/png;base64,' + ${hd.getImage()}}" alt="">
+                        <div class="item_text">
+                            <div class="item_text_block">
+                                <p class="item_name" th:text="${hd.getName()}">Флет уайт</p>
                                 <p class="item_price" th:text="${hd.getPrice()} + 'грн.'">19.99$</p>
+                            </div>
+                            <button type="button" th:attr="data-popup-id='popup-' + ${hd.getId()}" onclick="toggleAdd(this.getAttribute('data-popup-id'))"
+                                    class="img_button"><img class="plus_img" src="/images/plus-square.png" alt=""></button>
+                        </div>
+
+
+                        <div class="popup" th:id="'popup-' + ${hd.getId()}">
+                            <div class="overlay"></div>
+                            <div class="content">
+                                <div class="close-btn" th:attr="data-popup-id='popup-' + ${hd.getId()}" onclick="toggleAdd(this.getAttribute('data-popup-id'))">&times;</div>
+                                <div class="pop">
+                                    <img class="img_pop" th:src="@{'data:image/png;base64,' + ${hd.getImage()}}" alt="">
+                                    <div>
+                                        <p class="item_name" th:text="${hd.getName()}">Флет уайт</p>
+                                        <div class="block_down">
+                                            <form th:method="POST" th:action="@{/add-orderItem/{item_id}/{restaurant_id}(item_id=${hd.getId()}, restaurant_id=${restaurant_number})}">
+                                                <div class="count_price">
+                                                    <label class="label_count" for="count_hot">Количество:</label>
+                                                    <input type="number" id="count_hot" name="count" min="1" max="20" value="1">
+                                                    <p class="item_price" th:text="${hd.getPrice()} + ' грн.'">19.99$</p>
+                                                </div>
+                                                <button th:attr="data-popup-id='popup-' + ${hd.getId()}" onclick="toggleAdd(this.getAttribute('data-popup-id'))"
+                                                        class="add_button" type="submit">Додати</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -80,12 +161,38 @@
             <div class="grid">
                 <div th:each="b : ${beef}">
                     <div class="item">
-                        <div th:attr="data-popup-id='popup-' + ${b.getId()}"
-                             onclick="toggle(this.getAttribute('data-popup-id'))">
-                            <img class="item_img" th:src="@{'data:image/png;base64,' + ${b.getImage()}}" alt="">
-                            <div class="item_text">
-                                <p class="item_name" th:text="${b.getName()}">Гамбургер</p>
+                        <img class="item_img" th:src="@{'data:image/png;base64,' + ${b.getImage()}}" alt="">
+                        <div class="item_text">
+                            <div class="item_text_block">
+                                <p class="item_name" th:text="${b.getName()}">Флет уайт</p>
                                 <p class="item_price" th:text="${b.getPrice()} + 'грн.'">19.99$</p>
+                            </div>
+                            <button type="button" th:attr="data-popup-id='popup-' + ${b.getId()}" onclick="toggleAdd(this.getAttribute('data-popup-id'))"
+                                    class="img_button"><img class="plus_img" src="/images/plus-square.png" alt=""></button>
+                        </div>
+
+
+                        <div class="popup" th:id="'popup-' + ${b.getId()}">
+                            <div class="overlay"></div>
+                            <div class="content">
+                                <div class="close-btn" th:attr="data-popup-id='popup-' + ${b.getId()}" onclick="toggleAdd(this.getAttribute('data-popup-id'))">&times;</div>
+                                <div class="pop">
+                                    <img class="img_pop" th:src="@{'data:image/png;base64,' + ${b.getImage()}}" alt="">
+                                    <div>
+                                        <p class="item_name" th:text="${b.getName()}">Флет уайт</p>
+                                        <div class="block_down">
+                                            <form th:method="POST" th:action="@{/add-orderItem/{item_id}/{restaurant_id}(item_id=${b.getId()}, restaurant_id=${restaurant_number})}">
+                                                <div class="count_price">
+                                                    <label class="label_count" for="count_beef">Количество:</label>
+                                                    <input type="number" id="count_beef" name="count" min="1" max="20" value="1">
+                                                    <p class="item_price" th:text="${b.getPrice()} + ' грн.'">19.99$</p>
+                                                </div>
+                                                <button th:attr="data-popup-id='popup-' + ${b.getId()}" onclick="toggleAdd(this.getAttribute('data-popup-id'))"
+                                                        class="add_button" type="submit">Додати</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -98,12 +205,38 @@
             <div class="grid">
                 <div th:each="p : ${pork}">
                     <div class="item">
-                        <div th:attr="data-popup-id='popup-' + ${p.getId()}"
-                             onclick="toggle(this.getAttribute('data-popup-id'))">
-                            <img class="item_img" th:src="@{'data:image/png;base64,' + ${p.getImage()}}" alt="">
-                            <div class="item_text">
-                                <p class="item_name" th:text="${p.getName()}">Гамбургер</p>
+                        <img class="item_img" th:src="@{'data:image/png;base64,' + ${p.getImage()}}" alt="">
+                        <div class="item_text">
+                            <div class="item_text_block">
+                                <p class="item_name" th:text="${p.getName()}">Флет уайт</p>
                                 <p class="item_price" th:text="${p.getPrice()} + 'грн.'">19.99$</p>
+                            </div>
+                            <button type="button" th:attr="data-popup-id='popup-' + ${p.getId()}" onclick="toggleAdd(this.getAttribute('data-popup-id'))"
+                                    class="img_button"><img class="plus_img" src="/images/plus-square.png" alt=""></button>
+                        </div>
+
+
+                        <div class="popup" th:id="'popup-' + ${p.getId()}">
+                            <div class="overlay"></div>
+                            <div class="content">
+                                <div class="close-btn" th:attr="data-popup-id='popup-' + ${p.getId()}" onclick="toggleAdd(this.getAttribute('data-popup-id'))">&times;</div>
+                                <div class="pop">
+                                    <img class="img_pop" th:src="@{'data:image/png;base64,' + ${p.getImage()}}" alt="">
+                                    <div>
+                                        <p class="item_name" th:text="${p.getName()}">Флет уайт</p>
+                                        <div class="block_down">
+                                            <form th:method="POST" th:action="@{/add-orderItem/{item_id}/{restaurant_id}(item_id=${p.getId()}, restaurant_id=${restaurant_number})}">
+                                                <div class="count_price">
+                                                    <label class="label_count" for="count_pork">Количество:</label>
+                                                    <input type="number" id="count_pork" name="count" min="1" max="20" value="1">
+                                                    <p class="item_price" th:text="${p.getPrice()} + ' грн.'">19.99$</p>
+                                                </div>
+                                                <button th:attr="data-popup-id='popup-' + ${p.getId()}" onclick="toggleAdd(this.getAttribute('data-popup-id'))"
+                                                        class="add_button" type="submit">Додати</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -116,12 +249,38 @@
             <div class="grid">
                 <div th:each="fch : ${fishAndChicken}">
                     <div class="item">
-                        <div th:attr="data-popup-id='popup-' + ${fch.getId()}"
-                             onclick="toggle(this.getAttribute('data-popup-id'))">
-                            <img class="item_img" th:src="@{'data:image/png;base64,' + ${fch.getImage()}}" alt="">
-                            <div class="item_text">
-                                <p class="item_name" th:text="${fch.getName()}">Гамбургер</p>
+                        <img class="item_img" th:src="@{'data:image/png;base64,' + ${fch.getImage()}}" alt="">
+                        <div class="item_text">
+                            <div class="item_text_block">
+                                <p class="item_name" th:text="${fch.getName()}">Флет уайт</p>
                                 <p class="item_price" th:text="${fch.getPrice()} + 'грн.'">19.99$</p>
+                            </div>
+                            <button type="button" th:attr="data-popup-id='popup-' + ${fch.getId()}" onclick="toggleAdd(this.getAttribute('data-popup-id'))"
+                                    class="img_button"><img class="plus_img" src="/images/plus-square.png" alt=""></button>
+                        </div>
+
+
+                        <div class="popup" th:id="'popup-' + ${fch.getId()}">
+                            <div class="overlay"></div>
+                            <div class="content">
+                                <div class="close-btn" th:attr="data-popup-id='popup-' + ${fch.getId()}" onclick="toggleAdd(this.getAttribute('data-popup-id'))">&times;</div>
+                                <div class="pop">
+                                    <img class="img_pop" th:src="@{'data:image/png;base64,' + ${fch.getImage()}}" alt="">
+                                    <div>
+                                        <p class="item_name" th:text="${fch.getName()}">Флет уайт</p>
+                                        <div class="block_down">
+                                            <form th:method="POST" th:action="@{/add-orderItem/{item_id}/{restaurant_id}(item_id=${fch.getId()}, restaurant_id=${restaurant_number})}">
+                                                <div class="count_price">
+                                                    <label class="label_count" for="count_fch">Количество:</label>
+                                                    <input type="number" id="count_fch" name="count" min="1" max="20" value="1">
+                                                    <p class="item_price" th:text="${fch.getPrice()} + ' грн.'">19.99$</p>
+                                                </div>
+                                                <button th:attr="data-popup-id='popup-' + ${fch.getId()}" onclick="toggleAdd(this.getAttribute('data-popup-id'))"
+                                                        class="add_button" type="submit">Додати</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -134,12 +293,38 @@
             <div class="grid">
                 <div th:each="d : ${desserts}">
                     <div class="item">
-                        <div th:attr="data-popup-id='popup-' + ${d.getId()}"
-                             onclick="toggle(this.getAttribute('data-popup-id'))">
-                            <img class="item_img" th:src="@{'data:image/png;base64,' + ${d.getImage()}}" alt="">
-                            <div class="item_text">
-                                <p class="item_name" th:text="${d.getName()}">Гамбургер</p>
+                        <img class="item_img" th:src="@{'data:image/png;base64,' + ${d.getImage()}}" alt="">
+                        <div class="item_text">
+                            <div class="item_text_block">
+                                <p class="item_name" th:text="${d.getName()}">Флет уайт</p>
                                 <p class="item_price" th:text="${d.getPrice()} + 'грн.'">19.99$</p>
+                            </div>
+                            <button type="button" th:attr="data-popup-id='popup-' + ${d.getId()}" onclick="toggleAdd(this.getAttribute('data-popup-id'))"
+                                    class="img_button"><img class="plus_img" src="/images/plus-square.png" alt=""></button>
+                        </div>
+
+
+                        <div class="popup" th:id="'popup-' + ${d.getId()}">
+                            <div class="overlay"></div>
+                            <div class="content">
+                                <div class="close-btn" th:attr="data-popup-id='popup-' + ${d.getId()}" onclick="toggleAdd(this.getAttribute('data-popup-id'))">&times;</div>
+                                <div class="pop">
+                                    <img class="img_pop" th:src="@{'data:image/png;base64,' + ${d.getImage()}}" alt="">
+                                    <div>
+                                        <p class="item_name" th:text="${d.getName()}">Флет уайт</p>
+                                        <div class="block_down">
+                                            <form th:method="POST" th:action="@{/add-orderItem/{item_id}/{restaurant_id}(item_id=${d.getId()}, restaurant_id=${restaurant_number})}">
+                                                <div class="count_price">
+                                                    <label class="label_count" for="count_d">Количество:</label>
+                                                    <input type="number" id="count_d" name="count" min="1" max="20" value="1">
+                                                    <p class="item_price" th:text="${d.getPrice()} + ' грн.'">19.99$</p>
+                                                </div>
+                                                <button th:attr="data-popup-id='popup-' + ${d.getId()}" onclick="toggleAdd(this.getAttribute('data-popup-id'))"
+                                                        class="add_button" type="submit">Додати</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -152,12 +337,38 @@
             <div class="grid">
                 <div th:each="br : ${breakfast}">
                     <div class="item">
-                        <div th:attr="data-popup-id='popup-' + ${br.getId()}"
-                             onclick="toggle(this.getAttribute('data-popup-id'))">
-                            <img class="item_img" th:src="@{'data:image/png;base64,' + ${br.getImage()}}" alt="">
-                            <div class="item_text">
-                                <p class="item_name" th:text="${br.getName()}">Гамбургер</p>
+                        <img class="item_img" th:src="@{'data:image/png;base64,' + ${br.getImage()}}" alt="">
+                        <div class="item_text">
+                            <div class="item_text_block">
+                                <p class="item_name" th:text="${br.getName()}">Флет уайт</p>
                                 <p class="item_price" th:text="${br.getPrice()} + 'грн.'">19.99$</p>
+                            </div>
+                            <button type="button" th:attr="data-popup-id='popup-' + ${br.getId()}" onclick="toggleAdd(this.getAttribute('data-popup-id'))"
+                                    class="img_button"><img class="plus_img" src="/images/plus-square.png" alt=""></button>
+                        </div>
+
+
+                        <div class="popup" th:id="'popup-' + ${br.getId()}">
+                            <div class="overlay"></div>
+                            <div class="content">
+                                <div class="close-btn" th:attr="data-popup-id='popup-' + ${br.getId()}" onclick="toggleAdd(this.getAttribute('data-popup-id'))">&times;</div>
+                                <div class="pop">
+                                    <img class="img_pop" th:src="@{'data:image/png;base64,' + ${br.getImage()}}" alt="">
+                                    <div>
+                                        <p class="item_name" th:text="${br.getName()}">Флет уайт</p>
+                                        <div class="block_down">
+                                            <form th:method="POST" th:action="@{/add-orderItem/{item_id}/{restaurant_id}(item_id=${br.getId()}, restaurant_id=${restaurant_number})}">
+                                                <div class="count_price">
+                                                    <label class="label_count" for="count_br">Количество:</label>
+                                                    <input type="number" id="count_br" name="count" min="1" max="20" value="1">
+                                                    <p class="item_price" th:text="${br.getPrice()} + ' грн.'">19.99$</p>
+                                                </div>
+                                                <button th:attr="data-popup-id='popup-' + ${br.getId()}" onclick="toggleAdd(this.getAttribute('data-popup-id'))"
+                                                        class="add_button" type="submit">Додати</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -170,12 +381,38 @@
             <div class="grid">
                 <div  th:each="fasa : ${friesAndSauces}">
                     <div class="item">
-                        <div th:attr="data-popup-id='popup-' + ${fasa.getId()}"
-                             onclick="toggle(this.getAttribute('data-popup-id'))">
-                            <img class="item_img" th:src="@{'data:image/png;base64,' + ${fasa.getImage()}}" alt="">
-                            <div class="item_text">
-                                <p class="item_name" th:text="${fasa.getName()}">Гамбургер</p>
+                        <img class="item_img" th:src="@{'data:image/png;base64,' + ${fasa.getImage()}}" alt="">
+                        <div class="item_text">
+                            <div class="item_text_block">
+                                <p class="item_name" th:text="${fasa.getName()}">Флет уайт</p>
                                 <p class="item_price" th:text="${fasa.getPrice()} + 'грн.'">19.99$</p>
+                            </div>
+                            <button type="button" th:attr="data-popup-id='popup-' + ${fasa.getId()}" onclick="toggleAdd(this.getAttribute('data-popup-id'))"
+                                    class="img_button"><img class="plus_img" src="/images/plus-square.png" alt=""></button>
+                        </div>
+
+
+                        <div class="popup" th:id="'popup-' + ${fasa.getId()}">
+                            <div class="overlay"></div>
+                            <div class="content">
+                                <div class="close-btn" th:attr="data-popup-id='popup-' + ${fasa.getId()}" onclick="toggleAdd(this.getAttribute('data-popup-id'))">&times;</div>
+                                <div class="pop">
+                                    <img class="img_pop" th:src="@{'data:image/png;base64,' + ${fasa.getImage()}}" alt="">
+                                    <div>
+                                        <p class="item_name" th:text="${fasa.getName()}">Флет уайт</p>
+                                        <div class="block_down">
+                                            <form th:method="POST" th:action="@{/add-orderItem/{item_id}/{restaurant_id}(item_id=${fasa.getId()}, restaurant_id=${restaurant_number})}">
+                                                <div class="count_price">
+                                                    <label class="label_count" for="count_fasa">Количество:</label>
+                                                    <input type="number" id="count_fasa" name="count" min="1" max="20" value="1">
+                                                    <p class="item_price" th:text="${fasa.getPrice()} + ' грн.'">19.99$</p>
+                                                </div>
+                                                <button th:attr="data-popup-id='popup-' + ${fasa.getId()}" onclick="toggleAdd(this.getAttribute('data-popup-id'))"
+                                                        class="add_button" type="submit">Додати</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -185,12 +422,18 @@
     </div>
 
 </div>
-<div th:insert="client/footer :: footer"></div>
+<!--<div th:insert="client/footer :: footer"></div>-->
 <script>
     document.querySelector('.burger').addEventListener('click', function() {
         this.classList.toggle('active');
         document.querySelector('.nav').classList.toggle('open');
     })
+</script>
+
+<script>
+    function toggle() {
+        document.getElementById('popup-list').classList.toggle('active');
+    }
 </script>
 
 <script>

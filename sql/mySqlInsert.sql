@@ -84,14 +84,14 @@ INSERT INTO person(name, surname, phone, email, username, person_password, perso
     ('Оксана', 'Біліч', '+380654321098', 'oksana.bilich@example.com', 'oksana_bilich', '44444424', 'ROLE_CLIENT', 1),
     ('Андрій', 'Петров', '+380543210987', 'andriy.petrov@example.com', 'andriy_petrov', '55555535', 'ROLE_CLIENT', 1);
 
-INSERT INTO city(name, longitude, latitude) VALUES
+INSERT INTO City(name, longitude, latitude) VALUES
     ('Маріуполь', 47.104500, 37.543761),
     ('Чернігів', 51.503600, 31.286362),
     ('Запоріжжя', 47.830958, 35.167202),
     ('Київ', 50.442673, 30.490800),
     ('Дніпро', 48.473107, 35.002404);
 
-INSERT INTO city(name, longitude, latitude) VALUES
+INSERT INTO City(name, longitude, latitude) VALUES
     ('Львів', 49.839683, 24.029717),
     ('Одеса', 46.482526, 30.723309),
     ('Харків', 49.9935, 36.2304),

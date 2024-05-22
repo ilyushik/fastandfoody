@@ -362,13 +362,35 @@ public class MainController {
 
     //Showing menu to a client
     @GetMapping("/order/{restaurantId}")
-    public String showMenu(Model model, @PathVariable("restaurantId") int restaurantId) {
+    public String showMenu(Model model, @PathVariable("restaurantId") int restaurantId,
+                           @AuthenticationPrincipal PersonDetails personDetails) {
         List<ItemDTO> itemDTOS = itemService.getAllItemDTO();
         for (ItemDTO i : itemDTOS) {
             String image = Base64.getEncoder().encodeToString(storageService.
                     downloadImage(itemService.findItemById(i.getId()).getImage().getName()));
             i.setImage(image);
         }
+
+        List<Order_Item> items = orderItemRepository.findAll();
+        List<Order_Item> needs_items = new ArrayList<>();
+        double active_sum = 0.0;
+        int active_count = 0;
+        for (Order_Item o : items) {
+            if (o.getPerson_id().getId() == personDetails.getPerson().getId()) {
+                if (o.getOrderItemStatus() == OrderItemStatus.ACTIVE) {
+                    needs_items.add(o);
+                    active_sum += o.getPrice();
+                    active_count++;
+                    o.setString_image(Base64.getEncoder().encodeToString(storageService.downloadImage(o.getItem_id().getImage().getName())));
+                }
+            }
+        }
+
+        model.addAttribute("active_items", needs_items);
+        model.addAttribute("active_sum", active_sum);
+        model.addAttribute("active_count", active_count);
+
+
         List<ItemDTO> coldDrinks = new ArrayList<>();
         List<ItemDTO> hotDrinks = new ArrayList<>();
         List<ItemDTO> beef = new ArrayList<>();
@@ -421,6 +443,25 @@ public class MainController {
         newOrderItem.setOrderItemStatus(OrderItemStatus.ACTIVE);
 
         orderItemRepository.save(newOrderItem);
+        return "redirect:/order/" + restaurantId;
+    }
+
+    @PostMapping("/delete-item/{item_id}/{restaurantId}")
+    public String deleteItem(@PathVariable("item_id") int item_id, @PathVariable("restaurantId") int restaurantId) {
+        orderItemRepository.deleteById(item_id);
+        return "redirect:/order/" + restaurantId;
+    }
+
+    @PostMapping("/delete-items/{restaurantId}")
+    public String deleteItems(@PathVariable("restaurantId") int restaurantId, @AuthenticationPrincipal PersonDetails personDetails) {
+        List<Order_Item> active = orderItemRepository.findAll();
+        for (Order_Item o : active) {
+            if (o.getPerson_id().getId() == personDetails.getPerson().getId()) {
+                if (o.getOrderItemStatus() == OrderItemStatus.ACTIVE) {
+                    orderItemRepository.delete(o);
+                }
+            }
+        }
         return "redirect:/order/" + restaurantId;
     }
 
