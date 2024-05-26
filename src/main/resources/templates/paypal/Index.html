@@ -7,20 +7,9 @@
 <body>
     <div class="container">
         <h1 class="text-center mt-5">Paypal Payment Integration</h1>
-        <form th:method="POST" th:action="@{/payment/create}" class="mt-5 card p-3">
-            <div class="mb-3">
-                <label for="amount" class="form-label">Amount</label>
-                <input id="amount" type="number" class="form-control"
-                       name="amount" value="10.0">
-            </div>
-            <div class="d-flex justify-content-center">
-                <button
-                        type="submit"
-                        class="btn btn-primary"
-                >
-                    Pay with Paypal
-                </button>
-            </div>
+        <form th:method="POST" th:action="@{/payment/create/{sum}(sum = ${sum})}" class="mt-5 card p-3">
+            <h1 th:text="${sum}"></h1>
+            <button type="submit" class="btn btn-primary">Pay with Paypal</button>
         </form>
     </div>
 </body>

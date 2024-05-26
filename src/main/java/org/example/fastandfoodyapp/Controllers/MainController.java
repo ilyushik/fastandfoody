@@ -510,6 +510,11 @@ public class MainController {
 
         purchaseRepository.save(newPurchase);
 
+        if (purchase.getPayment_way().equals(Payment_Way.Card)) {
+            int sum = (int) allSum;
+            return "redirect:/payment/" + sum;
+        }
+
         return "redirect:/my_info";
     }
 

@@ -5,7 +5,9 @@ import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
@@ -16,20 +18,19 @@ public class PaypalController {
 
     private final PaypalService paypalService;
 
-    @GetMapping("/payment")
-    public String startPayment() {
+    @GetMapping("/payment/{sum}")
+    public String startPayment(@PathVariable("sum") int sum, Model model) {
+        model.addAttribute("sum", sum);
         return "paypal/Index";
     }
 
-    @PostMapping("/payment/create")
-    public RedirectView createPayment(
-            @RequestParam("amount") String amount
-    ) {
+    @PostMapping("/payment/create/{sum}")
+    public RedirectView createPayment(@PathVariable("sum") int sum) {
         try {
             String cancelUrl = "http://localhost:8080/payment/cancel";
             String successUrl = "http://localhost:8080/payment/success";
             Payment payment = paypalService.createPayment(
-                    Double.valueOf(amount),
+                    Double.valueOf(sum),
                     "USD",
                     "Paypal",
                     "sale",
