@@ -7,6 +7,7 @@ import org.example.fastandfoodyapp.Model.Order_Item;
 import org.example.fastandfoodyapp.Model.Person;
 import org.example.fastandfoodyapp.Model.Purchase;
 import org.example.fastandfoodyapp.Model.Restaurant;
+import org.example.fastandfoodyapp.Repositories.Order_ItemRepository;
 import org.example.fastandfoodyapp.Security.PersonDetails;
 import org.example.fastandfoodyapp.Services.PersonService;
 import org.example.fastandfoodyapp.Services.PurchaseService;
@@ -29,13 +30,15 @@ public class AdminController {
     private final RestaurantService restaurantService;
     private final PersonService personService;
     private final StorageService storageService;
+    private final Order_ItemRepository orderItemRepository;
 
-    public AdminController(PurchaseService purchaseService, MailService mailService, RestaurantService restaurantService, PersonService personService, StorageService storageService) {
+    public AdminController(PurchaseService purchaseService, MailService mailService, RestaurantService restaurantService, PersonService personService, StorageService storageService, Order_ItemRepository orderItemRepository) {
         this.purchaseService = purchaseService;
         this.mailService = mailService;
         this.restaurantService = restaurantService;
         this.personService = personService;
         this.storageService = storageService;
+        this.orderItemRepository = orderItemRepository;
     }
 
     // main admin page
@@ -76,7 +79,7 @@ public class AdminController {
     @GetMapping("/person/{personId}/orders/{orderId}")
     public String orderDetails(@PathVariable("orderId") int orderId, Model model, @PathVariable("personId") int personId) {
         Purchase purchase = purchaseService.findById(orderId);
-        List<Order_Item> orderItems = purchase.getOrder_item_id();
+        List<Order_Item> orderItems = orderItemRepository.findByPurchaseId(purchase);
         for (Order_Item o : orderItems) {
             o.setStringImage(Base64.getEncoder().encodeToString(storageService.downloadImage(o.getItem_id().getImage().getName())));
             o.setSum(o.getCount(), o.getItem_id().getPrice());
@@ -84,6 +87,7 @@ public class AdminController {
         purchase.setPrice(orderItems);
         model.addAttribute("purchase", purchase);
         model.addAttribute("statuses", Status.values());
+        model.addAttribute("items_order", orderItems);
         return "admin/orderDetails";
     }
 

@@ -61,6 +61,80 @@
                         </div>
                     </div>
                 </div>
+
+
+                <div>
+                    <div th:if="${check_count <= 20 && check_count > 0}" class="button_access">
+                        <button onclick="toggleOrder(), toggle()" class="button_check">Оформити замовлення</button>
+                    </div>
+
+                    <div th:if="${check_count > 20}" class="button_not_access">
+                        <button class="button_check">Забагато товарів(не більше 20)</button>
+                    </div>
+
+                    <div th:if="${check_count == 0}" class="button_not_access">
+                        <button class="button_check">Корзина пуста</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-order" id="popup-order">
+        <div class="overlay-order"></div>
+        <div class="content-order">
+            <div class="order-btn">
+                <div onclick="toggleOrder()" class="close-btn">&times;</div>
+            </div>
+            <div class="hole_info_list">
+
+                <div style="display:flex; justify-content: center;">
+                    <form th:method="POST" th:action="@{/order/{restaurantId}(restaurantId = ${restaurant_number})}" th:object="${purchase}">
+                        <div class="field_block">
+                            <label for="wish"></label>
+                            <input type="text" th:field="*{wish}" id="wish" class="field" placeholder="Введіть побажання">
+                        </div>
+
+                        <label class="chose" for="payment_way">Обрати спосіб оплати:</label>
+                        <div class="sel">
+                            <div class="select">
+                                <select id="payment_way" name="payment_way" th:field="*{payment_way}">
+                                    <option th:value="${defaultPayment}" th:text="${defaultPayment.getDisplayName()}"></option>
+                                    <option th:each="payment : ${payments}"
+                                            th:value="${payment}"
+                                            th:text="${payment.getDisplayName()}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="field_block">
+                            <label for="promo_code"></label>
+                            <input type="text" th:field="*{promo_code}" id="promo_code" class="field" placeholder="Введіть промокоде">
+                        </div>
+
+                        <label class="chose" for="delivery_way">Обрати спосіб отримання:</label>
+                        <div class="sel">
+                            <div class="select">
+                                <select id="delivery_way" name="delivery_way" th:field="*{delivery_way}">
+                                    <option th:value="${defaultDelivery}" th:text="${defaultDelivery.getDisplayName()}"></option>
+                                    <option th:each="delivery : ${deliveries}"
+                                            th:value="${delivery}"
+                                            th:text="${delivery.getDisplayName()}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="field_block">
+                            <label for="address"></label>
+                            <input type="text" th:field="*{address}" id="address" class="field" placeholder="Введіть адресу">
+                        </div>
+
+                        <button class="add-order" type="submit">Зробити замовлення</button>
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>
@@ -428,6 +502,12 @@
         this.classList.toggle('active');
         document.querySelector('.nav').classList.toggle('open');
     })
+</script>
+
+<script>
+    function toggleOrder() {
+        document.getElementById('popup-order').classList.toggle('active');
+    }
 </script>
 
 <script>

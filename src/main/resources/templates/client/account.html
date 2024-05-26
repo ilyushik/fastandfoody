@@ -46,7 +46,7 @@
             </div>
         </div>
 
-        <div class="orders">
+        <div class="orders" style="margin-right: 30px; height: 100vh; width: 40vw; overflow-y: scroll; overflow-x: hidden; scrollbar-color: #e39600 #eeeeee">
             <div class="active" th:if="${!activePurchases.isEmpty()}">
                 <p class="orders_title">Активні замовлення</p>
                 <div class="orders" th:each="ap : ${activePurchases}">

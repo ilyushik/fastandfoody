@@ -79,15 +79,15 @@
                     <p class="field_text" th:text="${purchase.getPrep_time()}">11.03.2024 12:45</p>
                 </div>
 
-                <div class="field">
-                    <p class="field_name">Промокод</p>
-                    <div th:if="${!purchase.getPromo_code().equals(null)}">
-                        <p class="field_text" th:text="${purchase.getPromo_code().getCode()}">g132fe23e2</p>
-                    </div>
-                    <div th:if="${purchase.getPromo_code().equals(null)}">
-                        <p class="field_text">Немає промокоду</p>
-                    </div>
-                </div>
+<!--                <div class="field">-->
+<!--                    <p class="field_name">Промокод</p>-->
+<!--                    <div th:if="${!purchase.getPromo_code().equals(null)}">-->
+<!--                        <p class="field_text" th:text="${purchase.getPromo_code().getCode()}">g132fe23e2</p>-->
+<!--                    </div>-->
+<!--                    <div th:if="${purchase.getPromo_code().equals(null)}">-->
+<!--                        <p class="field_text">Немає промокоду</p>-->
+<!--                    </div>-->
+<!--                </div>-->
 
                 <div class="field">
                     <p class="field_name">Спосіб доставки</p>
@@ -97,7 +97,7 @@
         </div>
 
         <div class="items">
-            <div class="item_just" th:each="o : ${purchase.getOrder_item_id()}">
+            <div class="item_just" th:each="o : ${items_order}">
                 <div class="item">
                     <img class="item_img" th:src="@{'data:image/png;base64,' + ${o.getString_image()}}" alt="">
                     <br><br>

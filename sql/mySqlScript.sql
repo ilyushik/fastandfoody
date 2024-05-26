@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS Purchase(
     promo_code int REFERENCES Promo_Code(id),
     status VARCHAR(32) NOT NULL REFERENCES Status(status_name) ,
     delivery_way VARCHAR(32) NOT NULL REFERENCES Delivery_Way(way) ,
-    order_item_id int NOT NULL REFERENCES Order_Item(id) ,
+    order_item_id int DEFAULT NULL REFERENCES Order_Item(id),
     person_id int REFERENCES Person(id),
     address VARCHAR(64),
     date timestamp NOT NULL,

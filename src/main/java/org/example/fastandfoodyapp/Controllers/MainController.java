@@ -6,14 +6,8 @@ import org.example.fastandfoodyapp.Mails.MailStructure;
 import org.example.fastandfoodyapp.Model.*;
 import org.example.fastandfoodyapp.Model.DTO.ItemDTO;
 import org.example.fastandfoodyapp.Model.DTO.RestaurantDTO;
-import org.example.fastandfoodyapp.Model.Enumerables.Category;
-import org.example.fastandfoodyapp.Model.Enumerables.OrderItemStatus;
-import org.example.fastandfoodyapp.Model.Enumerables.Status;
-import org.example.fastandfoodyapp.Model.Enumerables.User_Role;
-import org.example.fastandfoodyapp.Repositories.CityRepository;
-import org.example.fastandfoodyapp.Repositories.Order_ItemRepository;
-import org.example.fastandfoodyapp.Repositories.PersonRepository;
-import org.example.fastandfoodyapp.Repositories.StorageRepository;
+import org.example.fastandfoodyapp.Model.Enumerables.*;
+import org.example.fastandfoodyapp.Repositories.*;
 import org.example.fastandfoodyapp.Security.PersonDetails;
 import org.example.fastandfoodyapp.Services.*;
 import org.example.fastandfoodyapp.Services.Service.ItemService;
@@ -34,6 +28,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.*;
 
 @Controller
@@ -72,6 +68,8 @@ public class MainController {
 
     @Autowired
     private Order_ItemRepository orderItemRepository;
+    @Autowired
+    private PurchaseRepository purchaseRepository;
 
     // main page
 //    @GetMapping()
@@ -294,13 +292,13 @@ public class MainController {
     }
 
     // person's orders
-    @GetMapping("/my_info/orders")
-    public String personOrders(Model model, @AuthenticationPrincipal PersonDetails personDetails) {
-        Person person = personService.findById(personDetails.getPerson().getId());
-        List<Purchase> userPurchases = person.getPurchases();
-        model.addAttribute("purchases", userPurchases);
-        return "client/orders";
-    }
+//    @GetMapping("/my_info/orders")
+//    public String personOrders(Model model, @AuthenticationPrincipal PersonDetails personDetails) {
+//        Person person = personService.findById(personDetails.getPerson().getId());
+//        List<Purchase> userPurchases = person.getPurchases();
+//        model.addAttribute("purchases", userPurchases);
+//        return "client/orders";
+//    }
 
     // client can see order details by id
     @GetMapping("/my_info/orders/{id}")
@@ -363,7 +361,7 @@ public class MainController {
     //Showing menu to a client
     @GetMapping("/order/{restaurantId}")
     public String showMenu(Model model, @PathVariable("restaurantId") int restaurantId,
-                           @AuthenticationPrincipal PersonDetails personDetails) {
+                           @AuthenticationPrincipal PersonDetails personDetails, @ModelAttribute("purchase") Purchase purchase) {
         List<ItemDTO> itemDTOS = itemService.getAllItemDTO();
         for (ItemDTO i : itemDTOS) {
             String image = Base64.getEncoder().encodeToString(storageService.
@@ -375,13 +373,15 @@ public class MainController {
         List<Order_Item> needs_items = new ArrayList<>();
         double active_sum = 0.0;
         int active_count = 0;
+        int check_count = 0;
         for (Order_Item o : items) {
-            if (o.getPerson_id().getId() == personDetails.getPerson().getId()) {
+            if (o.getPersonId().getId() == personDetails.getPerson().getId()) {
                 if (o.getOrderItemStatus() == OrderItemStatus.ACTIVE) {
                     needs_items.add(o);
                     active_sum += o.getPrice();
                     active_count++;
                     o.setString_image(Base64.getEncoder().encodeToString(storageService.downloadImage(o.getItem_id().getImage().getName())));
+                    check_count += o.getCount();
                 }
             }
         }
@@ -389,6 +389,18 @@ public class MainController {
         model.addAttribute("active_items", needs_items);
         model.addAttribute("active_sum", active_sum);
         model.addAttribute("active_count", active_count);
+
+        model.addAttribute("check_count", check_count);
+
+        model.addAttribute("payments", Payment_Way.values());
+        model.addAttribute("defaultPayment", Payment_Way.Cash);
+
+        model.addAttribute("deliveries", Delivery_Way.values());
+        model.addAttribute("defaultDelivery", Delivery_Way.Delivery);
+
+
+
+
 
 
         List<ItemDTO> coldDrinks = new ArrayList<>();
@@ -439,7 +451,7 @@ public class MainController {
         newOrderItem.setPrep_time(count * item.getPrep_time());
         newOrderItem.setPrice(count * item.getPrice());
         newOrderItem.setItem_id(item);
-        newOrderItem.setPerson_id(personDetails.getPerson());
+        newOrderItem.setPersonId(personDetails.getPerson());
         newOrderItem.setOrderItemStatus(OrderItemStatus.ACTIVE);
 
         orderItemRepository.save(newOrderItem);
@@ -456,7 +468,7 @@ public class MainController {
     public String deleteItems(@PathVariable("restaurantId") int restaurantId, @AuthenticationPrincipal PersonDetails personDetails) {
         List<Order_Item> active = orderItemRepository.findAll();
         for (Order_Item o : active) {
-            if (o.getPerson_id().getId() == personDetails.getPerson().getId()) {
+            if (o.getPersonId().getId() == personDetails.getPerson().getId()) {
                 if (o.getOrderItemStatus() == OrderItemStatus.ACTIVE) {
                     orderItemRepository.delete(o);
                 }
@@ -465,5 +477,40 @@ public class MainController {
         return "redirect:/order/" + restaurantId;
     }
 
+    @PostMapping("/order/{restaurantId}")
+    public String order (@PathVariable("restaurantId") int restaurantId, @ModelAttribute("purchase") Purchase purchase,
+                         @AuthenticationPrincipal PersonDetails personDetails) {
+        Purchase newPurchase = new Purchase();
+        Person person = personService.findById(personDetails.getPerson().getId());
+        Restaurant restaurant = restaurantService.byId(restaurantId);
+        List<Order_Item> activeOrders = orderItemRepository.findOrder_ItemsByOrderItemStatusAndPersonId(OrderItemStatus.ACTIVE, person);
+        double allSum = 0;
+        List<Integer> biggestPrepTime = new ArrayList<>();
+        for (Order_Item o : activeOrders) {
+            allSum += o.getPrice();
+            biggestPrepTime.add(o.getPrep_time());
+        }
+        int biggest = Collections.max(biggestPrepTime);
+
+        newPurchase.setPrep_time(biggest);
+        newPurchase.setWish(purchase.getWish());
+        newPurchase.setRestaurant_id(restaurant);
+        newPurchase.setPayment_way(purchase.getPayment_way());
+        newPurchase.setPromo_code(null);
+        newPurchase.setStatus(Status.In_progress);
+        newPurchase.setDelivery_way(purchase.getDelivery_way());
+        for (Order_Item o : activeOrders) {
+            Order_Item byId = orderItemRepository.findById(o.getId()).orElseThrow();
+            newPurchase.addOrderItem(byId);
+        }
+        newPurchase.setPerson_id(person);
+        newPurchase.setAddress(purchase.getAddress());
+        newPurchase.setDate(Timestamp.from(Instant.now()));
+        newPurchase.setSum(allSum);
+
+        purchaseRepository.save(newPurchase);
+
+        return "redirect:/my_info";
+    }
 
 }

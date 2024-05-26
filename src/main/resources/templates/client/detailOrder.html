@@ -42,21 +42,23 @@
                         <p class="field_text" th:text="${purchase.getDate()}">2024-03-11 12:00:00</p>
                     </div>
 
-                    <div class="field">
-                        <p class="field_name">Побажання</p>
-                        <p class="field_text" th:text="${purchase.getWish()}">Не додавати гірчицю</p>
+                    <div th:if="${!purchase.getWish().equals(null)}">
+                        <div class="field">
+                            <p class="field_name">Побажання</p>
+                            <p class="field_text" th:text="${purchase.getWish()}">Не додавати гірчицю</p>
+                        </div>
                     </div>
                 </div>
 
                 <div class="column_2">
                     <div class="field">
                         <p class="field_name">Сума</p>
-                        <p class="field_text" th:text="${purchase.getPrice()}">1600.00грн</p>
+                        <p class="field_text" th:text="${purchase.getSum()}">1600.00грн</p>
                     </div>
 
                     <div class="field">
                         <p class="field_name">Адреса доставки</p>
-                        <div th:if="${!purchase.getDelivery_way().equals(T(org.example.fastandfoodyapp.Model.Enumerables.Delivery_Way).PickUp)}">
+                        <div th:if="${purchase.getDelivery_way().equals(T(org.example.fastandfoodyapp.Model.Enumerables.Delivery_Way).Delivery)}">
                             <p class="field_text" th:text="'м.' + ${purchase.getRestaurant_id().getCityId().getName()} + ', ' + ${purchase.getAddress()}">м.Запоріжжя <br> Вул. Іванова 3</p>
                         </div>
                         <div th:if="${purchase.getDelivery_way().equals(T(org.example.fastandfoodyapp.Model.Enumerables.Delivery_Way).PickUp)}">
@@ -65,19 +67,19 @@
                     </div>
 
                     <div class="field">
-                        <p class="field_name">Орієнтовний час доставки</p>
+                        <p class="field_name">Орієнтовний час приготування</p>
                         <p class="field_text" th:text="${purchase.getPrep_time()}">11.03.2024 12:45</p>
                     </div>
 
-                    <div class="field">
-                        <p class="field_name">Промокод</p>
-                        <div th:if="${!purchase.getPromo_code().equals(null)}">
-                            <p class="field_text" th:text="${purchase.getPromo_code().getCode()}">g132fe23e2</p>
-                        </div>
-                        <div th:if="${purchase.getPromo_code().equals(null)}">
-                            <p class="field_text">Немає промокоду</p>
-                        </div>
-                    </div>
+<!--                    <div class="field">-->
+<!--                        <p class="field_name">Промокод</p>-->
+<!--                        <div th:if="${!purchase.getPromo_code().equals(null)}">-->
+<!--                            <p class="field_text" th:text="${purchase.getPromo_code().getCode()}">g132fe23e2</p>-->
+<!--                        </div>-->
+<!--                        <div th:if="${purchase.getPromo_code().equals(null)}">-->
+<!--                            <p class="field_text">Немає промокоду</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
                     <div class="field">
                         <p class="field_name">Спосіб доставки</p>

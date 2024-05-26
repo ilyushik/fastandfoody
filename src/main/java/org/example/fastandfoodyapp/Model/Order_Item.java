@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.fastandfoodyapp.Model.Enumerables.OrderItemStatus;
-import org.example.fastandfoodyapp.Model.Enumerables.User_Role;
 
 @Data
 @NoArgsConstructor
@@ -34,7 +33,7 @@ public class Order_Item {
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "id", name = "purchase_id")
-    private Purchase purchase_id;
+    private Purchase purchaseId;
 
     @Transient
     public String string_image;
@@ -44,7 +43,7 @@ public class Order_Item {
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "id", name = "person_id")
-    private Person person_id;
+    private Person personId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "order_status", nullable = false)
@@ -63,5 +62,15 @@ public class Order_Item {
 
     public void setSum(int count, int price) {
         this.sum = count * price;
+    }
+
+    @Override
+    public String toString() {
+        return "Order_Item{" +
+                "id=" + id +
+                ", count=" + count +
+                ", prep_time=" + prep_time +
+                ", price=" + price +
+                '}';
     }
 }

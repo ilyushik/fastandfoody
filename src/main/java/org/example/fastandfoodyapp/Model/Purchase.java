@@ -5,11 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.fastandfoodyapp.Model.Enumerables.Delivery_Way;
+import org.example.fastandfoodyapp.Model.Enumerables.OrderItemStatus;
 import org.example.fastandfoodyapp.Model.Enumerables.Payment_Way;
 import org.example.fastandfoodyapp.Model.Enumerables.Status;
 
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.*;
 
 @Data
 @NoArgsConstructor
@@ -48,7 +49,7 @@ public class Purchase {
     @Column(name = "delivery_way", nullable = false)
     private Delivery_Way delivery_way;
 
-    @OneToMany(mappedBy = "purchase_id",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "purchaseId",cascade = CascadeType.ALL)
     private List<Order_Item> order_item_id;
 
     @Transient
@@ -88,5 +89,14 @@ public class Purchase {
         for (Order_Item o : order_items) {
             this.price += o.getItem_id().getPrice() * o.getCount();
         }
+    }
+
+    public void addOrderItem(Order_Item orderItem) {
+        if (this.order_item_id == null) {
+            this.order_item_id = new ArrayList<>();
+        }
+        //this.order_item_id.add(orderItem);
+        orderItem.setPurchaseId(this);
+        orderItem.setOrderItemStatus(OrderItemStatus.ORDERED);
     }
 }
