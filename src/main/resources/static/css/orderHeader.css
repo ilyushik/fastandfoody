@@ -324,7 +324,6 @@ select::-ms-expand {
 .field {
     border: none;
     width: 100%;
-    background: transparent;
     outline: none;
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;

@@ -46,7 +46,7 @@
             </div>
         </div>
 
-        <div class="orders" style="margin-right: 30px; height: 100vh; width: 40vw; overflow-y: scroll; overflow-x: hidden; scrollbar-color: #e39600 #eeeeee">
+        <div class="orders">
             <div class="active" th:if="${!activePurchases.isEmpty()}">
                 <p class="orders_title">Активні замовлення</p>
                 <div class="orders" th:each="ap : ${activePurchases}">
@@ -63,7 +63,7 @@
 
                         <div class="price_of_order">
                             <p class="price_text">Сума</p>
-                            <p class="price_of_zamovlennya" th:text="${ap.getPrice()} + 'грн.'"></p>
+                            <p class="price_of_zamovlennya" th:text="${ap.getSum()} + 'грн.'"></p>
                         </div>
 
                         <div class="link_button">
@@ -89,7 +89,7 @@
 
                         <div class="price_of_order">
                             <p class="price_text">Сума</p>
-                            <p class="price_of_zamovlennya"th:text="${p.getPrice()} + 'грн.'"></p>
+                            <p class="price_of_zamovlennya"th:text="${p.getSum()} + 'грн.'"></p>
                         </div>
 
                         <div class="link_button">

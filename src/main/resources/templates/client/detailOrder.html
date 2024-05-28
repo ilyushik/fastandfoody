@@ -58,10 +58,10 @@
 
                     <div class="field">
                         <p class="field_name">Адреса доставки</p>
-                        <div th:if="${purchase.getDelivery_way().equals(T(org.example.fastandfoodyapp.Model.Enumerables.Delivery_Way).Delivery)}">
+                        <div th:if="${address}">
                             <p class="field_text" th:text="'м.' + ${purchase.getRestaurant_id().getCityId().getName()} + ', ' + ${purchase.getAddress()}">м.Запоріжжя <br> Вул. Іванова 3</p>
                         </div>
-                        <div th:if="${purchase.getDelivery_way().equals(T(org.example.fastandfoodyapp.Model.Enumerables.Delivery_Way).PickUp)}">
+                        <div th:if="${!address}">
                             <p class="field_text" th:text="'м.' + ${purchase.getRestaurant_id().getCityId().getName()}">м.Запоріжжя</p>
                         </div>
                     </div>

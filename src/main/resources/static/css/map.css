@@ -1,7 +1,6 @@
 body {
     height: 100%;
     margin: 0;
-    /*text-align: center;*/
 }
 
 #map {
@@ -13,7 +12,6 @@ body {
         height: 60vh;
         width: 60vw;
         margin-top: 2vh;
-        margin-left: 15vw
     }
 }
 
@@ -22,6 +20,5 @@ body {
         height: 70vh;
         width: 60vw;
         margin-top: 2vh;
-        margin-left: 15vw
     }
 }

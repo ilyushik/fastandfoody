@@ -70,6 +70,8 @@ public class MainController {
     private Order_ItemRepository orderItemRepository;
     @Autowired
     private PurchaseRepository purchaseRepository;
+    @Autowired
+    private Promo_CodeRepository promo_CodeRepository;
 
     // main page
 //    @GetMapping()
@@ -291,25 +293,21 @@ public class MainController {
         return "redirect:/";
     }
 
-    // person's orders
-//    @GetMapping("/my_info/orders")
-//    public String personOrders(Model model, @AuthenticationPrincipal PersonDetails personDetails) {
-//        Person person = personService.findById(personDetails.getPerson().getId());
-//        List<Purchase> userPurchases = person.getPurchases();
-//        model.addAttribute("purchases", userPurchases);
-//        return "client/orders";
-//    }
-
     // client can see order details by id
     @GetMapping("/my_info/orders/{id}")
     public String detailInfo(@PathVariable("id") int id, Model model) {
         Purchase purchase = purchaseService.findById(id);
+        boolean address = false;
+        if (purchase.getAddress() != null) {
+            address = true;
+        }
         purchase.setPrice(purchase.getOrder_item_id());
         for (Order_Item i : purchase.getOrder_item_id()) {
             i.setStringImage(Base64.getEncoder().encodeToString(storageService.downloadImage(i.getItem_id().getImage().getName())));
             i.setSum(i.getCount(), i.getItem_id().getPrice());
         }
         model.addAttribute("purchase", purchase);
+        model.addAttribute("address", address);
         return "client/detailOrder";
     }
 
@@ -479,7 +477,7 @@ public class MainController {
 
     @PostMapping("/order/{restaurantId}")
     public String order (@PathVariable("restaurantId") int restaurantId, @ModelAttribute("purchase") Purchase purchase,
-                         @AuthenticationPrincipal PersonDetails personDetails) {
+                         @AuthenticationPrincipal PersonDetails personDetails, Model model, @RequestParam("promo") String promo) {
         Purchase newPurchase = new Purchase();
         Person person = personService.findById(personDetails.getPerson().getId());
         Restaurant restaurant = restaurantService.byId(restaurantId);
@@ -496,7 +494,14 @@ public class MainController {
         newPurchase.setWish(purchase.getWish());
         newPurchase.setRestaurant_id(restaurant);
         newPurchase.setPayment_way(purchase.getPayment_way());
-        newPurchase.setPromo_code(null);
+        if (!promo.isEmpty()) {
+            Promo_Code promoCode = promo_CodeRepository.findByCode(promo);
+            newPurchase.setPromo_code(promoCode);
+            newPurchase.setSum(allSum - (allSum * promoCode.getSale() / 100));
+        } else {
+            newPurchase.setPromo_code(null);
+            newPurchase.setSum(allSum);
+        }
         newPurchase.setStatus(Status.In_progress);
         newPurchase.setDelivery_way(purchase.getDelivery_way());
         for (Order_Item o : activeOrders) {
@@ -504,9 +509,14 @@ public class MainController {
             newPurchase.addOrderItem(byId);
         }
         newPurchase.setPerson_id(person);
+        if (purchase.getDelivery_way().equals(Delivery_Way.Delivery)) {
+            if (purchase.getAddress().isEmpty()) {
+                model.addAttribute("error_message", "Введіть адресу");
+                return "ErrorTemplate";
+            }
+        }
         newPurchase.setAddress(purchase.getAddress());
         newPurchase.setDate(Timestamp.from(Instant.now()));
-        newPurchase.setSum(allSum);
 
         purchaseRepository.save(newPurchase);
 
@@ -514,6 +524,13 @@ public class MainController {
             int sum = (int) allSum;
             return "redirect:/payment/" + sum;
         }
+        int purchase_id = 0;
+        for (Order_Item o : activeOrders) {
+            purchase_id = o.getPurchaseId().getId();
+        }
+
+        MailStructure mail = new MailStructure("Нове замовлення", "Ваше замовлення №" + purchase_id + " вже готується");
+        mailService.sendMail(person.getEmail(), mail);
 
         return "redirect:/my_info";
     }

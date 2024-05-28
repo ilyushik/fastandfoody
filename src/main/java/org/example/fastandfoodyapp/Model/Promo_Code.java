@@ -26,6 +26,9 @@ public class Promo_Code {
     @Column(name = "code", nullable = false)
     private String code;
 
+    @Column(name = "sale", nullable = false)
+    private int sale;
+
     @OneToMany(mappedBy = "promo_code", cascade = CascadeType.ALL)
     private List<Purchase> purchases;
 

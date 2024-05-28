@@ -7,8 +7,8 @@ VALUES ('Delivery'), ('PickUp');
 INSERT INTO Status(status_name)
 VALUES ('In_progress'), ('Delivered'), ('On_way'), ('Canceled');
 
-INSERT INTO promo_code(code)
-VALUES ('asjkdhf234'), ('lkjm5kn345'), ('mbnzxcv234'), ('asdf243fsc'), ('3245mml322');
+INSERT INTO promo_code(code, sale)
+VALUES ('asjkdhf234', 5), ('lkjm5kn345', 10), ('mbnzxcv234', 7), ('asdf243fsc', 3), ('3245mml322', 4);
 
 INSERT INTO payment_way(way)
 VALUES ('Card'), ('Cash');

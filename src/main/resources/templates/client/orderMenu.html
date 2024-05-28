@@ -92,7 +92,7 @@
                     <form th:method="POST" th:action="@{/order/{restaurantId}(restaurantId = ${restaurant_number})}" th:object="${purchase}">
                         <div class="field_block">
                             <label for="wish"></label>
-                            <input type="text" th:field="*{wish}" id="wish" class="field" placeholder="Введіть побажання">
+                            <textarea type="text" th:field="*{wish}" id="wish" class="field" placeholder="Введіть побажання" style="height: 100px;"></textarea>
                         </div>
 
                         <label class="chose" for="payment_way">Обрати спосіб оплати:</label>
@@ -109,8 +109,8 @@
                         </div>
 
                         <div class="field_block">
-                            <label for="promo_code"></label>
-                            <input type="text" th:field="*{promo_code}" id="promo_code" class="field" placeholder="Введіть промокоде">
+                            <label for="promo"></label>
+                            <input type="text" id="promo" name="promo" class="field" placeholder="Введіть промокод">
                         </div>
 
                         <label class="chose" for="delivery_way">Обрати спосіб отримання:</label>
