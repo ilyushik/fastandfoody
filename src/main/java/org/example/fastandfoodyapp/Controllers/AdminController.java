@@ -112,7 +112,7 @@ public class AdminController {
             mail.setMessage("");
             mailService.sendMail(user.getEmail(), mail);
         } else {
-            mail.setSubject("Замовлення отриманно");
+            mail.setSubject("Зміна статусу замовлення");
             mail.setMessage("Ваше замовлення в дорозі");
             mailService.sendMail(user.getEmail(), mail);
         }

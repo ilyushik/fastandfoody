@@ -89,27 +89,29 @@
             </div>
 
             <div class="item_info">
-                <div class="item_info_align" th:each="i : ${purchase.getOrder_item_id()}">
-                    <div class="item">
-                        <img class="item_img" th:src="@{'data:image/png;base64,' + ${i.getString_image()}}" alt="">
-                        <div class="item_text_align">
-                            <div class="item_text">
-                                <p class="title" th:text="${i.getItem_id().getItem_name()}">Чізбургер</p>
-                                <div class="price_count">
-                                    <div class="price">
-                                        <p class="field_name">Вартість</p>
-                                        <p class="field_text" th:text="${i.getItem_id().getPrice()} + 'грн.'">60грн</p>
+                <div class="item_info_align">
+                    <div th:each="i : ${purchase.getOrder_item_id()}">
+                        <div class="item">
+                            <img class="item_img" th:src="@{'data:image/png;base64,' + ${i.getString_image()}}" alt="">
+                            <div class="item_text_align">
+                                <div class="item_text">
+                                    <p class="title" th:text="${i.getItem_id().getItem_name()}">Чізбургер</p>
+                                    <div class="price_count">
+                                        <div class="price">
+                                            <p class="field_name">Вартість</p>
+                                            <p class="field_text" th:text="${i.getItem_id().getPrice()} + 'грн.'">60грн</p>
+                                        </div>
+
+                                        <div class="count">
+                                            <p class="field_name">Кількість</p>
+                                            <p class="field_text" th:text="${i.getCount()}">4</p>
+                                        </div>
                                     </div>
 
-                                    <div class="count">
-                                        <p class="field_name">Кількість</p>
-                                        <p class="field_text" th:text="${i.getCount()}">4</p>
+                                    <div class="item_sum">
+                                        <p class="field_name">Разом</p>
+                                        <p class="field_text" th:text="${i.getSum()}">240грн</p>
                                     </div>
-                                </div>
-
-                                <div class="item_sum">
-                                    <p class="field_name">Разом</p>
-                                    <p class="field_text" th:text="${i.getSum()}">240грн</p>
                                 </div>
                             </div>
                         </div>

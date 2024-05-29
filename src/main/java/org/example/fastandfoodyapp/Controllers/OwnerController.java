@@ -14,6 +14,7 @@ import org.example.fastandfoodyapp.Services.RegistrationService;
 import org.example.fastandfoodyapp.Services.RestaurantService;
 import org.example.fastandfoodyapp.Services.Service.ItemService;
 import org.example.fastandfoodyapp.Services.StorageService;
+import org.example.fastandfoodyapp.util.ItemValidation;
 import org.example.fastandfoodyapp.util.PersonValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -60,6 +61,9 @@ public class OwnerController {
     private PersonValidation personValidation;
     @Autowired
     private StorageRepository storageRepository;
+
+    @Autowired
+    private ItemValidation itemValidation;
 
     @GetMapping("")
     public String mainOwner(Model model, @AuthenticationPrincipal PersonDetails personDetails) {
@@ -322,7 +326,12 @@ public class OwnerController {
     }
 
     @PostMapping("item/add")
-    public String addItem(@ModelAttribute("item") @Valid Item item, @RequestParam("file") MultipartFile file, Model model) throws IOException {
+    public String addItem(@ModelAttribute("item") @Valid Item item, BindingResult bindingResult,
+                          @RequestParam("file") MultipartFile file, Model model) throws IOException {
+        itemValidation.validate(item, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "redirect:/owner/items";
+        }
         if (item.getItem_name().isEmpty() || item.getPrice() < 1 || item.getDescription().isEmpty() || file == null
         || item.getPrep_time() < 1) {
             model.addAttribute("error_message", "Введіть вірні дані...");
