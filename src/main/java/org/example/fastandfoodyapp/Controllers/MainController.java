@@ -521,7 +521,14 @@ public class MainController {
         purchaseRepository.save(newPurchase);
 
         if (purchase.getPayment_way().equals(Payment_Way.Card)) {
-            int sum = (int) allSum;
+            int sum = 0;
+            if (!promo.isEmpty()) {
+                Promo_Code promoCode = promo_CodeRepository.findByCode(promo);
+                sum = (int) (allSum - (allSum * promoCode.getSale() / 100));
+            } else {
+                sum = (int) allSum;
+            }
+
             return "redirect:/payment/" + sum;
         }
         int purchase_id = 0;

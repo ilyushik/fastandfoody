@@ -16,6 +16,9 @@ VALUES ('Card'), ('Cash');
 INSERT INTO user_role(user_role)
 VALUES ('ROLE_CLIENT'), ('ROLE_ADMIN'), ('ROLE_OWNER');
 
+INSERT INTO OrderItemStatus(order_status)
+VALUES ('ACTIVE'), ('ORDERED');
+
 
 # INSERT INTO Item(item_name, price, description, prep_time, category, image)
 # VALUES
